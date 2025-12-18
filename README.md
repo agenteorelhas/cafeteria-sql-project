@@ -11,11 +11,11 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 * dbdiagram.io para modelagem
 
 ## 📐 Modelo Entidade-Relacionamento
-![Diagrama ER](nome-da-sua-imagem.png)
+![Diagrama ER](Untitled.png)
 
 ## 📊 Perguntas que este banco responde:
 1. Qual o faturamento total por dia?
 2. Quais são os 3 produtos mais vendidos?
 3. Qual funcionário realizou mais vendas?
 
-![Banner do Projeto](banner.png)
+![Banner do Projeto](imagem_2025-12-18_175502109.png)
