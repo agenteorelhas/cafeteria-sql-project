@@ -1,10 +1,8 @@
--- 1. Criação da tabela de Categorias
 CREATE TABLE categorias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL
 );
 
--- 2. Criação da tabela de Produtos
 CREATE TABLE produtos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -13,7 +11,6 @@ CREATE TABLE produtos (
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
--- 3. Criação da tabela de Funcionários
 CREATE TABLE funcionarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -21,7 +18,6 @@ CREATE TABLE funcionarios (
     data_admissao DATE
 );
 
--- 4. Criação da tabela de Pedidos
 CREATE TABLE pedidos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -30,7 +26,6 @@ CREATE TABLE pedidos (
     FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id)
 );
 
--- 5. Tabela de itens do pedido (Relacionamento N:M entre Pedido e Produto)
 CREATE TABLE itens_pedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
     pedido_id INT,
