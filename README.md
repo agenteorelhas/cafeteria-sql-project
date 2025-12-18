@@ -17,3 +17,5 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 1. Qual o faturamento total por dia?
 2. Quais são os 3 produtos mais vendidos?
 3. Qual funcionário realizou mais vendas?
+
+![Banner do Projeto](banner.png)
