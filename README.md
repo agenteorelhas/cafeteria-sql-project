@@ -77,3 +77,6 @@ graph LR
     I[produtos] -- Alteração de Preço --> J(Trigger)
     J --> K[log_precos]
     end
+-----------------------
+### 💾 Backup e Recuperação
+O banco de dados está configurado para suportar backups lógicos via mysqldump (ou pg_dump), garantindo que a recuperação de desastres possa ser feita em minutos, preservando a integridade das transações e o histórico de auditoria.
