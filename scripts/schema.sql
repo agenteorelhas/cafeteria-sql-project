@@ -35,3 +35,32 @@ CREATE TABLE itens_pedido (
     FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
+
+-- Criando Clientes
+CREATE TABLE clientes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    pontos_fidelidade INT DEFAULT 0
+);
+
+-- Adicionando a coluna cliente_id na tabela pedidos para rastrear quem comprou
+ALTER TABLE pedidos ADD COLUMN cliente_id INT;
+ALTER TABLE pedidos ADD FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+-- Criando Ingredientes
+CREATE TABLE ingredientes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    estoque_atual DECIMAL(10,2)
+);
+
+-- Tabela de Ficha Técnica (Relacionamento N:N entre Produtos e Ingredientes)
+CREATE TABLE ficha_tecnica (
+    produto_id INT,
+    ingrediente_id INT,
+    quantidade_necessaria DECIMAL(10,2),
+    PRIMARY KEY (produto_id, ingrediente_id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id),
+    FOREIGN KEY (ingrediente_id) REFERENCES ingredientes(id)
+);
