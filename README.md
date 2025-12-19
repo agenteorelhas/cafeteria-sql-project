@@ -100,3 +100,10 @@ Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para a
 ![SQL](https://img.shields.io/badge/Language-SQL-blue)
 ![Database](https://img.shields.io/badge/DB-PostgreSQL-darkblue)
 ![Status](https://img.shields.io/badge/Status-Completed-green)
+
+## 💡 Desafios e Soluções Técnicas
+
+* **Desafio:** Manter a consistência do estoque em vendas de combos.
+* **Solução:** Implementação de uma **Ficha Técnica (N:N)** associada a uma **Stored Procedure** com controle transacional (`START TRANSACTION`), garantindo que a baixa no estoque seja atômica e precisa.
+* **Desafio:** Rastreabilidade de mudanças de preços por administradores.
+* **Solução:** Criação de um sistema de **Auditoria via Triggers**, que isola logs de alteração em uma tabela dedicada (`log_precos`), sem onerar a performance da tabela principal de vendas.
