@@ -36,3 +36,7 @@ CREATE TABLE itens_pedido (
     FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
+
+-- Adicionando regras de segurança (Constraints)
+ALTER TABLE produtos ADD CONSTRAINT chk_preco_positivo CHECK (preco > 0);
+ALTER TABLE ingredientes ADD CONSTRAINT chk_estoque_nao_negativo CHECK (quantidade_estoque >= 0);
