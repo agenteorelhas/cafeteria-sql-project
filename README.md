@@ -49,3 +49,15 @@ Abaixo, detalhamos a função de cada tabela e suas principais colunas para faci
 ![Database](https://img.shields.io/badge/DB-PostgreSQL-darkblue)
 ![Status](https://img.shields.io/badge/Status-Completed-green)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+
+---
+
+## 🔄 Fluxo de Dados e Linhagem (Data Lineage)
+
+Para garantir a transparência e a integridade, o ciclo de vida dos dados neste sistema segue um percurso estruturado:
+
+1.  **Entrada de Pedido:** O dado nasce na tabela `pedidos` através da Stored Procedure `sp_registrar_venda`, que centraliza a lógica de criação.
+2.  **Detalhamento:** Os itens individuais são registrados em `itens_pedido`, vinculando produtos e quantidades ao pedido principal.
+3.  **Processamento de Estoque:** O sistema consulta a `ficha_tecnica` para identificar quais `ingredientes` compõem o produto e subtrai as quantidades exatas do inventário automaticamente.
+4.  **Auditoria:** Caso ocorra uma alteração manual de preços, uma `Trigger` de auditoria captura o estado anterior e salva em `log_precos` para rastreabilidade.
+5.  **Saída/BI:** Os dados brutos são consolidados pela **View** `v_resumo_vendas_por_produto`, fornecendo informações prontas para dashboards e relatórios gerenciais.
