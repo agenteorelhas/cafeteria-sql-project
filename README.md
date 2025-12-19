@@ -39,3 +39,8 @@ Abaixo, detalhamos a função de cada tabela e suas principais colunas para faci
 
 ### 👥 Recursos Humanos
 * **funcionarios**: Cadastro de colaboradores que operam o sistema e realizam as vendas.
+
+### 🛡️ Segurança e Performance (Funcionalidades Avançadas)
+* **Triggers**: Implementado gatilho para auditoria de preços, registrando automaticamente qualquer alteração de valores na tabela `log_precos`.
+* **Views**: Criada a visão `v_resumo_vendas_por_produto` para simplificar a geração de relatórios de BI.
+* **Indexes**: Aplicação de índices B-Tree nas colunas de busca frequente (`email` e `data_pedido`) para garantir consultas rápidas mesmo com grande volume de dados.
