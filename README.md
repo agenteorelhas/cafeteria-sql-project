@@ -81,8 +81,7 @@ O banco de dados está configurado para suportar backups lógicos via `mysqldump
 ## 📊 Visualização de Dados (BI)
 Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para alimentar dashboards de Business Intelligence. Abaixo, um mockup de como as **Views** criadas (`v_resumo_vendas_por_produto`) podem ser visualizadas por um gestor:
 
-![Mockup do Dashboard](https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/img/dashboard_mockup.png)
-*(Nota: Você pode substituir este link pela imagem real que você subir na pasta img)*
+![Mockup do Dashboard](imagem_2025-12-19_103645636.png)
 
 ---
 
