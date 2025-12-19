@@ -23,45 +23,40 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 
 ## 📖 Dicionário de Dados
 
-Abaixo, detalhamos a função de cada tabela e suas principais colunas para facilitar a compreensão da arquitetura:
+Abaixo, detalhamos a função de cada tabela e suas principais colunas:
 
 ### 🛒 Vendas e Clientes
 * **clientes**: Armazena informações dos consumidores para programas de fidelidade.
     * `email`: Campo único para evitar cadastros duplicados.
 * **pedidos**: Registro de cada venda realizada.
-    * `cliente_id`: Chave estrangeira que liga a compra a um cliente (Opcional - permite vendas anônimas).
-* **itens_pedido**: Tabela detalhada que lista quais produtos compõem cada pedido.
+    * `cliente_id`: Chave estrangeira que liga a compra a um cliente.
+* **itens_pedido**: Detalhamento de produtos por pedido.
 
 ### ☕ Gestão de Produtos e Estoque
-* **produtos**: Catálogo de itens vendidos na cafeteria.
-* **categorias**: Organização dos produtos (ex: Bebidas, Salgados, Doces).
-* **ingredientes**: Controle de insumos brutos (café em grão, leite, açúcar).
-* **ficha_tecnica**: Tabela de relacionamento **Muitos para Muitos (N:N)**. Define quais ingredientes e em qual quantidade são necessários para produzir cada item do cardápio.
+* **produtos**: Catálogo de itens vendidos.
+* **categorias**: Organização (Bebidas, Salgados, Doces).
+* **ingredientes**: Controle de insumos (café, leite, açúcar).
+* **ficha_tecnica**: Relacionamento **N:N** que define a composição de cada produto.
 
 ### 👥 Recursos Humanos
-* **funcionarios**: Cadastro de colaboradores que operam o sistema e realizam as vendas.
+* **funcionarios**: Cadastro de colaboradores e vendedores.
 
-### 🛡️ Segurança e Performance (Funcionalidades Avançadas)
-* **Triggers**: Implementado gatilho para auditoria de preços, registrando automaticamente qualquer alteração de valores na tabela `log_precos`.
-* **Views**: Criada a visão `v_resumo_vendas_por_produto` para simplificar a geração de relatórios de BI.
-* **Indexes**: Aplicação de índices B-Tree nas colunas de busca frequente (`email` e `data_pedido`) para garantir consultas rápidas mesmo com grande volume de dados.
-
-![SQL](https://img.shields.io/badge/Language-SQL-blue)
-![Database](https://img.shields.io/badge/DB-PostgreSQL-darkblue)
-![Status](https://img.shields.io/badge/Status-Completed-green)
-![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+### 🛡️ Segurança e Performance
+* **Triggers**: Auditoria automática de preços na tabela `log_precos`.
+* **Views**: Visão `v_resumo_vendas_por_produto` para simplificar relatórios.
+* **Indexes**: Índices B-Tree para buscas rápidas em `email` e `data_pedido`.
 
 ---
 
 ## 🔄 Fluxo de Dados e Linhagem (Data Lineage)
 
-Para garantir a transparência e a integridade, o ciclo de vida dos dados neste sistema segue um percurso estruturado:
+O ciclo de vida dos dados segue o percurso estruturado abaixo:
 
-1.  **Entrada de Pedido:** O dado nasce na tabela `pedidos` através da Stored Procedure `sp_registrar_venda`.
-2.  **Detalhamento:** Os itens individuais são registrados em `itens_pedido`, vinculando produtos ao pedido.
-3.  **Processamento de Estoque:** O sistema consulta a `ficha_tecnica` e subtrai os `ingredientes` automaticamente.
-4.  **Auditoria:** Alterações de preços são capturadas por uma `Trigger` e salvas em `log_precos`.
-5.  **Saída/BI:** Os dados são consolidados pela **View** `v_resumo_vendas_por_produto` para relatórios gerenciais.
+1. **Entrada:** O dado nasce via Stored Procedure `sp_registrar_venda`.
+2. **Detalhamento:** Itens são registrados em `itens_pedido`.
+3. **Estoque:** O sistema consulta a `ficha_tecnica` e abate `ingredientes` automaticamente.
+4. **Auditoria:** Triggers monitoram alterações em `produtos`.
+5. **Saída/BI:** Views consolidam dados para Insights.
 
 ```mermaid
 graph LR
@@ -77,6 +72,3 @@ graph LR
     I[produtos] -- Alteração de Preço --> J(Trigger)
     J --> K[log_precos]
     end
------------------------
-### 💾 Backup e Recuperação
-O banco de dados está configurado para suportar backups lógicos via mysqldump (ou pg_dump), garantindo que a recuperação de desastres possa ser feita em minutos, preservando a integridade das transações e o histórico de auditoria.
