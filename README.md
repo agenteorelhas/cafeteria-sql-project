@@ -61,3 +61,25 @@ Para garantir a transparência e a integridade, o ciclo de vida dos dados neste 
 3.  **Processamento de Estoque:** O sistema consulta a `ficha_tecnica` para identificar quais `ingredientes` compõem o produto e subtrai as quantidades exatas do inventário automaticamente.
 4.  **Auditoria:** Caso ocorra uma alteração manual de preços, uma `Trigger` de auditoria captura o estado anterior e salva em `log_precos` para rastreabilidade.
 5.  **Saída/BI:** Os dados brutos são consolidados pela **View** `v_resumo_vendas_por_produto`, fornecendo informações prontas para dashboards e relatórios gerenciais.
+
+```mermaid
+graph TD
+    A[Venda via Procedure] --> B[Tabela Pedidos]
+    B --> C[Tabela Itens_Pedido]
+    C --> D{Ficha Técnica}
+    D --> E[Baixa no Estoque]
+    B --> F[View de Faturamento]
+    F --> G((Insights de Negócio))
+graph LR
+    A[Cliente/Pedido] --> B(sp_registrar_venda)
+    B --> C{Transação SQL}
+    C --> D[pedidos / itens_pedido]
+    D --> E[ficha_tecnica]
+    E --> F[Atualiza Estoque]
+    D --> G[View de Faturamento]
+    G --> H((Relatório Final))
+    
+    subgraph Auditoria
+    I[produtos] -- Alteração de Preço --> J(Trigger)
+    J --> K[log_precos]
+    end
