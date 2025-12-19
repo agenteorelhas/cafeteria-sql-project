@@ -72,3 +72,32 @@ graph LR
     I[produtos] -- Alteração de Preço --> J(Trigger)
     J --> K[log_precos]
     end
+
+## 💾 Backup e Recuperação
+O banco de dados está configurado para suportar backups lógicos via `mysqldump` (ou `pg_dump`), garantindo que a recuperação de desastres possa ser feita em minutos, preservando a integridade das transações e o histórico de auditoria.
+
+---
+
+## 📊 Visualização de Dados (BI)
+Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para alimentar dashboards de Business Intelligence. Abaixo, um mockup de como as **Views** criadas (`v_resumo_vendas_por_produto`) podem ser visualizadas por um gestor:
+
+![Mockup do Dashboard](https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/img/dashboard_mockup.png)
+*(Nota: Você pode substituir este link pela imagem real que você subir na pasta img)*
+
+---
+
+## 🏆 Competências Demonstradas
+
+| Habilidade | Técnica Utilizada |
+| :--- | :--- |
+| **Modelagem** | ERD, DFD e Normalização (1NF, 2NF, 3NF) |
+| **Lógica de Banco** | Stored Procedures e Triggers de Auditoria |
+| **BI / Analytics** | Views Gerenciais e Queries Complexas (JOINs, GROUP BY) |
+| **Performance** | Otimização com B-Tree Indexes |
+| **Segurança e Integridade** | Check Constraints e Controle de Acesso (DCL) |
+
+---
+
+![SQL](https://img.shields.io/badge/Language-SQL-blue)
+![Database](https://img.shields.io/badge/DB-PostgreSQL-darkblue)
+![Status](https://img.shields.io/badge/Status-Completed-green)
