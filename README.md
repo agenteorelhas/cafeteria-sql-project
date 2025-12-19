@@ -11,7 +11,7 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 * dbdiagram.io para modelagem
 
 ## 📐 Modelo Entidade-Relacionamento
-![Diagrama ER](Untitled.png)
+![Diagrama ER](Cafeteria.png)
 
 ## 📊 Perguntas que este banco responde:
 1. Qual o faturamento total por dia?
