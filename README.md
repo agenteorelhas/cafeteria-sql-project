@@ -1,5 +1,6 @@
 # cafeteria-sql-project
 Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
+
 # ☕ Cafeteria SQL Project
 
 ## 📌 Sobre o Projeto
@@ -56,20 +57,13 @@ Abaixo, detalhamos a função de cada tabela e suas principais colunas para faci
 
 Para garantir a transparência e a integridade, o ciclo de vida dos dados neste sistema segue um percurso estruturado:
 
-1.  **Entrada de Pedido:** O dado nasce na tabela `pedidos` através da Stored Procedure `sp_registrar_venda`, que centraliza a lógica de criação.
-2.  **Detalhamento:** Os itens individuais são registrados em `itens_pedido`, vinculando produtos e quantidades ao pedido principal.
-3.  **Processamento de Estoque:** O sistema consulta a `ficha_tecnica` para identificar quais `ingredientes` compõem o produto e subtrai as quantidades exatas do inventário automaticamente.
-4.  **Auditoria:** Caso ocorra uma alteração manual de preços, uma `Trigger` de auditoria captura o estado anterior e salva em `log_precos` para rastreabilidade.
-5.  **Saída/BI:** Os dados brutos são consolidados pela **View** `v_resumo_vendas_por_produto`, fornecendo informações prontas para dashboards e relatórios gerenciais.
+1.  **Entrada de Pedido:** O dado nasce na tabela `pedidos` através da Stored Procedure `sp_registrar_venda`.
+2.  **Detalhamento:** Os itens individuais são registrados em `itens_pedido`, vinculando produtos ao pedido.
+3.  **Processamento de Estoque:** O sistema consulta a `ficha_tecnica` e subtrai os `ingredientes` automaticamente.
+4.  **Auditoria:** Alterações de preços são capturadas por uma `Trigger` e salvas em `log_precos`.
+5.  **Saída/BI:** Os dados são consolidados pela **View** `v_resumo_vendas_por_produto` para relatórios gerenciais.
 
 ```mermaid
-graph TD
-    A[Venda via Procedure] --> B[Tabela Pedidos]
-    B --> C[Tabela Itens_Pedido]
-    C --> D{Ficha Técnica}
-    D --> E[Baixa no Estoque]
-    B --> F[View de Faturamento]
-    F --> G((Insights de Negócio))
 graph LR
     A[Cliente/Pedido] --> B(sp_registrar_venda)
     B --> C{Transação SQL}
@@ -77,7 +71,7 @@ graph LR
     D --> E[ficha_tecnica]
     E --> F[Atualiza Estoque]
     D --> G[View de Faturamento]
-    G --> H((Relatório Final))
+    G --> H((Insights BI))
     
     subgraph Auditoria
     I[produtos] -- Alteração de Preço --> J(Trigger)
