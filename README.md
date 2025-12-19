@@ -12,14 +12,14 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 * dbdiagram.io para modelagem
 
 ## 📐 Modelo Entidade-Relacionamento
-![Diagrama ER](Cafeteria.png)
+![Diagrama ER](imagens/Cafeteria.png)
 
 ## 📊 Perguntas que este banco responde:
 1. Qual o faturamento total por dia?
 2. Quais são os 3 produtos mais vendidos?
 3. Qual funcionário realizou mais vendas?
 
-![Banner do Projeto](imagem_2025-12-18_175502109.png)
+![Banner do Projeto](imagens/imagem_2025-12-18_175502109.png)
 
 ## 📖 Dicionário de Dados
 
@@ -81,7 +81,7 @@ O banco de dados está configurado para suportar backups lógicos via `mysqldump
 ## 📊 Visualização de Dados (BI)
 Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para alimentar dashboards de Business Intelligence. Abaixo, um mockup de como as **Views** criadas (`v_resumo_vendas_por_produto`) podem ser visualizadas por um gestor:
 
-![Mockup do Dashboard](imagem_2025-12-19_103645636.png)
+![Mockup do Dashboard](imagens/imagem_2025-12-19_103645636.png)
 
 ---
 
