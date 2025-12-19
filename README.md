@@ -19,3 +19,23 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 3. Qual funcionário realizou mais vendas?
 
 ![Banner do Projeto](imagem_2025-12-18_175502109.png)
+
+## 📖 Dicionário de Dados
+
+Abaixo, detalhamos a função de cada tabela e suas principais colunas para facilitar a compreensão da arquitetura:
+
+### 🛒 Vendas e Clientes
+* **clientes**: Armazena informações dos consumidores para programas de fidelidade.
+    * `email`: Campo único para evitar cadastros duplicados.
+* **pedidos**: Registro de cada venda realizada.
+    * `cliente_id`: Chave estrangeira que liga a compra a um cliente (Opcional - permite vendas anônimas).
+* **itens_pedido**: Tabela detalhada que lista quais produtos compõem cada pedido.
+
+### ☕ Gestão de Produtos e Estoque
+* **produtos**: Catálogo de itens vendidos na cafeteria.
+* **categorias**: Organização dos produtos (ex: Bebidas, Salgados, Doces).
+* **ingredientes**: Controle de insumos brutos (café em grão, leite, açúcar).
+* **ficha_tecnica**: Tabela de relacionamento **Muitos para Muitos (N:N)**. Define quais ingredientes e em qual quantidade são necessários para produzir cada item do cardápio.
+
+### 👥 Recursos Humanos
+* **funcionarios**: Cadastro de colaboradores que operam o sistema e realizam as vendas.
