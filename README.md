@@ -44,3 +44,8 @@ Abaixo, detalhamos a função de cada tabela e suas principais colunas para faci
 * **Triggers**: Implementado gatilho para auditoria de preços, registrando automaticamente qualquer alteração de valores na tabela `log_precos`.
 * **Views**: Criada a visão `v_resumo_vendas_por_produto` para simplificar a geração de relatórios de BI.
 * **Indexes**: Aplicação de índices B-Tree nas colunas de busca frequente (`email` e `data_pedido`) para garantir consultas rápidas mesmo com grande volume de dados.
+
+![SQL](https://img.shields.io/badge/Language-SQL-blue)
+![Database](https://img.shields.io/badge/DB-PostgreSQL-darkblue)
+![Status](https://img.shields.io/badge/Status-Completed-green)
+![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
