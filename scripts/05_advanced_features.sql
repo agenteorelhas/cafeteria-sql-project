@@ -42,3 +42,13 @@ GROUP BY p.nome;
 -- Criando índices para buscas rápidas por email de cliente e data de pedido
 CREATE INDEX idx_cliente_email ON clientes(email);
 CREATE INDEX idx_pedido_data ON pedidos(data_pedido);
+
+CREATE OR REPLACE VIEW v_resumo_vendas_por_produto AS
+SELECT 
+    p.nome, 
+    SUM(ip.quantidade) as total_vendido,
+    SUM(ip.quantidade * ip.preco_unitario) as faturamento
+FROM produtos p
+JOIN itens_pedido ip ON p.id = ip.produto_id
+WHERE p.ativo = TRUE  -- Só mostra produtos que ainda estão no catálogo
+GROUP BY p.nome;
