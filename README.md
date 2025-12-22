@@ -137,18 +137,18 @@ Para reproduzir este banco de dados localmente, siga os passos abaixo:
 1. **Clone o repositório:**
    ```bash
    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
-2. **Prepare o ambiente: Certifique-se de ter o MySQL ou PostgreSQL instalado e em execução (ou use ferramentas como XAMPP/Docker).*
-3. **Execute os scripts na ordem correta: Abra seu gerenciador de banco de dados (MySQL Workbench, DBeaver, etc.) e execute os arquivos da pasta /scripts seguindo esta sequência:
+2. * **Prepare o ambiente*: Certifique-se de ter o MySQL ou PostgreSQL instalado e em execução (ou use ferramentas como XAMPP/Docker).*
+3. * **Execute os scripts na ordem correta: Abra seu gerenciador de banco de dados (MySQL Workbench, DBeaver, etc.) e execute os arquivos da pasta /scripts seguindo esta sequência*:
 
-01_schema.sql (Criação das tabelas)
+*01_schema.sql (Criação das tabelas)*
 
-02_seed.sql (População de dados de teste)
+*02_seed.sql (População de dados de teste)*
 
-04_advanced_features.sql (Views e Triggers)
+*04_advanced_features.sql (Views e Triggers)*
 
-05_procedures.sql (Lógica de Procedures)**
+*05_procedures.sql (Lógica de Procedures)*
 
-4. **Verifique a instalação: Execute SELECT * FROM produtos; para garantir que os dados foram carregados corretamente.**
+4. * **Verifique a instalação: Execute SELECT * FROM produtos; para garantir que os dados foram carregados corretamente.*
 ----
 ## 💻 Este projeto segue as convenções de nomenclatura snake_case e palavras-chave SQL em UPPERCASE para garantir a legibilidade e manutenção do código.
 ---
