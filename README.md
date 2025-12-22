@@ -125,6 +125,14 @@ Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para a
 * **Desafio:** Rastreabilidade de mudanças de preços por administradores.
 * **Solução:** Criação de um sistema de **Auditoria via Triggers**, que isola logs de alteração em uma tabela dedicada (`log_precos`), sem onerar a performance da tabela principal de vendas.
 ---
+## 🛠️ Como Executar o Projeto
+1. Clone o repositório.
+2. Certifique-se de ter um servidor MySQL/PostgreSQL ativo.
+3. Execute os scripts na pasta `/scripts` seguindo a ordem numérica:
+   - `01_schema.sql`
+   - `02_seed.sql`
+   - ... (restante da ordem)
+----
 ## 💻 Este projeto segue as convenções de nomenclatura snake_case e palavras-chave SQL em UPPERCASE para garantir a legibilidade e manutenção do código.
 ---
 ### 🐰conceived and programmed by agenteorelhas🐰
