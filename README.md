@@ -5,7 +5,7 @@ Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 ---
 
 ## 🚀 Navegação Rápida
-* [📊 **Casos de Uso**](.documents/USE_CASES.md) - Entenda como o projeto resolve problemas reais de negócio.
+* [📊 **Casos de Uso**](documents/USE_CASES.md) - Entenda como o projeto resolve problemas reais de negócio.
 * [📝 **Dicionário de Dados**](documents/DATA_DICTIONARY.md) - Definição técnica de cada tabela e coluna.
 * [💻 **Scripts SQL**](./scripts/) - Estrutura, massa de dados e lógica programada.
 
