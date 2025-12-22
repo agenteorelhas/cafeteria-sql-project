@@ -131,12 +131,12 @@ Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para a
 * **Solução:** Criação de um sistema de **Auditoria via Triggers**, que isola logs de alteração em uma tabela dedicada (`log_precos`), sem onerar a performance da tabela principal de vendas.
 ---
 ## 🛠️ Como Executar o Projeto
-1. Clone o repositório.
-2. Certifique-se de ter um servidor MySQL/PostgreSQL ativo.
-3. Execute os scripts na pasta `/scripts` seguindo a ordem numérica:
-   - `01_schema.sql`
-   - `02_seed.sql`
-   - ... (restante da ordem)
+
+Para reproduzir este banco de dados localmente, siga os passos abaixo:
+
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
 ----
 ## 💻 Este projeto segue as convenções de nomenclatura snake_case e palavras-chave SQL em UPPERCASE para garantir a legibilidade e manutenção do código.
 ---
