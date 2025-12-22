@@ -9,7 +9,7 @@ Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 * [🔄 Fluxo de Dados](#-fluxo-de-dados-e-linhagem-data-lineage)
 * [📊 Visualização BI](#-visualização-de-dados-bi)
 * [🏆 Competências](#-competências-demonstradas)
-
+* .[🛡️ Segurança e Performance 🔐](#-Segurança-e-Performance)
 ## 📌 Sobre o Projeto
 Este repositório contém a modelagem completa de um banco de dados para uma cafeteria, incluindo o script de criação, inserção de dados e consultas analíticas.
 
