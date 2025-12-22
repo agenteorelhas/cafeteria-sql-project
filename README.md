@@ -1,5 +1,8 @@
 # cafeteria-sql-project
 Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
+![SQL](https://img.shields.io/badge/SQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
+![Database](https://img.shields.io/badge/Database_Design-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Data_Modeling](https://img.shields.io/badge/Data_Modeling-FF6F00?style=for-the-badge&logo=diagrams.net&logoColor=white)
 
 # ☕ Cafeteria SQL Project
 ---
@@ -16,10 +19,6 @@ Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 * [🔄 Fluxo de Dados](#-fluxo-de-dados-e-linhagem-data-lineage)
 * [📊 Visualização BI](#-visualização-de-dados-bi)
 * [🏆 Competências](#-competências-demonstradas)
-
-![SQL](https://img.shields.io/badge/SQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
-![Database](https://img.shields.io/badge/Database_Design-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Data_Modeling](https://img.shields.io/badge/Data_Modeling-FF6F00?style=for-the-badge&logo=diagrams.net&logoColor=white)
 
 ## 📌 Sobre o Projeto
 Este repositório contém a modelagem completa de um banco de dados para uma cafeteria, incluindo o script de criação, inserção de dados e consultas analíticas.
