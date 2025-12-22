@@ -43,3 +43,12 @@ BEGIN
 END //
 
 DELIMITER ;
+
+CREATE PROCEDURE sp_desativar_produto(p_id INT)
+BEGIN
+    UPDATE produtos 
+    SET ativo = FALSE 
+    WHERE id = p_id;
+    
+    -- Log opcional: você pode disparar um aviso se o produto tiver stock parado
+END;
