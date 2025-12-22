@@ -1,5 +1,6 @@
 # cafeteria-sql-project
 Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
+
 ![SQL](https://img.shields.io/badge/SQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
 ![Database](https://img.shields.io/badge/Database_Design-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Data_Modeling](https://img.shields.io/badge/Data_Modeling-FF6F00?style=for-the-badge&logo=diagrams.net&logoColor=white)
