@@ -29,6 +29,7 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 ## 📐 Modelo Entidade-Relacionamento
 ![Diagrama ER](imagens/Cafeteria.png)
 > 🔗 **Acesse a versão interativa:** [Visualizar no dbdiagram.io](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)
+[![Database Schema](https://img.shields.io/badge/dbdiagram.io-Modelo_ER_Interativo-blue?style=for-the-badge&logo=databricks&logoColor=white)](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)
 
 ## 📊 Perguntas que este banco responde:
 1. Qual o faturamento total por dia?
