@@ -134,13 +134,13 @@ Embora este projeto seja focado no Backend/SQL, a estrutura foi desenhada para a
 
 Para reproduzir este banco de dados localmente, siga os passos abaixo:
 
-1. Clone o repositório:
+### 1. Clone o repositório:
 
    ```bash
    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
    
-### 2.  Prepare o ambiente: *Certifique-se de ter o MySQL ou PostgreSQL instalado e em execução (ou use ferramentas como XAMPP/Docker).*
-### 3. # Execute os scripts na ordem correta: *Abra seu gerenciador de banco de dados (MySQL Workbench, DBeaver, etc.) e execute os arquivos da pasta /scripts seguindo esta sequência*:
+### 2. Prepare o ambiente: *Certifique-se de ter o MySQL ou PostgreSQL instalado e em execução (ou use ferramentas como XAMPP/Docker).*
+### 3. Execute os scripts na ordem correta: *Abra seu gerenciador de banco de dados (MySQL Workbench, DBeaver, etc.) e execute os arquivos da pasta /scripts seguindo esta sequência*:
 
 *01_schema.sql (Criação das tabelas)*
 
