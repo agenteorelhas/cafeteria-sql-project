@@ -85,19 +85,18 @@ O ciclo de vida dos dados segue o percurso estruturado abaixo:
 
 ``mermaid
 graph LR
-    A[Cliente/Pedido] --> B(sp_registrar_venda)
-    B --> C{Transação SQL}
-    C --> D[pedidos / itens_pedido]
-    D --> E[ficha_tecnica]
-    E --> F[Atualiza Estoque]
-    D --> G[View de Faturamento]
-    G --> H((Insights BI))
-    
-    subgraph Auditoria
-    I[produtos] -- Alteração de Preço --> J(Trigger)
-    J --> K[log_precos]
+    A[Cliente/Pedido] --> B(sp_registrar_venda)
+    B --> C{Transação SQL}
+    C --> D[pedidos / itens_pedido]
+    D --> E[ficha_tecnica]
+    E --> F[Atualiza Estoque]
+    D --> G[View de Faturamento]
+    G --> H((Insights BI))
 
-end```
+    subgraph Auditoria
+        I[produtos] -- Alteração de Preço --> J(Trigger)
+        J --> K[log_precos]
+    end
 ---
 
 ## 💾 Backup e Recuperação
