@@ -6,7 +6,7 @@ Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 
 ## 🚀 Navegação Rápida
 * [📊 **Casos de Uso**](./USE_CASES.md) - Entenda como o projeto resolve problemas reais de negócio.
-* [📐 **Modelagem de Dados**]([imagens/Cafeteria.png](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)) - Diagramas Entidade-Relacionamento e Fluxo de Dados.
+* [📐 **Modelagem de Dados**](.[imagens/Cafeteria.png](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)) - Diagramas Entidade-Relacionamento e Fluxo de Dados.
 * [📝 **Dicionário de Dados**](./docs/data_dictionary.md) - Definição técnica de cada tabela e coluna.
 * [💻 **Scripts SQL**](./scripts/) - Estrutura, massa de dados e lógica programada.
 
