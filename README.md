@@ -83,9 +83,8 @@ O ciclo de vida dos dados segue o percurso estruturado abaixo:
 4. **Auditoria:** Triggers monitoram alterações em `produtos`.
 5. **Saída/BI:** Views consolidam dados para Insights.
 
-``mermaid
 graph LR
-    A[Cliente/Pedido] --> B(sp_registrar_venda)
+    A -->[Cliente/Pedido] --> B(sp_registrar_venda)
     B --> C{Transação SQL}
     C --> D[pedidos / itens_pedido]
     D --> E[ficha_tecnica]
@@ -94,11 +93,15 @@ graph LR
     G --> H((Insights BI))
 
     subgraph Auditoria
+        direction TB
         I[produtos] -- Alteração de Preço --> J(Trigger)
         J --> K[log_precos]
     end
----
 
+    style Auditoria fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#ff9,stroke:#333
+
+---
 ## 💾 Backup e Recuperação
 O banco de dados está configurado para suportar backups lógicos via `mysqldump` (ou `pg_dump`), garantindo que a recuperação de desastres possa ser feita em minutos, preservando a integridade das transações e o histórico de auditoria.
 
