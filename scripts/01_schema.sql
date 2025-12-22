@@ -64,3 +64,9 @@ CREATE TABLE ficha_tecnica (
     FOREIGN KEY (produto_id) REFERENCES produtos(id),
     FOREIGN KEY (ingrediente_id) REFERENCES ingredientes(id)
 );
+
+-- Adicionando a coluna
+ALTER TABLE produtos ADD COLUMN ativo BOOLEAN DEFAULT TRUE;
+
+-- Em vez de DELETE, usamos:
+UPDATE produtos SET ativo = FALSE WHERE id = 10;
