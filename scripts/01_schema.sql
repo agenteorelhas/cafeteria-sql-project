@@ -70,3 +70,11 @@ ALTER TABLE produtos ADD COLUMN ativo BOOLEAN DEFAULT TRUE;
 
 -- Em vez de DELETE, usamos:
 UPDATE produtos SET ativo = FALSE WHERE id = 10;
+);
+
+CREATE PROCEDURE sp_alerta_estoque_critico()
+BEGIN
+    SELECT nome_ingrediente, quantidade_estoque 
+    FROM ingredientes 
+    WHERE quantidade_estoque < estoque_minimo;
+END;
