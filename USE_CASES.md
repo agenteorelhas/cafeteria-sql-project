@@ -24,4 +24,3 @@ Nesta seção, demonstramos como a arquitetura do banco de dados resolve situaç
 * **Problema*: Se deletarmos o Muffin do banco, todos os registros de vendas passadas dele (pedidos de meses atrás) podem sumir ou gerar erros de relatório.
 * **Solução*: Implementação de Soft Delete via coluna ativo. O produto é marcado como FALSE.
 * **Benefício*: O produto não aparece mais no PDV (Ponto de Venda), mas os relatórios financeiros de meses anteriores continuam exibindo as vendas dele normalmente, preservando a contabilidade.
-* 
