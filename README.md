@@ -2,7 +2,15 @@
 Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 
 # ☕ Cafeteria SQL Project
+---
 
+## 🚀 Navegação Rápida
+* [📊 **Casos de Uso**](./USE_CASES.md) - Entenda como o projeto resolve problemas reais de negócio.
+* [📐 **Modelagem de Dados**](./docs/diagrama_er.md) - Diagramas Entidade-Relacionamento e Fluxo de Dados.
+* [📝 **Dicionário de Dados**](./docs/data_dictionary.md) - Definição técnica de cada tabela e coluna.
+* [💻 **Scripts SQL**](./scripts/) - Estrutura, massa de dados e lógica programada.
+
+---
 ## 📑 Sumário
 * [📌 Sobre o Projeto](#-sobre-o-projeto)
 * [📐 Modelagem (ERD)](#-modelo-entidade-relacionamento)
