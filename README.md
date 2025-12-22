@@ -6,7 +6,6 @@ Projeto de modelagem e análise de dados de uma cafeteria utilizando SQL.
 
 ## 🚀 Navegação Rápida
 * [📊 **Casos de Uso**](./USE_CASES.md) - Entenda como o projeto resolve problemas reais de negócio.
-* [📐 **Modelagem de Dados (Interativa)**](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833) - Visualize o diagrama ER em tempo real no dbdiagram.io.
 * [📝 **Dicionário de Dados**](./docs/data_dictionary.md) - Definição técnica de cada tabela e coluna.
 * [💻 **Scripts SQL**](./scripts/) - Estrutura, massa de dados e lógica programada.
 
@@ -29,6 +28,7 @@ Este repositório contém a modelagem completa de um banco de dados para uma caf
 ## 📐 Modelo Entidade-Relacionamento
 ![Diagrama ER](imagens/Cafeteria.png)
 > 🔗 **Acesse a versão interativa:** [Visualizar no dbdiagram.io](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)
+
 [![Database Schema](https://img.shields.io/badge/dbdiagram.io-Modelo_ER_Interativo-blue?style=for-the-badge&logo=databricks&logoColor=white)](https://dbdiagram.io/d/Cafeteria-6944645a4bbde0fd74c0c833)
 
 ## 📊 Perguntas que este banco responde:
