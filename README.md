@@ -48,11 +48,11 @@ Abaixo, detalhamos a função de cada tabela e suas principais colunas:
 ### 👥 Recursos Humanos
 * **funcionarios**: Cadastro de colaboradores e vendedores.
 
-### 🛡️ Segurança e Performance
+### 🛡️ Segurança e Performance 🔐
 * **Triggers**: Auditoria automática de preços na tabela `log_precos`.
 * **Views**: Visão `v_resumo_vendas_por_produto` para simplificar relatórios.
 * **Indexes**: Índices B-Tree para buscas rápidas em `email` e `data_pedido`.
-
+* **Soft Delete Implementation**: O sistema utiliza exclusão lógica (coluna ativo). Isto garante a manutenção da Integridade Referencial, permitindo que o histórico de vendas permaneça intacto mesmo após um produto ser retirado do catálogo, evitando erros de "órfãos" em relatórios financeiros antigos.
 ---
 
 ## 🔄 Fluxo de Dados e Linhagem (Data Lineage)
