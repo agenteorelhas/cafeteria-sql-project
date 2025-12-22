@@ -78,3 +78,11 @@ BEGIN
     FROM ingredientes 
     WHERE quantidade_estoque < estoque_minimo;
 END;
+
+-- Adicionando controle de estado para Produtos e Clientes
+ALTER TABLE produtos ADD COLUMN ativo BOOLEAN DEFAULT TRUE;
+ALTER TABLE clientes ADD COLUMN ativo BOOLEAN DEFAULT TRUE;
+ALTER TABLE funcionarios ADD COLUMN ativo BOOLEAN DEFAULT TRUE;
+
+-- Criando um índice para performance (já que filtraremos muito por ativos)
+CREATE INDEX idx_produtos_ativos ON produtos(id) WHERE ativo = TRUE;
