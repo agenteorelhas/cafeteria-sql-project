@@ -1,4 +1,4 @@
-##📖 Casos de Uso (Business Scenarios)
+## 📖 Casos de Uso (Business Scenarios)
 Nesta seção, demonstramos como a arquitetura do banco de dados resolve situações cotidianas de uma cafeteria real.
 
 * **1. Gestão de Insumos e Ficha Técnica* 📝
