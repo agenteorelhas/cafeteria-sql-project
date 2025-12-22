@@ -83,7 +83,7 @@ O ciclo de vida dos dados segue o percurso estruturado abaixo:
 4. **Auditoria:** Triggers monitoram alterações em `produtos`.
 5. **Saída/BI:** Views consolidam dados para Insights.
 
-```mermaid
+``mermaid
 graph LR
     A[Cliente/Pedido] --> B(sp_registrar_venda)
     B --> C{Transação SQL}
