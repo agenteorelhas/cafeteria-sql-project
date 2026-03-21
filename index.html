@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafeteria Admin | Dashboard</title>
+    <title>Cafeteria Admin | SQL Dashboard</title>
     <link rel="stylesheet" href="front-end/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -14,38 +14,50 @@
             <li><a href="#" class="active">Dashboard</a></li>
             <li><a href="#">Produtos</a></li>
             <li><a href="#">Estoque</a></li>
-            <li><a href="#">Relatórios</a></li>
+            <li><a href="#">Logs SQL</a></li>
         </ul>
     </nav>
 
     <main class="content">
-        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h1>Painel de Controle</h1>
-            <button id="btn-novo-produto" class="btn-main">+ Novo Produto</button>
+        <header class="main-header glass">
+            <div class="header-left">
+                <h1>Dashboard Cafeteria</h1>
+                <div class="system-badges">
+                    <span class="badge status-db"><i class="dot"></i> SQL Connected</span>
+                    <span class="badge status-trigger"><i class="dot"></i> Triggers Active</span>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar por Nome ou ID..." id="input-busca">
+                </div>
+                <button id="btn-novo-produto" class="btn-main shadow-hover">+ Novo Item</button>
+            </div>
         </header>
 
         <section class="cards-grid">
             <div class="card">
                 <h3>Total em Vendas</h3>
-                <p id="total-vendas">R$ 1.250,00</p>
+                <p>R$ 1.250,00</p>
             </div>
             <div class="card alert">
-                <h3>Alertas de Estoque</h3>
-                <p id="alertas-contagem">2 Itens baixos</p>
+                <h3>Estoque Baixo</h3>
+                <p id="alertas-contagem">2 Itens</p>
             </div>
             <div class="card">
-                <h3>Pedidos Hoje</h3>
-                <p>42</p>
+                <h3>Status do Banco</h3>
+                <p style="font-size: 1rem; color: var(--success);">Operacional</p>
             </div>
         </section>
 
         <section class="table-container">
-            <h2>Produtos Cadastrados</h2>
+            <h2>Produtos em Linha (Query Simulation)</h2>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
+                        <th>Produto</th>
                         <th>Preço</th>
                         <th>Status</th>
                         <th>Ações</th>
@@ -57,7 +69,6 @@
         </section>
     </main>
 
-    <script src="js/main.js"></script>
     <script src="front-end/Script.js"></script>
 </body>
 </html>
