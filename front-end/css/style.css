@@ -1,14 +1,13 @@
 :root {
-    --primary: #6F4E37;        /* Marrom Café (Usado em bordas e acentos) */
+    --primary: #6F4E37;
     --primary-glow: rgba(111, 78, 55, 0.6);
-    --accent: #D2B48C;         /* Tom de Areia/Creme */
-    --bg-dark: #0a0806;        /* Fundo Dracula/Coffee Profundo */
+    --accent: #D2B48C;
+    --bg-dark: #0a0806;
     --bg-sidebar: #140f0b;
     --bg-card: #1a1410;
-    --text-main: #FFFFFF;      /* Texto Branco Principal (Para o título) */
-    --text-body: #ece0d1;      /* Creme claro para leitura geral */
+    --text-main: #FFFFFF;
+    --text-body: #ece0d1;
     --danger: #ff5555;
-    --danger-glow: rgba(251, 85, 85, 0.4);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,48 +22,43 @@ body {
 
 #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-/* Sidebar */
 .sidebar { width: 250px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #2a1e17; flex-shrink: 0; z-index: 10; }
+.sidebar h2 { color: var(--text-main); text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 2rem; text-shadow: 0 0 10px var(--primary-glow); }
 
-/* --- TÍTULO DA SIDEBAR CORRIGIDO PARA BRANCO --- */
-.sidebar h2 { 
-    color: var(--text-main); /* Alterado para Branco */
-    text-transform: uppercase; 
-    font-size: 1.1rem; 
-    letter-spacing: 2px; 
-    margin-bottom: 2rem; 
-    text-shadow: 0 0 10px var(--primary-glow); /* Mantém o brilho marrom neon */
-}
-
-.nav-menu { list-style: none; }
 .nav-menu li { list-style: none; margin-bottom: 8px; }
 .nav-link { text-decoration: none; color: #5d4037; display: block; padding: 12px; border-radius: 8px; transition: 0.3s; }
 .nav-link.active { background: #2a1e17; color: var(--accent); box-shadow: 0 0 15px var(--primary-glow); border: 1px solid var(--primary); }
 
-/* Layout e Containers */
 .content { flex: 1; padding: 2rem; position: relative; }
 .glass { background: rgba(26, 20, 16, 0.85); backdrop-filter: blur(12px); border: 1px solid #3c2a21; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
-.main-header { display: flex; justify-content: space-between; align-items: center; }
 
-/* Dashboard Cards (Posição Lado a Lado) */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
 .card { background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--primary); transition: 0.4s; }
-.card:hover { transform: translateY(-5px); box-shadow: 0 0 20px var(--primary-glow); }
-.card.alert { border-left-color: var(--danger); }
 .card h3 { font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 10px; }
 .card p { font-size: 1.8rem; font-weight: bold; }
 
-/* Tabela e Elementos Visuais */
-th { text-align: left; padding: 15px; color: var(--primary); border-bottom: 1px solid #3c2a21; }
-td { padding: 15px; border-bottom: 1px solid #2a1e17; }
-.badge { border: 1px solid var(--primary); color: var(--accent); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; box-shadow: 0 0 10px var(--primary-glow); }
+/* VELOCÍMETRO CORRIGIDO */
+.gauge { position: relative; width: 200px; height: 100px; margin: 20px auto; }
+.gauge__body { width: 100%; height: 100%; background: #2a1e17; position: relative; border-radius: 100px 100px 0 0; overflow: hidden; }
+.gauge__fill { 
+    position: absolute; top: 100%; left: 0; width: 100%; height: 100%; 
+    background: var(--primary); transform-origin: center top; 
+    transition: transform 1.5s ease-out; 
+}
+.gauge__cover { 
+    width: 80%; height: 80%; background: var(--bg-card); 
+    border-radius: 100px 100px 0 0; position: absolute; 
+    top: 20%; left: 50%; transform: translateX(-50%); 
+}
+.gauge__needle { 
+    width: 4px; height: 90px; background: var(--accent); 
+    position: absolute; bottom: 0; left: 50%; 
+    transform-origin: bottom center; 
+    transform: translateX(-50%) rotate(-90deg); /* Posição Inicial 0% */
+    transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 11; box-shadow: 0 0 10px var(--primary-glow);
+}
+.gauge-value { display: block; text-align: center; font-size: 1.5rem; font-weight: bold; color: var(--accent); }
 
-/* Velocímetro (Gauge) */
-.gauge__body { width: 100%; height: 80px; background: #2a1e17; position: relative; border-radius: 100px 100px 0 0; overflow: hidden; }
-.gauge__fill { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: var(--primary); transform-origin: center top; transition: 1s; box-shadow: 0 0 20px var(--primary-glow); }
-.gauge__needle { background: var(--accent); box-shadow: 0 0 10px var(--primary-glow); }
-
-/* Botões e Inputs */
 .btn-main { background: var(--primary); color: var(--text-main); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-.btn-main:hover { box-shadow: 0 0 20px var(--primary-glow); }
 .search-input { background: #000; border: 1px solid #3c2a21; color: var(--text-body); padding: 10px; border-radius: 8px; }
