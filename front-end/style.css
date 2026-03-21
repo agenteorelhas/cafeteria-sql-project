@@ -40,3 +40,23 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #444;
 }
+
+:root {
+    /* Cores Principais */
+    --primary: #6F4E37;      /* Marrom Café */
+    --primary-light: #A67B5B;
+    --accent: #D2B48C;       /* Bege/Canela */
+    
+    /* Neutros */
+    --bg-dark: #121212;      /* Fundo profundo */
+    --bg-card: #1E1E1E;      /* Fundo dos cards/tabelas */
+    --text-main: #FFFFFF;
+    --text-dim: #A0A0A0;
+    
+    /* Status */
+    --success: #2ecc71;
+    --warning: #f1c40f;
+    --danger: #e74c3c;
+
+    --transition: all 0.3s ease;
+}
