@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
-    <title>Cafeteria Admin | Sistema de Gestão</title>
-    <link rel="stylesheet" href="front-end/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafeteria Admin | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="sidebar">
@@ -18,25 +19,29 @@
     </nav>
 
     <main class="content">
-        <header>
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
             <h1>Painel de Controle</h1>
-            <button id="btn-novo-produto">+ Novo Produto</button>
+            <button id="btn-novo-produto" class="btn-main">+ Novo Produto</button>
         </header>
 
         <section class="cards-grid">
             <div class="card">
                 <h3>Total em Vendas</h3>
-                <p id="total-vendas">R$ 0,00</p>
+                <p id="total-vendas">R$ 1.250,00</p>
             </div>
             <div class="card alert">
                 <h3>Alertas de Estoque</h3>
                 <p id="alertas-contagem">2 Itens baixos</p>
             </div>
+            <div class="card">
+                <h3>Pedidos Hoje</h3>
+                <p>42</p>
+            </div>
         </section>
 
         <section class="table-container">
             <h2>Produtos Cadastrados</h2>
-            <table id="tabela-produtos">
+            <table>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -46,11 +51,12 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="lista-produtos">
                     </tbody>
             </table>
         </section>
     </main>
+
     <script src="js/main.js"></script>
 </body>
 </html>
