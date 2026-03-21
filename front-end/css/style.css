@@ -10,13 +10,45 @@
 body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
 
 /* Sidebar & Navigation */
-.sidebar { width: 260px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #222; flex-shrink: 0; }
-.sidebar h2 { color: var(--primary-light); margin-bottom: 1rem; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
-.sidebar ul { list-style: none; margin-top: 2rem; }
-.sidebar li { margin-bottom: 8px; }
-.sidebar a { 
-    text-decoration: none; color: var(--text-dim); display: block; padding: 12px 20px; 
-    border-radius: 8px; transition: var(--transition); position: relative;
+.sidebar { 
+    width: 260px; 
+    background: var(--bg-sidebar); 
+    padding: 2rem; 
+    border-right: 1px solid #222; 
+    flex-shrink: 0; 
+}
+
+/* Remove os pontos brancos que aparecem no seu print */
+.nav-menu {
+    list-style: none;
+    margin-top: 2rem;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-bottom: 12px;
+}
+
+.nav-menu a { 
+    text-decoration: none; 
+    color: var(--text-dim); 
+    display: block; 
+    padding: 12px 20px; 
+    border-radius: 8px; 
+    transition: var(--transition); 
+    position: relative;
+    cursor: pointer;
+}
+
+/* Efeito Hover e Active idêntico ao planejado */
+.nav-menu a:hover { 
+    background: rgba(111, 78, 55, 0.1); 
+    color: white; 
+}
+
+.nav-menu a.active { 
+    background: var(--primary); 
+    color: white; 
 }
 
 /* Efeito da bordinha lateral dourada */
