@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☕ Cafeteria Admin | SQL Dashboard</title>
+    <title>Café Admin | Espresso Dashboard</title>
     <link rel="stylesheet" href="front-end/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
 
     <nav class="sidebar">
         <div class="sidebar-logo">
-            <h2>☕ Café Admin</h2>
+            <h2>Café Admin</h2>
         </div>
         <ul class="nav-menu">
             <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
@@ -25,20 +25,20 @@
     <main class="content">
         <header class="main-header glass">
             <div class="header-left">
-                <h1>Sistema de Gestão</h1>
-                <span class="badge">SQL Connected</span>
+                <h1>Gestão de Dados</h1>
+                <span class="badge">SQL Online</span>
             </div>
             <div class="header-actions">
-                <input type="text" placeholder="Buscar produto ou ID..." id="input-busca" class="search-input">
+                <input type="text" placeholder="Filtrar..." id="input-busca" class="search-input">
                 <button id="btn-novo-produto" class="btn-main">+ Novo Item</button>
             </div>
         </header>
 
         <div id="view-dashboard" class="content-view">
             <div class="cards-grid">
-                <div class="card"><h3>Total em Vendas</h3><p>R$ 1.250,00</p></div>
-                <div class="card alert"><h3>Alertas de Estoque</h3><p>2 Itens críticos</p></div>
-                <div class="card"><h3>Status DB</h3><p style="color: #50fa7b;">Operacional</p></div>
+                <div class="card"><h3>Vendas Hoje</h3><p>R$ 1.250,00</p></div>
+                <div class="card alert"><h3>Alertas</h3><p>2 Críticos</p></div>
+                <div class="card"><h3>Latência DB</h3><p style="color: #d2b48c;">12ms</p></div>
             </div>
         </div>
 
@@ -72,8 +72,8 @@
         <div id="view-logs" class="content-view" style="display: none;">
             <div class="log-container glass">
                 <div class="log-terminal">
-                    <code>[SQL] Sistema carregado com sucesso...</code><br>
-                    <code>[SQL] Trigger 'log_precos' ativa.</code>
+                    <code>[SQL] Conectado ao banco 'Cafeteria_DB'...</code><br>
+                    <code>[SQL] Trigger 'log_estoque' executada com sucesso.</code>
                 </div>
             </div>
         </div>
