@@ -1,55 +1,14 @@
-:root {
-    --primary: #6F4E37; /* Café */
-    --secondary: #A67B5B;
-    --bg: #1a1a1a;
-    --card-bg: #2d2d2d;
-    --text: #f5f5f5;
-}
-
-body {
-    display: flex;
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background: #111;
-    padding: 20px;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 5px solid var(--primary);
-}
-
-.alert { border-left-color: #e74c3c; }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #444;
-}
-
+/* 1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS */
 :root {
     /* Cores Principais */
-    --primary: #6F4E37;      /* Marrom Café */
+    --primary: #6F4E37;       /* Marrom Café */
     --primary-light: #A67B5B;
-    --accent: #D2B48C;       /* Bege/Canela */
+    --accent: #D2B48C;        /* Bege/Canela */
     
     /* Neutros */
-    --bg-dark: #121212;      /* Fundo profundo */
-    --bg-card: #1E1E1E;      /* Fundo dos cards/tabelas */
+    --bg-dark: #121212;       /* Fundo profundo */
+    --bg-sidebar: #0A0A0A;    /* Fundo lateral */
+    --bg-card: #1E1E1E;       /* Fundo dos cards/tabelas */
     --text-main: #FFFFFF;
     --text-dim: #A0A0A0;
     
@@ -68,17 +27,17 @@ th, td {
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* Recomendo importar do Google Fonts */
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    display: flex; /* Sidebar fixa à esquerda e conteúdo à direita */
+    display: flex; 
     min-height: 100vh;
 }
 
-/* Sidebar Estilizada */
+/* 2. SIDEBAR */
 .sidebar {
     width: 260px;
-    background-color: #0A0A0A;
+    background-color: var(--bg-sidebar);
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -104,16 +63,18 @@ body {
     font-weight: 500;
     transition: var(--transition);
     display: block;
-    padding: 10px;
+    padding: 12px;
     border-radius: 6px;
 }
 
-.sidebar a:hover, .sidebar a.active {
+.sidebar a:hover, 
+.sidebar a.active {
     color: var(--text-main);
     background: var(--primary);
-    padding-left: 15px;
+    padding-left: 20px; /* Efeito de deslocamento no hover */
 }
 
+/* 3. CONTEÚDO PRINCIPAL E GRID */
 .content {
     flex: 1;
     padding: 2rem;
@@ -132,12 +93,16 @@ body {
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border-top: 4px solid var(--primary);
+    border-left: 5px solid var(--primary); /* Mudado para borda esquerda para combinar com o estilo anterior */
     transition: transform 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
+}
+
+.card.alert {
+    border-left-color: var(--danger);
 }
 
 .card h3 {
@@ -151,6 +116,7 @@ body {
     font-weight: bold;
 }
 
+/* 4. TABELAS */
 .table-container {
     background: var(--bg-card);
     border-radius: 12px;
@@ -168,6 +134,8 @@ th {
     color: var(--primary-light);
     padding: 1rem;
     border-bottom: 2px solid #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
 td {
@@ -180,16 +148,24 @@ tr:hover {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* Badge de Status */
+/* 5. UTILITÁRIOS (Status & Vidro) */
 .status {
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: bold;
+    display: inline-block;
 }
 
-.status.online { background: rgba(46, 204, 113, 0.2); color: var(--success); }
-.status.offline { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
+.status.online { 
+    background: rgba(46, 204, 113, 0.2); 
+    color: var(--success); 
+}
+
+.status.offline { 
+    background: rgba(231, 76, 60, 0.2); 
+    color: var(--danger); 
+}
 
 .glass {
     background: rgba(255, 255, 255, 0.05);
