@@ -1,61 +1,77 @@
+// Inicialização do Particles.js
+if (typeof particlesJS !== 'undefined') {
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": ["#bd93f9", "#ff79c6"] }, // Cores Dracula
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.4 },
+            "size": { "value": 3 },
+            "line_linked": { 
+                "enable": true, 
+                "distance": 150, 
+                "color": "#6272a4", 
+                "opacity": 0.3, 
+                "width": 1 
+            },
+            "move": { "enable": true, "speed": 1.5 }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true }
+        },
+        "retina_detect": true
+    });
+}
+
+// Navegação entre Abas
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.nav-link');
     const views = document.querySelectorAll('.content-view');
 
-    // Navegação entre abas
     links.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Ativa o link na sidebar
             links.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+            link.classList.add('active');
 
-            // Esconde todas as telas e mostra a alvo
             views.forEach(v => v.style.display = 'none');
-            const target = 'view-' + this.getAttribute('href').replace('#', '');
-            const targetView = document.getElementById(target);
-            
-            if (targetView) {
-                targetView.style.display = 'block';
-            }
+            const target = 'view-' + link.getAttribute('href').replace('#', '');
+            document.getElementById(target).style.display = 'block';
 
-            // Anima o gauge se estiver na tela de estoque
             if (target === 'view-estoque') {
-                setTimeout(animarEstoque, 200);
+                setTimeout(animarGauge, 100);
             }
         });
     });
 
-    // Função para simular preenchimento de estoque
-    function animarEstoque() {
-        const fill = document.getElementById('gauge-cafe-fill');
-        const needle = document.getElementById('gauge-cafe-needle');
-        const text = document.getElementById('gauge-cafe-text');
-        
-        if (fill && needle) {
-            fill.style.transform = `rotate(0.375turn)`; // 75%
-            needle.style.transform = `translateX(-50%) rotate(45deg)`;
-            text.innerText = "75%";
-        }
-    }
-
-    // Gerador de tabela de produtos (Mock)
-    const lista = document.getElementById('lista-produtos');
-    const dadosProdutos = [
-        {id: "#101", nome: "Grãos Arábica (1kg)", preco: "R$ 85,00", status: "Em estoque"},
-        {id: "#102", nome: "Leite Integral (Caixa)", preco: "R$ 5,40", status: "Crítico"},
-        {id: "#103", nome: "Cápsula Espresso", preco: "R$ 2,50", status: "Em estoque"}
+    // Mock de Dados
+    const tbody = document.getElementById('lista-produtos');
+    const produtos = [
+        { id: "#1", nome: "Espresso", preco: "R$ 6,50", status: "Ativo" },
+        { id: "#2", nome: "Cappuccino", preco: "R$ 12,00", status: "Ativo" }
     ];
 
-    if (lista) {
-        lista.innerHTML = dadosProdutos.map(p => `
+    if (tbody) {
+        tbody.innerHTML = produtos.map(p => `
             <tr>
                 <td>${p.id}</td>
                 <td>${p.nome}</td>
                 <td>${p.preco}</td>
-                <td><span style="color: ${p.status === 'Crítico' ? '#e74c3c' : '#2ecc71'}">${p.status}</span></td>
+                <td><span style="color: #50fa7b">${p.status}</span></td>
             </tr>
         `).join('');
     }
 });
+
+function animarGauge() {
+    const fill = document.getElementById('gauge-cafe-fill');
+    const needle = document.getElementById('gauge-cafe-needle');
+    const text = document.getElementById('gauge-cafe-text');
+    
+    if (fill) {
+        fill.style.transform = `rotate(0.375turn)`;
+        needle.style.transform = `translateX(-50%) rotate(45deg)`;
+        text.innerText = "75%";
+    }
+}
