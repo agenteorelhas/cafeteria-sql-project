@@ -12,52 +12,64 @@ const views = document.querySelectorAll('.content-view');
 links.forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
+        
+        // Remove active de todos e adiciona no clicado
         links.forEach(l => l.classList.remove('active'));
         this.classList.add('active');
 
-        const target = this.getAttribute('href').replace('#', 'view-');
-        views.forEach(v => v.style.display = v.id === target ? 'block' : 'none');
+        // Troca as views
+        const targetId = this.getAttribute('href').replace('#', 'view-');
+        views.forEach(v => {
+            v.style.display = (v.id === targetId) ? 'block' : 'none';
+        });
 
-        if (target === 'view-estoque') carregarEstoque();
+        // Dispara funções específicas de cada aba
+        if (targetId === 'view-estoque') carregarEstoque();
     });
 });
 
 // 2. Tabela & Busca
 function renderTabela(itens) {
     const lista = document.getElementById('lista-produtos');
+    if (!lista) return; // Segurança caso o elemento não exista
+
     lista.innerHTML = itens.map(p => `
-        <tr><td>#${p.id}</td><td>${p.nome}</td><td>R$ ${p.preco.toFixed(2)}</td><td>${p.status}</td>
-        <td><button class="btn-action edit" onclick="alert('Update simulado')">Preço</button></td></tr>
+        <tr>
+            <td>#${p.id}</td>
+            <td>${p.nome}</td>
+            <td>R$ ${p.preco.toFixed(2)}</td>
+            <td>${p.status}</td>
+            <td><button class="btn-action edit" onclick="alert('Update simulado')">Preço</button></td>
+        </tr>
     `).join('');
 }
 
-document.getElementById('input-busca').addEventListener('input', (e) => {
-    const termo = e.target.value.toLowerCase();
-    renderTabela(db_produtos.filter(p => p.nome.toLowerCase().includes(termo)));
-});
+// Busca Dinâmica com verificação de existência
+const inputBusca = document.getElementById('input-busca');
+if (inputBusca) {
+    inputBusca.addEventListener('input', (e) => {
+        const termo = e.target.value.toLowerCase();
+        const filtrados = db_produtos.filter(p => 
+            p.nome.toLowerCase().includes(termo) || p.id.toString().includes(termo)
+        );
+        renderTabela(filtrados);
+    });
+}
 
 // 3. Gráficos Gauge
 function setGauge(id, val) {
     const fill = document.getElementById(`${id}-fill`);
     const needle = document.getElementById(`${id}-needle`);
     const text = document.getElementById(`${id}-text`);
-    const card = document.getElementById(`card-${id.split('-')[1]}`);
+    const cardId = `card-${id.split('-')[1]}`;
+    const card = document.getElementById(cardId);
 
+    if (!fill || !needle || !text) return; // Evita erros se os elementos não existirem
+
+    // Aplica transformações
     fill.style.transform = `rotate(${val / 2}turn)`;
     needle.style.transform = `translateX(-50%) rotate(${(val * 180) - 90}deg)`;
     text.innerText = `${Math.round(val * 100)}%`;
     
-    val <= 0.2 ? card.classList.add('critical-alert') : card.classList.remove('critical-alert');
-}
-
-function carregarEstoque() {
-    setTimeout(() => { setGauge("gauge-cafe", 0.85); setGauge("gauge-leite", 0.15); }, 300);
-}
-
-// 4. Exportar PDF
-document.getElementById('btn-export-pdf').addEventListener('click', function() {
-    this.classList.add('loading');
-    setTimeout(() => { this.classList.remove('loading'); alert("PDF Gerado!"); }, 2000);
-});
-
-document.addEventListener('DOMContentLoaded', () => renderTabela(db_produtos));
+    // Alerta crítico
+    if (card) {
