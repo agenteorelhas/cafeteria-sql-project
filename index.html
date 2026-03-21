@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Admin | Espresso Dashboard</title>
+    <title>Cafeteria Admin | SQL Dashboard</title>
     <link rel="stylesheet" href="front-end/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -25,7 +25,7 @@
     <main class="content">
         <header class="main-header glass">
             <div class="header-left">
-                <h1>Painel de Controle</h1>
+                <h1>Painel de Gestão</h1>
                 <span class="badge">SQL Online</span>
             </div>
             <div class="header-actions">
@@ -36,51 +36,4 @@
 
         <div id="view-dashboard" class="content-view">
             <div class="cards-grid">
-                <div class="card"><h3>Vendas Hoje</h3><p>R$ 1.250,00</p></div>
-                <div class="card alert"><h3>Alertas</h3><p>2 Itens Críticos</p></div>
-                <div class="card"><h3>Latência DB</h3><p style="color: #d2b48c;">12ms</p></div>
-            </div>
-        </div>
-
-        <div id="view-produtos" class="content-view" style="display: none;">
-            <div class="table-container glass">
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Produto</th><th>Preço</th><th>Status</th></tr>
-                    </thead>
-                    <tbody id="lista-produtos"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="view-estoque" class="content-view" style="display: none;">
-            <div class="gauges-grid">
-                <div class="gauge-card glass">
-                    <h3>Nível de Grãos</h3>
-                    <div class="gauge">
-                        <div class="gauge__body">
-                            <div class="gauge__fill" id="gauge-cafe-fill"></div>
-                            <div class="gauge__cover">
-                                <span id="gauge-cafe-text" class="gauge-value">0%</span>
-                            </div>
-                        </div>
-                        <div class="gauge__needle" id="gauge-cafe-needle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-logs" class="content-view" style="display: none;">
-            <div class="log-container glass">
-                <div class="log-terminal">
-                    <code>[10:31:01] CONECTADO AO BANCO DE DADOS...</code><br>
-                    <code>[10:31:45] PROCEDURE 'sp_atualizar_estoque' EXECUTADA.</code>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="front-end/Script.js"></script>
-</body>
-</html>
+                <div class="card"><h3>Vendas Hoje</h3>
