@@ -1,30 +1,21 @@
-// 1. Inicialização do Particles.js (Estilo Espresso Neon)
+// 1. Inicialização do Particles.js
 if (typeof particlesJS !== 'undefined') {
     particlesJS('particles-js', {
         "particles": {
-            "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": ["#6F4E37", "#D2B48C", "#3C2A21"] }, // Tons de Café e Areia
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": ["#6F4E37", "#D2B48C", "#3C2A21"] },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": true },
-            "size": { "value": 3, "random": true },
-            "line_linked": { 
-                "enable": true, 
-                "distance": 150, 
-                "color": "#6F4E37", 
-                "opacity": 0.3, 
-                "width": 1 
-            },
-            "move": { "enable": true, "speed": 1.2, "direction": "none", "random": true }
+            "opacity": { "value": 0.4 },
+            "size": { "value": 3 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#6F4E37", "opacity": 0.3, "width": 1 },
+            "move": { "enable": true, "speed": 1.2 }
         },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true }
-        },
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
         "retina_detect": true
     });
 }
 
-// 2. Navegação entre Abas e Lógica de Dados
+// 2. Navegação e Dados
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.nav-link');
     const views = document.querySelectorAll('.content-view');
@@ -36,25 +27,29 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.add('active');
 
             views.forEach(v => v.style.display = 'none');
-            const target = 'view-' + link.getAttribute('href').replace('#', '');
-            document.getElementById(target).style.display = 'block';
-
-            if (target === 'view-estoque') {
-                setTimeout(animarGauge, 100);
+            const targetId = 'view-' + link.getAttribute('href').replace('#', '');
+            const targetView = document.getElementById(targetId);
+            
+            if (targetView) {
+                targetView.style.display = 'block';
+                if (targetId === 'view-estoque') {
+                    // Reset para re-animar
+                    document.getElementById('gauge-cafe-fill').style.transform = `rotate(0turn)`;
+                    document.getElementById('gauge-cafe-needle').style.transform = `translateX(-50%) rotate(-90deg)`;
+                    setTimeout(animarGauge, 200);
+                }
             }
         });
     });
 
-    // Mock de Dados da Tabela
+    // Mock Tabela
     const tbody = document.getElementById('lista-produtos');
-    const produtosMock = [
-        { id: "#101", nome: "Café Gourmet Arábica", preco: "R$ 65,00", status: "Em estoque" },
-        { id: "#102", nome: "Moedor Titan 2.0", preco: "R$ 450,00", status: "Crítico" },
-        { id: "#103", nome: "Cápsula Intenso x10", preco: "R$ 22,50", status: "Em estoque" }
-    ];
-
     if (tbody) {
-        tbody.innerHTML = produtosMock.map(p => `
+        const produtos = [
+            { id: "#101", nome: "Café Arábica", preco: "R$ 65,00", status: "Em estoque" },
+            { id: "#102", nome: "Moedor Titan", preco: "R$ 450,00", status: "Crítico" }
+        ];
+        tbody.innerHTML = produtos.map(p => `
             <tr>
                 <td>${p.id}</td>
                 <td>${p.nome}</td>
@@ -65,14 +60,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Animação do Medidor de Estoque
 function animarGauge() {
     const fill = document.getElementById('gauge-cafe-fill');
     const needle = document.getElementById('gauge-cafe-needle');
     const text = document.getElementById('gauge-cafe-text');
-    if (fill) {
-        fill.style.transform = `rotate(0.375turn)`; // 75%
-        needle.style.transform = `translateX(-50%) rotate(45deg)`;
-        text.innerText = "75%";
-    }
+    
+    if (!fill || !needle) return;
+
+    const valor = 75; // Porcentagem alvo
+    const fillRot = (valor / 100) * 0.5;
+    const needleRot = (valor / 100) * 180 - 90;
+
+    fill.style.transform = `rotate(${fillRot}turn)`;
+    needle.style.transform = `translateX(-50%) rotate(${needleRot}deg)`;
+
+    let cont = 0;
+    const taxa = setInterval(() => {
+        if (cont >= valor) clearInterval(taxa);
+        else { cont++; text.innerText = cont + "%"; }
+    }, 20);
 }
