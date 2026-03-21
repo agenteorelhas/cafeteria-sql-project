@@ -2,47 +2,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.nav-link');
     const views = document.querySelectorAll('.content-view');
 
+    // Navegação entre abas
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Remove active de todos
+            // Ativa o link na sidebar
             links.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
-            // Esconde todas as views
+            // Esconde todas as telas e mostra a alvo
             views.forEach(v => v.style.display = 'none');
-
-            // Mostra a view alvo
             const target = 'view-' + this.getAttribute('href').replace('#', '');
-            document.getElementById(target).style.display = 'block';
+            const targetView = document.getElementById(target);
+            
+            if (targetView) {
+                targetView.style.display = 'block';
+            }
 
-            // Se for estoque, anima o gauge
+            // Anima o gauge se estiver na tela de estoque
             if (target === 'view-estoque') {
-                setTimeout(() => {
-                    const fill = document.getElementById('gauge-cafe-fill');
-                    const needle = document.getElementById('gauge-cafe-needle');
-                    const text = document.getElementById('gauge-cafe-text');
-                    if(fill) {
-                        fill.style.transform = `rotate(0.375turn)`; // 75%
-                        needle.style.transform = `translateX(-50%) rotate(45deg)`;
-                        text.innerText = "75%";
-                    }
-                }, 100);
+                setTimeout(animarEstoque, 200);
             }
         });
     });
 
-    // Mock de produtos
+    // Função para simular preenchimento de estoque
+    function animarEstoque() {
+        const fill = document.getElementById('gauge-cafe-fill');
+        const needle = document.getElementById('gauge-cafe-needle');
+        const text = document.getElementById('gauge-cafe-text');
+        
+        if (fill && needle) {
+            fill.style.transform = `rotate(0.375turn)`; // 75%
+            needle.style.transform = `translateX(-50%) rotate(45deg)`;
+            text.innerText = "75%";
+        }
+    }
+
+    // Gerador de tabela de produtos (Mock)
     const lista = document.getElementById('lista-produtos');
-    const dados = [
-        {id: "#1", nome: "Espresso", preco: "R$ 6,50", status: "Ativo"},
-        {id: "#2", nome: "Cappuccino", preco: "R$ 12,00", status: "Ativo"}
+    const dadosProdutos = [
+        {id: "#101", nome: "Grãos Arábica (1kg)", preco: "R$ 85,00", status: "Em estoque"},
+        {id: "#102", nome: "Leite Integral (Caixa)", preco: "R$ 5,40", status: "Crítico"},
+        {id: "#103", nome: "Cápsula Espresso", preco: "R$ 2,50", status: "Em estoque"}
     ];
 
-    if(lista) {
-        lista.innerHTML = dados.map(p => `
-            <tr><td>${p.id}</td><td>${p.nome}</td><td>${p.preco}</td><td>${p.status}</td></tr>
+    if (lista) {
+        lista.innerHTML = dadosProdutos.map(p => `
+            <tr>
+                <td>${p.id}</td>
+                <td>${p.nome}</td>
+                <td>${p.preco}</td>
+                <td><span style="color: ${p.status === 'Crítico' ? '#e74c3c' : '#2ecc71'}">${p.status}</span></td>
+            </tr>
         `).join('');
     }
 });
