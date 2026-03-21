@@ -1,50 +1,58 @@
 :root {
-    --primary: #6F4E37;
+    --primary: #6F4E37; /* Marrom Café */
+    --primary-light: #A67B5B;
     --bg-dark: #0f0f0f;
     --bg-sidebar: #050505;
     --bg-card: #1a1a1a;
     --text: #ffffff;
+    --text-dim: #888;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text); display: flex; min-height: 100vh; }
 
-/* Sidebar */
+/* Sidebar s/ pontos de lista */
 .sidebar { width: 250px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #222; }
-.nav-menu { list-style: none; margin-top: 2rem; }
-.nav-menu li { margin-bottom: 10px; }
-.nav-menu a { 
-    text-decoration: none; color: #888; display: block; padding: 12px; 
-    border-radius: 8px; transition: 0.3s;
-}
+.sidebar h2 { color: var(--primary); margin-bottom: 2rem; font-size: 1.2rem; text-transform: uppercase; }
+.nav-menu { list-style: none; }
+.nav-menu li { margin-bottom: 8px; list-style: none; }
+.nav-menu a { text-decoration: none; color: var(--text-dim); display: block; padding: 12px; border-radius: 8px; transition: 0.3s; }
 .nav-menu a.active { background: var(--primary); color: white; }
+.nav-menu a:hover:not(.active) { background: rgba(255,255,255,0.05); color: white; }
 
-/* Containers Principais */
-.content { flex: 1; padding: 2rem; }
-.glass { background: #161616; border: 1px solid #222; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+/* Main Content */
+.content { flex: 1; padding: 2rem; overflow-y: auto; }
+.main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.glass { background: #161616; border: 1px solid #222; border-radius: 12px; padding: 1.5rem; }
 
-/* Dashboard e Cards */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-.card { background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--primary); }
+/* Badge SQL */
+.badge { background: rgba(111, 78, 55, 0.2); color: var(--primary-light); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+
+/* Grid de Cards */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.card { background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--primary); transition: 0.3s; }
+.card:hover { transform: translateY(-5px); }
 .card.alert { border-left-color: #e74c3c; }
-.card h3 { font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 10px; }
+.card h3 { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px; text-transform: uppercase; }
 .card p { font-size: 1.8rem; font-weight: bold; }
 
-/* Tabelas e Terminais */
-.table-container { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
+/* Tabela */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th { text-align: left; padding: 15px; color: var(--primary); border-bottom: 1px solid #222; }
 td { padding: 15px; border-bottom: 1px solid #1a1a1a; }
 
-.log-terminal { background: #000; padding: 1.5rem; border-radius: 8px; color: #2ecc71; font-family: monospace; line-height: 1.6; }
-
-/* Gauges */
-.gauge { width: 160px; margin: 20px auto; }
+/* Gauge do Estoque */
+.gauge { width: 160px; margin: 20px auto; position: relative; }
 .gauge__body { width: 100%; height: 80px; background: #333; position: relative; border-radius: 100px 100px 0 0; overflow: hidden; }
-.gauge__fill { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: var(--primary); transform-origin: center top; transition: 1s; }
+.gauge__fill { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: var(--primary); transform-origin: center top; transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .gauge__cover { width: 75%; height: 150%; background: #161616; border-radius: 50%; position: absolute; top: 25%; left: 50%; transform: translateX(-50%); }
-.gauge__needle { width: 3px; height: 90%; background: #e74c3c; position: absolute; bottom: 0; left: 50%; transform-origin: bottom center; transition: 1s; }
+.gauge__needle { width: 3px; height: 90%; background: #e74c3c; position: absolute; bottom: 0; left: 50%; transform-origin: bottom center; transition: 1s; transform: translateX(-50%) rotate(-90deg); }
+.gauge-value { display: block; text-align: center; font-size: 1.2rem; font-weight: bold; margin-top: 10px; }
 
 /* Botões */
-.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-.search-input { background: #000; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; margin-right: 10px; }
+.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-main:hover { filter: brightness(1.2); }
+.search-input { background: #000; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; width: 220px; }
+
+/* Terminal */
+.log-terminal { background: #000; padding: 1.5rem; border-radius: 8px; color: #2ecc71; font-family: 'Courier New', monospace; line-height: 1.6; }
