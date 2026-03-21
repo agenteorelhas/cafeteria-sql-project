@@ -1,0 +1,8 @@
+cafeteria-frontend/
+├── index.html          # Estrutura principal (Dashboard)
+├── css/
+│   └── style.css       # Estilização (foco em UI/UX)
+├── js/
+│   ├── api.js          # Funções de fetch para o Back-end
+│   └── main.js         # Lógica de manipulação do DOM
+└── assets/             # Ícones e imagens
