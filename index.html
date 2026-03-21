@@ -23,23 +23,32 @@
             <div class="header-left">
                 <h1>Sistema de Gestão</h1>
                 <div class="system-badges">
-                    <span class="badge"><i class="dot"></i> SQL Connected</span>
-                    <span class="badge"><i class="dot"></i> Triggers Active</span>
+                    <span class="badge">SQL Connected</span>
+                    <span class="badge">Triggers Active</span>
                 </div>
             </div>
             <div class="header-actions">
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar produto ou ID..." id="input-busca">
                 </div>
-                <button id="btn-novo-produto" class="btn-main shadow-hover">+ Novo Item</button>
+                <button id="btn-novo-produto" class="btn-main">+ Novo Item</button>
             </div>
         </header>
 
         <div id="view-dashboard" class="content-view">
             <section class="cards-grid">
-                <div class="card"><h3>Total em Vendas</h3><p>R$ 1.250,00</p></div>
-                <div class="card alert"><h3>Alertas de Estoque</h3><p>2 Itens críticos</p></div>
-                <div class="card"><h3>Status DB</h3><p style="color: var(--success);">Operacional</p></div>
+                <div class="card">
+                    <h3>Total em Vendas</h3>
+                    <p>R$ 1.250,00</p>
+                </div>
+                <div class="card alert">
+                    <h3>Alertas de Estoque</h3>
+                    <p>2 Itens críticos</p>
+                </div>
+                <div class="card">
+                    <h3>Status DB</h3>
+                    <p style="color: var(--success);">Operacional</p>
+                </div>
             </section>
         </div>
 
@@ -48,7 +57,13 @@
                 <h2>Gerenciamento de Inventário</h2>
                 <table>
                     <thead>
-                        <tr><th>ID</th><th>Produto</th><th>Preço</th><th>Status</th><th>Ações</th></tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
                     </thead>
                     <tbody id="lista-produtos"></tbody>
                 </table>
@@ -57,7 +72,7 @@
 
         <div id="view-estoque" class="content-view" style="display: none;">
             <section class="table-container">
-                <h2>Níveis de Insumos (Real-time)</h2>
+                <h2>Níveis de Insumos</h2>
                 <div class="gauges-grid">
                     <div class="gauge-card" id="card-cafe">
                         <h3>Café em Grãos</h3>
@@ -70,15 +85,33 @@
                         </div>
                         <p id="gauge-cafe-text">0%</p>
                     </div>
+                    <div class="gauge-card" id="card-leite">
+                        <h3>Leite Integral</h3>
+                        <div class="gauge">
+                            <div class="gauge__body">
+                                <div class="gauge__fill" id="gauge-leite-fill"></div>
+                                <div class="gauge__cover"></div>
+                            </div>
+                            <div class="gauge__needle" id="gauge-leite-needle"></div>
+                        </div>
+                        <p id="gauge-leite-text">0%</p>
                     </div>
+                </div>
             </section>
         </div>
 
         <div id="view-logs" class="content-view" style="display: none;">
             <section class="table-container">
-                <h2>Audit Logs</h2>
-                <div class="log-terminal" id="log-terminal">
-                    <code>[SQL] Sistema iniciado...</code>
+                <div class="header-flex">
+                    <h2>Audit Logs SQL</h2>
+                    <button id="btn-export-pdf" class="btn-export">
+                        <span class="btn-text">Exportar PDF</span>
+                        <div class="spinner"></div>
+                    </button>
+                </div>
+                <div class="log-terminal">
+                    <code>[SQL] TRIGGER 'log_precos' executada: ID #1 alterado.</code><br>
+                    <code>[SQL] PROCEDURE 'repor_estoque' chamada com sucesso.</code>
                 </div>
             </section>
         </div>
