@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ☕ Cafeteria Admin | Dashboard Profissional</title>
+    <title>Cafeteria Admin | SQL Dashboard</title>
     <link rel="stylesheet" href="front-end/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <nav class="sidebar">
-        <h2>☕ Café Admin</h2>
+        <div class="sidebar-logo">
+            <h2>Café Admin</h2>
+        </div>
         <ul class="nav-menu">
             <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
             <li><a href="#produtos" class="nav-link">Produtos</a></li>
@@ -21,20 +25,20 @@
     <main class="content">
         <header class="main-header glass">
             <div class="header-left">
-                <h1>🎚️ Painel de Controle</h1>
-                <span class="badge">Status: SQL Online</span>
+                <h1>Sistema de Gestão</h1>
+                <span class="badge">SQL Connected</span>
             </div>
             <div class="header-actions">
-                <input type="text" placeholder="Pesquisar registro..." id="input-busca" class="search-input">
+                <input type="text" placeholder="Buscar produto ou ID..." id="input-busca" class="search-input">
                 <button id="btn-novo-produto" class="btn-main">+ Novo Item</button>
             </div>
         </header>
 
         <div id="view-dashboard" class="content-view">
             <div class="cards-grid">
-                <div class="card"><h3>Vendas do Dia</h3><p>R$ 1.250,00</p></div>
-                <div class="card alert"><h3>Alertas Ativos</h3><p>2 Itens Críticos</p></div>
-                <div class="card"><h3>Carga do Banco</h3><p style="color: #2ecc71;">Latência: 14ms</p></div>
+                <div class="card"><h3>Total em Vendas</h3><p>R$ 1.250,00</p></div>
+                <div class="card alert"><h3>Alertas de Estoque</h3><p>2 Itens críticos</p></div>
+                <div class="card"><h3>Status DB</h3><p style="color: #50fa7b;">Operacional</p></div>
             </div>
         </div>
 
@@ -52,7 +56,7 @@
         <div id="view-estoque" class="content-view" style="display: none;">
             <div class="gauges-grid">
                 <div class="gauge-card glass">
-                    <h3>Insumo: Café em Grãos</h3>
+                    <h3>Grãos de Café</h3>
                     <div class="gauge">
                         <div class="gauge__body">
                             <div class="gauge__fill" id="gauge-cafe-fill"></div>
@@ -68,14 +72,14 @@
         <div id="view-logs" class="content-view" style="display: none;">
             <div class="log-container glass">
                 <div class="log-terminal">
-                    <code>[10:00:01] INICIANDO AUDITORIA...</code><br>
-                    <code>[10:00:43] TRIGGER 'log_precos' EXECUTADA NA TABELA 'PRODUTOS'.</code><br>
-                    <code>[10:00:45] PROCEDURE 'sp_repor_estoque' CONCLUÍDA.</code>
+                    <code>[SQL] Sistema carregado com sucesso...</code><br>
+                    <code>[SQL] Trigger 'log_precos' ativa.</code>
                 </div>
             </div>
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="front-end/Script.js"></script>
 </body>
 </html>
