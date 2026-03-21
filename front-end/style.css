@@ -1,0 +1,42 @@
+:root {
+    --primary: #6F4E37; /* Café */
+    --secondary: #A67B5B;
+    --bg: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text: #f5f5f5;
+}
+
+body {
+    display: flex;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #111;
+    padding: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary);
+}
+
+.alert { border-left-color: #e74c3c; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
