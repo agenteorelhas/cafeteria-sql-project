@@ -1,175 +1,56 @@
-/* 1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS */
 :root {
-    /* Cores Principais */
     --primary: #6F4E37;       /* Marrom Café */
     --primary-light: #A67B5B;
-    --accent: #D2B48C;        /* Bege/Canela */
-    
-    /* Neutros */
-    --bg-dark: #121212;       /* Fundo profundo */
-    --bg-sidebar: #0A0A0A;    /* Fundo lateral */
-    --bg-card: #1E1E1E;       /* Fundo dos cards/tabelas */
+    --bg-dark: #121212;
+    --bg-sidebar: #0A0A0A;
+    --bg-card: #1E1E1E;
     --text-main: #FFFFFF;
     --text-dim: #A0A0A0;
-    
-    /* Status */
     --success: #2ecc71;
-    --warning: #f1c40f;
     --danger: #e74c3c;
-
-    --transition: all 0.3s ease;
+    --warning: #f1c40f;
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
 
-body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    display: flex; 
-    min-height: 100vh;
-}
+/* Sidebar */
+.sidebar { width: 260px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #222; }
+.sidebar h2 { color: var(--primary-light); margin-bottom: 2rem; letter-spacing: 2px; font-size: 1.2rem; }
+.sidebar a { color: var(--text-dim); text-decoration: none; display: block; padding: 12px; border-radius: 6px; transition: var(--transition); }
+.sidebar a:hover, .sidebar a.active { background: var(--primary); color: white; padding-left: 20px; }
 
-/* 2. SIDEBAR */
-.sidebar {
-    width: 260px;
-    background-color: var(--bg-sidebar);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #222;
-}
+/* Layout Content */
+.content { flex: 1; padding: 2rem; overflow-y: auto; }
 
-.sidebar h2 {
-    color: var(--primary-light);
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+/* Glass Header & Badges */
+.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+.main-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; }
+.badge { font-size: 0.65rem; background: #000; padding: 5px 10px; border-radius: 4px; color: var(--text-dim); display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; }
+.dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
 
-.sidebar ul li {
-    list-style: none;
-    margin-bottom: 1rem;
+/* Barra de Busca Animada */
+.search-bar input {
+    background: #000; border: 2px solid #333; padding: 10px 15px; border-radius: 8px; color: white; width: 220px; transition: var(--transition);
 }
+.search-bar input:focus { outline: none; border-color: var(--primary); width: 300px; box-shadow: 0 0 15px rgba(111, 78, 55, 0.4); }
 
-.sidebar a {
-    text-decoration: none;
-    color: var(--text-dim);
-    font-weight: 500;
-    transition: var(--transition);
-    display: block;
-    padding: 12px;
-    border-radius: 6px;
-}
+/* Grid e Cards */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.card { background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--primary); }
+.card.alert { border-left-color: var(--danger); }
+.card h3 { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem; }
 
-.sidebar a:hover, 
-.sidebar a.active {
-    color: var(--text-main);
-    background: var(--primary);
-    padding-left: 20px; /* Efeito de deslocamento no hover */
-}
+/* Tabela */
+.table-container { background: var(--bg-card); padding: 1.5rem; border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; color: var(--primary-light); padding: 1rem; border-bottom: 2px solid #333; font-size: 0.8rem; }
+td { padding: 1rem; border-bottom: 1px solid #333; font-size: 0.9rem; }
+tr:hover { background: rgba(255, 255, 255, 0.02); }
 
-/* 3. CONTEÚDO PRINCIPAL E GRID */
-.content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-}
-
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-}
-
-.card {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border-left: 5px solid var(--primary); /* Mudado para borda esquerda para combinar com o estilo anterior */
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card.alert {
-    border-left-color: var(--danger);
-}
-
-.card h3 {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    margin-bottom: 0.5rem;
-}
-
-.card p {
-    font-size: 1.8rem;
-    font-weight: bold;
-}
-
-/* 4. TABELAS */
-.table-container {
-    background: var(--bg-card);
-    border-radius: 12px;
-    padding: 1.5rem;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    text-align: left;
-    color: var(--primary-light);
-    padding: 1rem;
-    border-bottom: 2px solid #333;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-
-td {
-    padding: 1rem;
-    border-bottom: 1px solid #333;
-    font-size: 0.95rem;
-}
-
-tr:hover {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* 5. UTILITÁRIOS (Status & Vidro) */
-.status {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.status.online { 
-    background: rgba(46, 204, 113, 0.2); 
-    color: var(--success); 
-}
-
-.status.offline { 
-    background: rgba(231, 76, 60, 0.2); 
-    color: var(--danger); 
-}
-
-.glass {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+/* Botões */
+.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-action { background: transparent; border: 1px solid; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
+.edit { color: var(--warning); border-color: var(--warning); }
+.delete { color: var(--danger); border-color: var(--danger); }
