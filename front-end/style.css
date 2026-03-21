@@ -60,3 +60,56 @@ th, td {
 
     --transition: all 0.3s ease;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Recomendo importar do Google Fonts */
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex; /* Sidebar fixa à esquerda e conteúdo à direita */
+    min-height: 100vh;
+}
+
+/* Sidebar Estilizada */
+.sidebar {
+    width: 260px;
+    background-color: #0A0A0A;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #222;
+}
+
+.sidebar h2 {
+    color: var(--primary-light);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.sidebar ul li {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-weight: 500;
+    transition: var(--transition);
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    color: var(--text-main);
+    background: var(--primary);
+    padding-left: 15px;
+}
