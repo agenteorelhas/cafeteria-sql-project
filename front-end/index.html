@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cafeteria Admin | Sistema de Gestão</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Café Admin</h2>
+        <ul>
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Estoque</a></li>
+            <li><a href="#">Relatórios</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <header>
+            <h1>Painel de Controle</h1>
+            <button id="btn-novo-produto">+ Novo Produto</button>
+        </header>
+
+        <section class="cards-grid">
+            <div class="card">
+                <h3>Total em Vendas</h3>
+                <p id="total-vendas">R$ 0,00</p>
+            </div>
+            <div class="card alert">
+                <h3>Alertas de Estoque</h3>
+                <p id="alertas-contagem">2 Itens baixos</p>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <h2>Produtos Cadastrados</h2>
+            <table id="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
