@@ -10,49 +10,49 @@
 <body>
     <nav class="sidebar">
         <h2>Café Admin</h2>
-        <ul>
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Produtos</a></li>
-            <li><a href="#">Estoque</a></li>
-            <li><a href="#">Logs SQL</a></li>
+        <ul class="nav-menu">
+            <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+            <li><a href="#produtos" class="nav-link">Produtos</a></li>
+            <li><a href="#estoque" class="nav-link">Estoque</a></li>
+            <li><a href="#logs" class="nav-link">Logs SQL</a></li>
         </ul>
     </nav>
 
     <main class="content">
         <header class="main-header glass">
             <div class="header-left">
-                <h1>Dashboard Cafeteria</h1>
+                <h1>Painel de Controle</h1>
                 <div class="system-badges">
-                    <span class="badge status-db"><i class="dot"></i> SQL Connected</span>
-                    <span class="badge status-trigger"><i class="dot"></i> Triggers Active</span>
+                    <span class="badge"><i class="dot"></i> SQL Connected</span>
+                    <span class="badge"><i class="dot"></i> Triggers Active</span>
                 </div>
             </div>
             
             <div class="header-actions">
                 <div class="search-bar">
-                    <input type="text" placeholder="Buscar por Nome ou ID..." id="input-busca">
+                    <input type="text" placeholder="Buscar produto ou ID..." id="input-busca">
                 </div>
                 <button id="btn-novo-produto" class="btn-main shadow-hover">+ Novo Item</button>
             </div>
         </header>
 
-        <section class="cards-grid">
+        <section id="dashboard" class="cards-grid">
             <div class="card">
                 <h3>Total em Vendas</h3>
                 <p>R$ 1.250,00</p>
             </div>
             <div class="card alert">
-                <h3>Estoque Baixo</h3>
-                <p id="alertas-contagem">2 Itens</p>
+                <h3>Itens em Alerta</h3>
+                <p>2 Produtos</p>
             </div>
             <div class="card">
-                <h3>Status do Banco</h3>
-                <p style="font-size: 1rem; color: var(--success);">Operacional</p>
+                <h3>Database Status</h3>
+                <p style="font-size: 1rem; color: var(--success);">Sync OK</p>
             </div>
         </section>
 
-        <section class="table-container">
-            <h2>Produtos em Linha (Query Simulation)</h2>
+        <section id="produtos" class="table-container">
+            <h2>Gerenciamento de Produtos</h2>
             <table>
                 <thead>
                     <tr>
