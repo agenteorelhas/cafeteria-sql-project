@@ -1,11 +1,11 @@
 :root {
     --primary: #6F4E37;        /* Marrom Café */
     --primary-glow: rgba(111, 78, 55, 0.6);
-    --accent: #D2B48C;         /* Tom de Areia/Leite */
-    --bg-dark: #0a0806;        /* Quase preto acastanhado */
-    --bg-sidebar: #140f0b;     /* Marrom muito escuro */
+    --accent: #D2B48C;         /* Tom de Areia/Creme */
+    --bg-dark: #0a0806;
+    --bg-sidebar: #140f0b;
     --bg-card: #1a1410;
-    --text: #ece0d1;           /* Creme claro para leitura */
+    --text: #ece0d1;
     --danger: #e74c3c;
 }
 
@@ -19,64 +19,56 @@ body {
     overflow-x: hidden;
 }
 
-#particles-js {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-}
+#particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
 /* Sidebar */
 .sidebar { width: 250px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #2a1e17; flex-shrink: 0; }
-.sidebar h2 { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem; margin-bottom: 2rem; text-shadow: 0 0 10px var(--primary-glow); }
-.nav-menu { list-style: none; }
-.nav-link { 
-    text-decoration: none; color: #5d4037; display: block; padding: 12px; 
-    border-radius: 8px; transition: 0.3s; margin-bottom: 5px;
-}
-.nav-link.active { 
-    background: #2a1e17; color: var(--accent); 
-    box-shadow: 0 0 15px var(--primary-glow);
-    border: 1px solid var(--primary);
-}
+.sidebar h2 { color: var(--primary); text-transform: uppercase; font-size: 1.1rem; text-shadow: 0 0 10px var(--primary-glow); }
+.nav-menu { list-style: none; margin-top: 2rem; }
+.nav-link { text-decoration: none; color: #5d4037; display: block; padding: 12px; border-radius: 8px; transition: 0.3s; }
+.nav-link.active { background: #2a1e17; color: var(--accent); box-shadow: 0 0 15px var(--primary-glow); border: 1px solid var(--primary); }
 
-/* Conteúdo e Glassmorphism */
+/* Layout */
 .content { flex: 1; padding: 2rem; position: relative; }
-.glass { 
-    background: rgba(26, 20, 16, 0.85); 
-    backdrop-filter: blur(12px); 
-    border: 1px solid #3c2a21; 
-    border-radius: 12px; 
-    padding: 1.5rem; 
-    margin-bottom: 2rem; 
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
+.glass { background: rgba(26, 20, 16, 0.85); backdrop-filter: blur(12px); border: 1px solid #3c2a21; border-radius: 12px; padding: 1.5rem; }
+.main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
 
-/* Cards com Neon Marrom */
+/* Dashboard Grid */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-.card { 
-    background: var(--bg-card); padding: 2rem; border-radius: 12px; 
-    border-left: 4px solid var(--primary); transition: 0.4s;
-    border-top: 1px solid #2a1e17;
-}
-.card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 0 20px var(--primary-glow);
-    border-left-color: var(--accent);
-}
+.card { background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--primary); transition: 0.4s; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 0 20px var(--primary-glow); }
 
-.badge { border: 1px solid var(--primary); color: var(--accent); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; box-shadow: 0 0 10px var(--primary-glow); }
+/* VELOCÍMETRO (GAUGE) CORRIGIDO */
+.gauge { position: relative; width: 200px; height: 100px; margin: 20px auto; }
+.gauge__body { 
+    width: 100%; height: 100%; background: #2a1e17; 
+    position: relative; border-radius: 100px 100px 0 0; overflow: hidden; 
+}
+.gauge__fill { 
+    position: absolute; top: 100%; left: 0; width: 100%; height: 100%; 
+    background: var(--primary); transform-origin: center top; 
+    transition: transform 1.5s ease-out; box-shadow: 0 0 20px var(--primary-glow);
+}
+.gauge__cover { 
+    width: 80%; height: 80%; background: var(--bg-card); 
+    border-radius: 100px 100px 0 0; position: absolute; 
+    top: 20%; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: flex-end; justify-content: center;
+}
+.gauge__needle { 
+    width: 4px; height: 90px; background: var(--accent); 
+    position: absolute; bottom: 0; left: 50%; 
+    transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg);
+    transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px var(--primary-glow); z-index: 10;
+}
+.gauge-value { font-size: 1.4rem; font-weight: bold; color: var(--accent); padding-bottom: 5px; }
 
-/* Tabela */
-th { text-align: left; padding: 15px; color: var(--primary); border-bottom: 1px solid #3c2a21; text-transform: uppercase; font-size: 0.8rem; }
+/* Tabela e Botões */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 15px; color: var(--primary); border-bottom: 1px solid #3c2a21; }
 td { padding: 15px; border-bottom: 1px solid #2a1e17; }
-
-/* Gauge */
-.gauge__body { width: 100%; height: 80px; background: #2a1e17; position: relative; border-radius: 100px 100px 0 0; overflow: hidden; }
-.gauge__fill { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: var(--primary); transform-origin: center top; transition: 1s; box-shadow: 0 0 20px var(--primary-glow); }
-.gauge__needle { background: var(--accent); box-shadow: 0 0 10px var(--primary-glow); }
-
-/* Botões */
-.btn-main { background: var(--primary); color: var(--text); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-.btn-main:hover { box-shadow: 0 0 20px var(--primary-glow); background: #8b6247; }
-.search-input { background: #000; border: 1px solid #3c2a21; color: var(--text); padding: 10px; border-radius: 8px; }
+.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-main:hover { box-shadow: 0 0 20px var(--primary-glow); }
+.search-input { background: #000; border: 1px solid #3c2a21; color: white; padding: 10px; border-radius: 8px; width: 220px; }
+.badge { border: 1px solid var(--primary); color: var(--accent); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; box-shadow: 0 0 10px var(--primary-glow); }
