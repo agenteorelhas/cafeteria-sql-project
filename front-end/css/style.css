@@ -1,6 +1,7 @@
 :root {
-    --primary: #6F4E37;       /* Marrom Café */
+    --primary: #6F4E37;
     --primary-light: #A67B5B;
+    --accent: #D2B48C; /* Dourado/Canela */
     --bg-dark: #121212;
     --bg-sidebar: #0A0A0A;
     --bg-card: #1E1E1E;
@@ -13,44 +14,76 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
 
-/* Sidebar */
-.sidebar { width: 260px; background: var(--bg-sidebar); padding: 2rem; border-right: 1px solid #222; }
-.sidebar h2 { color: var(--primary-light); margin-bottom: 2rem; letter-spacing: 2px; font-size: 1.2rem; }
-.sidebar a { color: var(--text-dim); text-decoration: none; display: block; padding: 12px; border-radius: 6px; transition: var(--transition); }
-.sidebar a:hover, .sidebar a.active { background: var(--primary); color: white; padding-left: 20px; }
+/* --- SIDEBAR CORRIGIDA --- */
+.sidebar { width: 260px; background: var(--bg-sidebar); padding: 2rem 1.5rem; border-right: 1px solid #222; }
+.sidebar h2 { color: var(--primary-light); margin-bottom: 2rem; letter-spacing: 2px; font-size: 1.2rem; text-align: center; }
 
-/* Layout Content */
-.content { flex: 1; padding: 2rem; overflow-y: auto; }
+.sidebar ul { list-style: none; } /* Remove os pontos brancos */
+.sidebar li { margin-bottom: 10px; position: relative; }
 
-/* Glass Header & Badges */
-.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-.main-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; }
-.badge { font-size: 0.65rem; background: #000; padding: 5px 10px; border-radius: 4px; color: var(--text-dim); display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; }
-.dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
-
-/* Barra de Busca Animada */
-.search-bar input {
-    background: #000; border: 2px solid #333; padding: 10px 15px; border-radius: 8px; color: white; width: 220px; transition: var(--transition);
+.sidebar a {
+    text-decoration: none;
+    color: var(--text-dim);
+    display: block;
+    padding: 12px 15px 12px 25px;
+    border-radius: 8px;
+    transition: var(--transition);
+    position: relative;
 }
-.search-bar input:focus { outline: none; border-color: var(--primary); width: 300px; box-shadow: 0 0 15px rgba(111, 78, 55, 0.4); }
 
-/* Grid e Cards */
+/* Efeito Bordinha Dourada */
+.sidebar a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 4px;
+    height: 70%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: var(--transition);
+    box-shadow: 0 0 10px var(--accent);
+    opacity: 0;
+}
+
+.sidebar a:hover {
+    background: rgba(111, 78, 55, 0.1);
+    color: var(--text-main);
+    padding-left: 30px;
+}
+
+.sidebar a:hover::before { transform: translateY(-50%) scaleY(1); opacity: 1; }
+
+.sidebar a.active { background: var(--primary); color: white; }
+.sidebar a.active::before { display: none; }
+
+/* --- CONTEÚDO E BUSCA --- */
+.content { flex: 1; padding: 2rem; }
+.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; }
+.main-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; margin-bottom: 2rem; }
+
+.search-bar input {
+    background: #000; border: 2px solid #333; padding: 10px 15px; border-radius: 8px; color: white; width: 250px; transition: var(--transition);
+}
+.search-bar input:focus { outline: none; border-color: var(--primary); width: 320px; box-shadow: 0 0 15px rgba(111, 78, 55, 0.4); }
+
+.badge { font-size: 0.7rem; color: var(--text-dim); display: inline-flex; align-items: center; gap: 5px; margin-right: 10px; }
+.dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
+
+/* Cards e Tabela */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
 .card { background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--primary); }
 .card.alert { border-left-color: var(--danger); }
-.card h3 { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem; }
 
-/* Tabela */
 .table-container { background: var(--bg-card); padding: 1.5rem; border-radius: 12px; }
-table { width: 100%; border-collapse: collapse; }
-th { text-align: left; color: var(--primary-light); padding: 1rem; border-bottom: 2px solid #333; font-size: 0.8rem; }
-td { padding: 1rem; border-bottom: 1px solid #333; font-size: 0.9rem; }
-tr:hover { background: rgba(255, 255, 255, 0.02); }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th { text-align: left; color: var(--primary-light); padding: 1rem; border-bottom: 2px solid #333; }
+td { padding: 1rem; border-bottom: 1px solid #333; }
 
-/* Botões */
-.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-.btn-action { background: transparent; border: 1px solid; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
+.btn-main { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-action { background: transparent; border: 1px solid; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; margin-right: 5px; }
 .edit { color: var(--warning); border-color: var(--warning); }
 .delete { color: var(--danger); border-color: var(--danger); }
