@@ -1,48 +1,41 @@
-// Dados simulados (Mock) que viriam das tuas tabelas SQL
-const produtosIniciais = [
-    { id: 1, nome: 'Espresso Tradicional', preco: 5.50, ativo: true },
-    { id: 2, nome: 'Cappuccino Italiano', preco: 12.00, ativo: true },
-    { id: 3, nome: 'Latte Art Macchiato', preco: 15.90, ativo: false }
+// Simulação de dados do Banco SQL
+const db_produtos = [
+    { id: 1, nome: "Espresso Tradicional", preco: 6.50, status: "Ativo" },
+    { id: 2, nome: "Cappuccino Italiano", preco: 12.00, status: "Ativo" },
+    { id: 3, nome: "Latte Macchiato", preco: 14.50, status: "Estoque Baixo" },
+    { id: 4, nome: "Mocha Chocolate", preco: 16.00, status: "Inativo" }
 ];
 
-const tabela = document.getElementById('lista-produtos');
+const listaProdutos = document.getElementById('lista-produtos');
+const inputBusca = document.getElementById('input-busca');
 
-// Função para renderizar a tabela
-function renderizarTabela(dados) {
-    tabela.innerHTML = dados.map(p => `
+// Função para construir a tabela
+function popularTabela(itens) {
+    listaProdutos.innerHTML = itens.map(p => `
         <tr>
             <td>#${p.id}</td>
-            <td>${p.nome}</td>
+            <td><strong>${p.nome}</strong></td>
             <td>R$ ${p.preco.toFixed(2)}</td>
+            <td><span style="color: ${p.status === 'Inativo' ? 'var(--danger)' : 'var(--success)'}">${p.status}</span></td>
             <td>
-                <span class="status ${p.ativo ? 'online' : 'offline'}">
-                    ${p.ativo ? 'Ativo' : 'Inativo'}
-                </span>
-            </td>
-            <td>
-                <button class="btn-action edit" onclick="editarPreco(${p.id})">Preço</button>
-                <button class="btn-action delete" onclick="excluirProduto(${p.id})">Excluir</button>
+                <button class="btn-action edit" onclick="alert('Trigger log_precos simulado para ID ${p.id}')">Preço</button>
+                <button class="btn-action delete" onclick="confirm('Soft Delete SQL para ID ${p.id}?')">Excluir</button>
             </td>
         </tr>
     `).join('');
 }
 
-// Lógica dos Botões
-function editarPreco(id) {
-    const novoPreco = prompt(`Digite o novo preço para o ID ${id}:`);
-    if (novoPreco && !isNaN(novoPreco)) {
-        alert(`Preço atualizado para R$ ${novoPreco}. (O Trigger SQL log_precos foi acionado)`);
-        // Aqui enviarias o UPDATE para o banco
-    }
-}
+// Filtro de busca em tempo real (Simula WHERE LIKE)
+inputBusca.addEventListener('input', (e) => {
+    const termo = e.target.value.toLowerCase();
+    const filtrados = db_produtos.filter(p => 
+        p.nome.toLowerCase().includes(termo) || p.id.toString().includes(termo)
+    );
+    popularTabela(filtrados);
+});
 
-function excluirProduto(id) {
-    if (confirm("Deseja realmente desativar este produto?")) {
-        alert(`Produto ${id} marcado como inativo (Soft Delete).`);
-    }
-}
-
-// Inicialização
+// Inicializar
 document.addEventListener('DOMContentLoaded', () => {
-    renderizarTabela(produtosIniciais);
+    popularTabela(db_produtos);
+    console.log("Dashboard Cafeteria: Sistema Pronto.");
 });
