@@ -6,31 +6,43 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // 1. Alternar classe ativa
+            // Remove active de todos
             links.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
-            // 2. Alternar visualização das telas
-            const targetId = 'view-' + this.getAttribute('href').replace('#', '');
-            views.forEach(v => {
-                v.style.display = (v.id === targetId) ? 'block' : 'none';
-            });
+            // Esconde todas as views
+            views.forEach(v => v.style.display = 'none');
 
-            // 3. Carregar animação de estoque se necessário
-            if (targetId === 'view-estoque') {
-                setTimeout(() => animarGauge('gauge-cafe', 0.75), 100);
+            // Mostra a view alvo
+            const target = 'view-' + this.getAttribute('href').replace('#', '');
+            document.getElementById(target).style.display = 'block';
+
+            // Se for estoque, anima o gauge
+            if (target === 'view-estoque') {
+                setTimeout(() => {
+                    const fill = document.getElementById('gauge-cafe-fill');
+                    const needle = document.getElementById('gauge-cafe-needle');
+                    const text = document.getElementById('gauge-cafe-text');
+                    if(fill) {
+                        fill.style.transform = `rotate(0.375turn)`; // 75%
+                        needle.style.transform = `translateX(-50%) rotate(45deg)`;
+                        text.innerText = "75%";
+                    }
+                }, 100);
             }
         });
     });
 
-    function animarGauge(id, val) {
-        const fill = document.getElementById(`${id}-fill`);
-        const needle = document.getElementById(`${id}-needle`);
-        const text = document.getElementById(`${id}-text`);
-        if (fill && needle) {
-            fill.style.transform = `rotate(${val / 2}turn)`;
-            needle.style.transform = `translateX(-50%) rotate(${(val * 180) - 90}deg)`;
-            text.innerText = `${Math.round(val * 100)}%`;
-        }
+    // Mock de produtos
+    const lista = document.getElementById('lista-produtos');
+    const dados = [
+        {id: "#1", nome: "Espresso", preco: "R$ 6,50", status: "Ativo"},
+        {id: "#2", nome: "Cappuccino", preco: "R$ 12,00", status: "Ativo"}
+    ];
+
+    if(lista) {
+        lista.innerHTML = dados.map(p => `
+            <tr><td>${p.id}</td><td>${p.nome}</td><td>${p.preco}</td><td>${p.status}</td></tr>
+        `).join('');
     }
 });
