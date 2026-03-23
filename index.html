@@ -1,90 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafeteria Admin | Espresso SQL</title>
-    <link rel="icon" type="image/png" href="https://img.icons8.com/parakeet-line/48/D2B48C/coffee-to-go.png">
-    
-    <link rel="stylesheet" href="front-end/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Café Admin</title>
+<link rel="stylesheet" href="front-end/css/style.css">
 </head>
+
 <body>
-    <div id="particles-js"></div>
 
-    <nav class="sidebar">
-        <div class="sidebar-logo"><h2>CAFÉ ADMIN</h2></div>
-        <ul class="nav-menu">
-            <li><a href="#" class="nav-link active" data-target="view-dashboard">Dashboard</a></li>
-            <li><a href="#" class="nav-link" data-target="view-produtos">Produtos</a></li>
-            <li><a href="#" class="nav-link" data-target="view-estoque">Estoque</a></li>
-            <li><a href="#" class="nav-link" data-target="view-logs">Logs SQL</a></li>
-        </ul>
-    </nav>
+<nav class="sidebar">
+    <h2>CAFÉ ADMIN</h2>
+    <a href="#" class="nav-link active" data-target="view-dashboard">Dashboard</a>
+    <a href="#" class="nav-link" data-target="view-produtos">Produtos</a>
+    <a href="#" class="nav-link" data-target="view-estoque">Estoque</a>
+    <a href="#" class="nav-link" data-target="view-logs">Logs</a>
+</nav>
 
-    <main class="content">
-        <header class="main-header glass">
-            <div class="header-info">
-                <h1>Painel de Gestão</h1>
-                <span class="badge">SQL Server Ativo</span>
-            </div>
-            <button id="btn-novo-produto" class="btn-main">+ Novo Item</button>
-        </header>
+<main class="content">
 
-        <div id="view-dashboard" class="content-view active">
-            <div class="cards-grid">
-                <div class="card"><h3>Vendas Hoje</h3><p>R$ 1.250,00</p></div>
-                <div class="card critico"><h3>Alertas</h3><p>2 Itens Críticos</p></div>
-                <div class="card"><h3>Database</h3><p style="color:#50fa7b">Estável</p></div>
-            </div>
-        </div>
+<header class="main-header glass">
+    <h1>Painel</h1>
+    <button id="btn-novo-produto">+ Novo</button>
+</header>
 
-        <div id="view-produtos" class="content-view">
-            <div class="table-container glass">
-                <h3>Inventário de Produtos</h3>
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Produto</th><th>Preço</th><th>Qtd</th></tr>
-                    </thead>
-                    <tbody id="lista-produtos">
-                        <tr><td>#001</td><td>Grão Arábica</td><td>R$ 45.00</td><td>15kg</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div id="view-dashboard" class="content-view active">
+    <div class="cards-grid">
+        <div class="card"><h3>Total Produtos</h3><p id="dash-produtos">0</p></div>
+        <div class="card"><h3>Estoque</h3><p id="dash-estoque">0</p></div>
+    </div>
+</div>
 
-        <div id="view-estoque" class="content-view">
-            <div class="gauge-card glass">
-                <h3>Nível de Grãos de Café</h3>
-                <div class="gauge">
-                    <div class="gauge__body">
-                        <div class="gauge__fill" id="gauge-fill"></div>
-                        <div class="gauge__cover"></div>
-                    </div>
-                    <div class="gauge__needle" id="gauge-needle"></div>
-                </div>
-                <div class="gauge-value" id="gauge-text">0%</div>
-            </div>
-        </div>
+<div id="view-produtos" class="content-view">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Nome</th><th>Preço</th><th>Qtd</th></tr>
+        </thead>
+        <tbody id="lista-produtos"></tbody>
+    </table>
+</div>
 
-        <div id="view-logs" class="content-view">
-            <div class="log-terminal glass" id="log-terminal">
-                <code>[SQL] Sistema online...</code>
-            </div>
-        </div>
-    </main>
+<div id="view-logs" class="content-view">
+    <div id="log-terminal"></div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="front-end/Script.js"></script>
-    <div id="modal" class="modal">
+<div class="comentarios glass">
+    <input id="comentario-input">
+    <button onclick="enviarComentario()">Enviar</button>
+    <div id="lista-comentarios"></div>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
     <div class="modal-content">
-        <h3>Novo Produto</h3>
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="number" id="preco" placeholder="Preço">
-        <input type="number" id="quantidade" placeholder="Quantidade">
+        <input id="nome" placeholder="Nome">
+        <input id="preco" placeholder="Preço">
+        <input id="quantidade" placeholder="Quantidade">
         <input type="file" id="imagem">
         <button onclick="salvarProduto()">Salvar</button>
     </div>
 </div>
+
+<script src="front-end/Script.js"></script>
 </body>
 </html>
