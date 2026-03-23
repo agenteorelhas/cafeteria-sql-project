@@ -26,7 +26,7 @@ Projeto completo de modelagem, análise e gestão de dados de uma cafeteria, evo
 * [📊 Visualização BI](#-visualização-de-dados-bi)
 * [📖 Dicionário de Dados](#-dicionário-de-dados)
 * [🏆 Competências](#-competências-demonstradas)
-* [🛠️ Como Executar](#️-como-executar)
+* [🛠️ Como Executar](#-como-executar)
 
 ---
 
@@ -65,7 +65,7 @@ A base do sistema é uma estrutura relacional normalizada (1NF, 2NF e 3NF) proje
 ### 🛒 Vendas e Clientes
 * **clientes**: Informações de consumidores. Possui campo `email` único para evitar duplicidade.
 * **pedidos**: Registro de cada venda realizada vinculada a um cliente.
-* **itens_pedido**: Detalhamento de produtos por pedido (Relacionamento para itens específicos).
+* **itens_pedido**: Detalhamento de produtos por pedido.
 
 ### ☕ Gestão de Produtos e Estoque
 * **produtos**: Catálogo de itens vendidos e preços.
@@ -73,16 +73,13 @@ A base do sistema é uma estrutura relacional normalizada (1NF, 2NF e 3NF) proje
 * **ingredientes**: Controle de insumos (café, leite, açúcar).
 * **ficha_tecnica**: Relacionamento **N:N** que define a composição de cada produto para baixa automática.
 
-### 👥 Recursos Humanos
-* **funcionarios**: Cadastro de colaboradores e controle de vendedores.
-
 ---
 
 ## 🛡️ Segurança e Performance 🔐
 * **Triggers**: Auditoria automática de preços e logs de inserção na tabela `log_precos`.
 * **Views**: Visão `v_resumo_vendas_por_produto` para simplificar relatórios e dashboards de BI.
 * **Indexes**: Índices B-Tree para buscas rápidas em `email` e `data_pedido`.
-* **Soft Delete**: O sistema utiliza exclusão lógica (coluna `ativo`). Isso garante a manutenção da Integridade Referencial, permitindo que o histórico de vendas permaneça intacto mesmo após um produto ser retirado do catálogo.
+* **Soft Delete**: O sistema utiliza exclusão lógica (coluna `ativo`). Isso garante a manutenção da Integridade Referencial.
 
 ---
 
@@ -117,8 +114,8 @@ Embora focado no Backend, a estrutura alimenta dashboards de Business Intelligen
 ---
 
 ## 💡 Desafios e Soluções Técnicas
-* **Consistência de Estoque:** Implementação de uma **Ficha Técnica (N:N)** com **Stored Procedure** e controle transacional (`START TRANSACTION`), garantindo baixa atômica.
-* **Rastreabilidade:** Criação de sistema de **Auditoria via Triggers**, isolando logs em tabelas dedicadas sem onerar a performance principal.
+* **Consistência de Estoque:** Implementação de uma **Ficha Técnica (N:N)** com **Stored Procedure** e controle transacional, garantindo baixa atômica.
+* **Rastreabilidade:** Criação de sistema de **Auditoria via Triggers**, isolando logs em tabelas dedicadas.
 
 ---
 
@@ -127,3 +124,27 @@ Embora focado no Backend, a estrutura alimenta dashboards de Business Intelligen
 1. **Clone o repositório:**
    ```bash
    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+2. **Prepare o Banco de Dados:**
+   Execute os arquivos da pasta /scripts na sequência:
+
+   01_schema.sql (Criação das tabelas)
+
+   02_seed.sql (População de dados)
+
+   04_advanced_features.sql (Views e Triggers)
+
+   05_procedures.sql (Lógica de Procedures)
+
+3. **Inicie o Backend (Node.js):**
+
+    Bash
+    npm install
+    node server.js
+    Acesse a Interface:
+    Abra o arquivo index.html no navegador.
+
+#💻 Convenções
+
+Este projeto segue as convenções de nomenclatura snake_case e palavras-chave SQL em UPPERCASE para garantir legibilidade e manutenção.
+
+🐰 conceived and programmed by agenteorelhas 🐰
