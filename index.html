@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coelho Café ☕</title>
+<title>Café SaaS</title>
 
 <link rel="stylesheet" href="front-end/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -13,12 +14,12 @@
 <!-- LOGIN -->
 <div id="login-screen" class="login-screen">
     <div class="login-box">
-        <h2>Coelho Café ☕</h2>
+        <h2>☕ Café SaaS</h2>
 
         <input id="login-user" placeholder="Email">
         <input id="login-pass" type="password" placeholder="Senha">
 
-        <button id="btn-login">Entrar</button>
+        <button id="btn-login" class="btn-primary">Entrar</button>
 
         <p style="text-align:center; font-size:12px;">
             Não tem conta?
@@ -31,32 +32,73 @@
 <div class="app hidden">
 
     <aside class="sidebar">
-        <h2>☕ Café</h2>
-        <a class="nav-link active" data-target="dashboard">Dashboard</a>
-        <a class="nav-link" data-target="produtos">Produtos</a>
-        <button onclick="logout()">Sair</button>
+        <div>
+            <div class="logo">☕ Café Admin</div>
+
+            <div class="nav-link active" data-target="dashboard">Dashboard</div>
+            <div class="nav-link" data-target="produtos">Produtos</div>
+        </div>
+
+        <button class="btn-primary" onclick="logout()">Sair</button>
     </aside>
 
     <main class="main">
 
-        <section id="dashboard" class="view active">
+        <div class="topbar">
             <h1>Dashboard</h1>
-            <p>Total Produtos: <span id="dash-produtos">0</span></p>
-            <p>Total Estoque: <span id="dash-estoque">0</span></p>
+        </div>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="view active">
+            <div class="cards">
+                <div class="card">
+                    <span>Total Produtos</span>
+                    <h2 id="dash-produtos">0</h2>
+                </div>
+
+                <div class="card">
+                    <span>Total Estoque</span>
+                    <h2 id="dash-estoque">0</h2>
+                </div>
+            </div>
         </section>
 
+        <!-- PRODUTOS -->
         <section id="produtos" class="view">
-            <h1>Produtos</h1>
-            <button onclick="salvarProduto()">+ Novo</button>
-            <table>
-                <thead>
-                    <tr><th>ID</th><th>Nome</th><th>Preço</th><th>Qtd</th></tr>
-                </thead>
-                <tbody id="lista-produtos"></tbody>
-            </table>
+            <div class="topbar">
+                <h1>Produtos</h1>
+                <button class="btn-primary" onclick="abrirModal()">+ Novo</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Qtd</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-produtos"></tbody>
+                </table>
+            </div>
         </section>
 
     </main>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-box">
+        <h3>Novo Produto</h3>
+
+        <input id="p-nome" placeholder="Nome">
+        <input id="p-preco" type="number" placeholder="Preço">
+        <input id="p-qtd" type="number" placeholder="Quantidade">
+
+        <button class="btn-primary" onclick="salvarProduto()">Salvar</button>
+    </div>
 </div>
 
 <script src="front-end/Script.js"></script>
