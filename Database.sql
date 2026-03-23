@@ -9,6 +9,7 @@ CREATE TABLE Produtos (
     Nome VARCHAR(100) NOT NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Quantidade INT NOT NULL,
+    Imagem VARCHAR(255),
     DataCadastro DATETIME DEFAULT GETDATE()
 );
 
@@ -16,6 +17,12 @@ CREATE TABLE LogsOperacoes (
     ID INT PRIMARY KEY IDENTITY(1,1),
     Descricao VARCHAR(255),
     DataHora DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Comentarios (
+    ID INT PRIMARY KEY IDENTITY,
+    Texto VARCHAR(255),
+    Data DATETIME DEFAULT GETDATE()
 );
 GO
 
@@ -33,16 +40,7 @@ BEGIN
 END;
 GO
 
--- DADOS INICIAIS
 INSERT INTO Produtos (Nome, Preco, Quantidade)
 VALUES 
 ('Grão Arábica', 45.00, 15),
 ('Café Expresso', 8.50, 50);
-
-ALTER TABLE Produtos ADD Imagem VARCHAR(255);
-
-CREATE TABLE Comentarios (
-    ID INT PRIMARY KEY IDENTITY,
-    Texto VARCHAR(255),
-    Data DATETIME DEFAULT GETDATE()
-);
