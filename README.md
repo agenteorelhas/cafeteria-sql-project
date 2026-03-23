@@ -137,11 +137,15 @@ Embora focado no Backend, a estrutura alimenta dashboards de Business Intelligen
 
 3. **Inicie o Backend (Node.js):**
 
-    Bash
-    npm install
-    node server.js
-    Acesse a Interface:
-    Abra o arquivo index.html no navegador.
+   Bash
+
+   npm install
+
+   node server.js
+
+   Acesse a Interface:
+
+   Abra o arquivo index.html no navegador.
 
 #💻 Convenções
 
