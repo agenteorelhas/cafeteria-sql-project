@@ -1,7 +1,7 @@
 const API = 'http://localhost:3000/api';
 let token = localStorage.getItem('token');
 
-// BOTÃO LOGIN
+// INIT LOGIN BUTTON
 document.getElementById('btn-login').onclick = login;
 
 // LOGIN
@@ -18,18 +18,16 @@ async function login() {
     const data = await res.json();
 
     if (data.token) {
-        localStorage.setItem('token', data.token);
+        token = data.token;
+        localStorage.setItem('token', token);
 
-        document.getElementById('login-screen').style.display = 'none';
-        document.querySelector('.app').classList.remove('hidden');
-
-        init();
+        entrarApp();
     } else {
         alert('Login inválido');
     }
 }
 
-// REGISTRO (CORRIGIDO)
+// REGISTER
 async function register() {
     const email = document.getElementById('login-user').value;
     const senha = document.getElementById('login-pass').value;
@@ -43,9 +41,8 @@ async function register() {
     const data = await res.json();
 
     if (data.ok) {
-        alert('Conta criada com sucesso! Agora faça login.');
+        alert('Conta criada! Faça login.');
 
-        // VOLTA PRO LOGIN
         const btn = document.getElementById('btn-login');
         btn.innerText = 'Entrar';
         btn.onclick = login;
@@ -55,7 +52,7 @@ async function register() {
     }
 }
 
-// TOGGLE ENTRE LOGIN E CADASTRO
+// TOGGLE
 function toggleRegister() {
     const btn = document.getElementById('btn-login');
 
@@ -68,12 +65,16 @@ function toggleRegister() {
     }
 }
 
-// AUTO LOGIN
-if (token) {
+// ENTRAR NO APP
+function entrarApp() {
     document.getElementById('login-screen').style.display = 'none';
     document.querySelector('.app').classList.remove('hidden');
+
     init();
 }
+
+// AUTO LOGIN
+if (token) entrarApp();
 
 // API HELPER
 async function api(url, options = {}) {
@@ -88,45 +89,67 @@ async function api(url, options = {}) {
 
 // INIT
 function init() {
+    setupNav();
     carregarProdutos();
     carregarDashboard();
+}
+
+// NAVEGAÇÃO
+function setupNav() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.onclick = () => {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+            link.classList.add('active');
+            document.getElementById(link.dataset.target).classList.add('active');
+        };
+    });
 }
 
 // PRODUTOS
 async function carregarProdutos() {
     const data = await api('/produtos');
 
-    lista-produtos.innerHTML = data.map(p =>
-        `<tr>
+    document.getElementById('lista-produtos').innerHTML = data.map(p => `
+        <tr>
             <td>${p.ID}</td>
             <td>${p.Nome}</td>
-            <td>${p.Preco}</td>
+            <td>R$ ${p.Preco}</td>
             <td>${p.Quantidade}</td>
-        </tr>`
-    ).join('');
-}
-
-// SALVAR PRODUTO
-async function salvarProduto() {
-    await api('/produtos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            nome: "Novo Café",
-            preco: 20,
-            quantidade: 5
-        })
-    });
-
-    carregarProdutos();
+        </tr>
+    `).join('');
 }
 
 // DASHBOARD
 async function carregarDashboard() {
     const d = await api('/dashboard');
 
-    dash-produtos.innerText = d.totalProdutos;
-    dash-estoque.innerText = d.totalEstoque;
+    document.getElementById('dash-produtos').innerText = d.totalProdutos;
+    document.getElementById('dash-estoque').innerText = d.totalEstoque;
+}
+
+// MODAL
+function abrirModal() {
+    document.getElementById('modal').style.display = 'flex';
+}
+
+// SALVAR PRODUTO
+async function salvarProduto() {
+    const nome = document.getElementById('p-nome').value;
+    const preco = document.getElementById('p-preco').value;
+    const quantidade = document.getElementById('p-qtd').value;
+
+    await api('/produtos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, preco, quantidade })
+    });
+
+    document.getElementById('modal').style.display = 'none';
+
+    carregarProdutos();
+    carregarDashboard();
 }
 
 // LOGOUT
