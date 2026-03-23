@@ -141,3 +141,108 @@ Interface moderna inspirada em produtos como Stripe e Notion.
 ---
 
 ## 🧠 Arquitetura
+
+Frontend (HTML/CSS/JS)
+↓
+API (Node.js + Express)
+↓
+Banco de Dados (SQL Server)
+
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+### Backend
+- Node.js
+- Express
+- MSSQL
+- JWT
+- bcrypt
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Banco
+- SQL Server
+- MySQL (compatível)
+
+---
+
+## 🏆 Competências Demonstradas
+
+| Área | Habilidade |
+|------|--------|
+| Backend | API REST, autenticação JWT |
+| Frontend | UI/UX moderna |
+| Banco | Modelagem relacional |
+| Segurança | Hash + Token |
+| BI | Queries analíticas |
+| SaaS | Multi-usuário |
+
+---
+
+## 💡 Diferenciais do Projeto
+
+- Evolução real (DB → SaaS)
+- Interface profissional
+- Sistema de autenticação completo
+- Arquitetura escalável
+- Base pronta para monetização
+
+---
+
+## 💰 Monetização
+
+Possível evolução para:
+
+- Plano Free / Pro / Premium
+- Integração com Stripe
+- Multi-tenant
+- Sistema de assinaturas
+
+---
+
+## 🛠️ Como Executar
+```bash
+### 1. Clonar repositório
+
+git clone https://github.com/agenteorelhas/cafeteria-sql-project.git
+
+---
+
+### 2. Banco de dados
+
+Execute:
+
+01_schema.sql
+02_seed.sql
+04_advanced_features.sql
+05_procedures.sql
+3. Backend
+npm install
+node server.js
+4. Frontend
+
+Abra:
+
+index.html
+🌐 Deploy (Produção)
+
+Sugestões:
+
+Frontend → Vercel
+Backend → Railway
+Banco → Azure SQL / Supabase
+📈 Próximos Passos
+Login com Google
+Reset de senha
+Upload de imagens
+Dashboard com gráficos
+Mobile responsivo
+Sistema de pagamento
+🧑‍💻 Autor
+
+🐰 desenvolvido por agenteorelhas
