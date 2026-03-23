@@ -147,6 +147,8 @@ Embora focado no Backend, a estrutura alimenta dashboards de Business Intelligen
 
    Abra o arquivo index.html no navegador.
 
+---
+
 ##💻 Convenções
 
 Este projeto segue as convenções de nomenclatura snake_case e palavras-chave SQL em UPPERCASE para garantir legibilidade e manutenção.
