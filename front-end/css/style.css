@@ -1,8 +1,242 @@
-body { display:flex; font-family:Arial; background:#0a0806; color:white; }
-.sidebar { width:200px; padding:20px; background:#120d0a; }
-.content { flex:1; padding:20px; }
-.card { background:#1a1410; padding:15px; margin:10px; }
-.modal { display:none; position:fixed; width:100%; height:100%; background:#0008; justify-content:center; align-items:center; }
-.modal-content { background:#222; padding:20px; }
-.content-view { display:none; }
-.content-view.active { display:block; }
+:root {
+    --primary: #6F4E37;
+    --bg-dark: #0a0806;
+    --bg-sidebar: #120d0a;
+    --text-main: #FFFFFF;
+    --text-dim: #D2B48C;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: var(--bg-sidebar);
+    padding: 2rem 1.5rem;
+    border-right: 1px solid #2a1e17;
+}
+
+.sidebar h2 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    color: #5d483a;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #1e1611;
+    color: var(--text-dim);
+    border: 1px solid var(--primary);
+}
+
+/* CONTENT */
+.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+/* HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-main,
+#btn-novo-produto {
+    background: var(--primary);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-main:hover,
+#btn-novo-produto:hover {
+    opacity: 0.8;
+}
+
+/* VIEWS */
+.content-view {
+    display: none;
+}
+
+.content-view.active {
+    display: block;
+}
+
+/* DASHBOARD */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #1a1410;
+    border: 1px solid #3c2a21;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(111, 78, 55, 0.3);
+}
+
+.card h3 {
+    color: var(--text-dim);
+    margin-bottom: 10px;
+}
+
+/* TABELA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #2a1e17;
+}
+
+th {
+    color: var(--text-dim);
+}
+
+/* GAUGE */
+.gauge-card {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.gauge {
+    width: 220px;
+    height: 110px;
+    margin: auto;
+    position: relative;
+}
+
+.gauge__body {
+    width: 100%;
+    height: 100%;
+    background: #2a1e17;
+    border-radius: 220px 220px 0 0;
+    overflow: hidden;
+}
+
+.gauge__fill {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    transform-origin: center top;
+    transition: 1.5s;
+}
+
+.gauge__cover {
+    width: 85%;
+    height: 85%;
+    background: #1a1410;
+    border-radius: 220px 220px 0 0;
+    position: absolute;
+    top: 15%;
+    left: 7.5%;
+}
+
+.gauge__needle {
+    width: 3px;
+    height: 100px;
+    background: white;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom;
+}
+
+/* LOGS */
+#log-terminal {
+    background: #0d0a08;
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    border-radius: 8px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #1a1410;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+/* COMENTÁRIOS */
+.comentarios {
+    margin-top: 30px;
+}
+
+#lista-comentarios div {
+    background: #2a1e17;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+
+    .main-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
