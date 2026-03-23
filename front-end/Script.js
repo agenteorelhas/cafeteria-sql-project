@@ -1,57 +1,78 @@
 const API = 'http://localhost:3000/api';
+let token = localStorage.getItem('token');
 
 // LOGIN
-function login() {
+async function login() {
+    const email = document.getElementById('login-user').value;
+    const senha = document.getElementById('login-pass').value;
+
+    const res = await fetch(API + '/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha })
+    });
+
+    const data = await res.json();
+
+    if (data.token) {
+        localStorage.setItem('token', data.token);
+        location.reload();
+    } else {
+        alert('Login inválido');
+    }
+}
+
+// AUTO LOGIN
+if (token) {
     document.getElementById('login-screen').style.display = 'none';
     document.querySelector('.app').classList.remove('hidden');
 }
 
-function logout() {
-    location.reload();
-}
-
-// NAV
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.onclick = () => {
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        document.getElementById(link.dataset.target).classList.add('active');
+// FETCH COM TOKEN
+async function api(url, options = {}) {
+    options.headers = {
+        ...(options.headers || {}),
+        Authorization: token
     };
-});
 
-// MODAL
-function openModal() {
-    modal.style.display = 'flex';
+    const res = await fetch(API + url, options);
+    return res.json();
 }
 
 // PRODUTOS
 async function carregarProdutos() {
-    const res = await fetch(API + '/produtos');
-    const data = await res.json();
+    const data = await api('/produtos');
 
     lista-produtos.innerHTML = data.map(p =>
         `<tr><td>${p.ID}</td><td>${p.Nome}</td><td>${p.Preco}</td><td>${p.Quantidade}</td></tr>`
     ).join('');
 }
 
-// DASHBOARD + CHART
+// SALVAR
+async function salvarProduto() {
+    await api('/produtos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            nome: nome.value,
+            preco: preco.value,
+            quantidade: quantidade.value
+        })
+    });
+
+    carregarProdutos();
+}
+
+// DASHBOARD
 async function carregarDashboard() {
-    const res = await fetch(API + '/dashboard');
-    const d = await res.json();
+    const d = await api('/dashboard');
 
     dash-produtos.innerText = d.totalProdutos;
     dash-estoque.innerText = d.totalEstoque;
-
-    new Chart(document.getElementById('chart'), {
-        type: 'bar',
-        data: {
-            labels: ['Produtos', 'Estoque'],
-            datasets: [{
-                data: [d.totalProdutos, d.totalEstoque]
-            }]
-        }
-    });
 }
 
 // INIT
-carregarProdutos();
-carregarDashboard();
+if (token) {
+    carregarProdutos();
+    carregarDashboard();
+}
