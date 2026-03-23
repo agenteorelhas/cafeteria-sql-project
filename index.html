@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☕ Cafeteria Admin | SQL Dashboard</title>
+    <title>Cafeteria Admin | SQL Dashboard</title>
     <link rel="stylesheet" href="front-end/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -11,9 +11,7 @@
     <div id="particles-js"></div>
 
     <nav class="sidebar">
-        <div class="sidebar-logo">
-            <h2>☕ Café Admin</h2>
-        </div>
+        <div class="sidebar-logo"><h2>Café Admin</h2></div>
         <ul class="nav-menu">
             <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
             <li><a href="#produtos" class="nav-link">Produtos</a></li>
@@ -25,7 +23,7 @@
     <main class="content">
         <header class="main-header glass">
             <div class="header-left">
-                <h1>🎛 Painel de Gestão</h1>
+                <h1>Painel de Gestão</h1>
                 <span class="badge">SQL Online</span>
             </div>
             <div class="header-actions">
@@ -42,42 +40,39 @@
             </div>
         </div>
 
-        <div id="view-produtos" class="content-view" style="display: none;">
-            <div class="table-container glass">
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Produto</th><th>Preço</th><th>Status</th></tr>
-                    </thead>
-                    <tbody id="lista-produtos"></tbody>
-                </table>
-            </div>
-        </div>
-
         <div id="view-estoque" class="content-view" style="display: none;">
             <div class="gauges-grid">
                 <div class="gauge-card glass">
-                    <h3>🌰 Grãos de Café</h3>
+                    <h3>Grãos de Café</h3>
                     <div class="gauge">
-                        <div class="gauge__body">
-                            <div class="gauge__fill" id="gauge-cafe-fill"></div>
-                            <div class="gauge__cover"></div>
-                        </div>
+                        <div class="gauge__body"><div class="gauge__fill" id="gauge-cafe-fill"></div><div class="gauge__cover"></div></div>
                         <div class="gauge__needle" id="gauge-cafe-needle"></div>
                     </div>
                     <span id="gauge-cafe-text" class="gauge-value">0%</span>
                 </div>
             </div>
         </div>
-
-        <div id="view-logs" class="content-view" style="display: none;">
-            <div class="log-container glass">
-                <div class="log-terminal">
-                    <code>[SQL] TRIGGER 'tr_audit_precos' disparada com sucesso.</code><br>
-                    <code>[SQL] VIEW 'vw_resumo_vendas' atualizada.</code>
-                </div>
-            </div>
-        </div>
     </main>
+
+    <div id="modal-container" class="modal-overlay">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Cadastrar Novo Item</h2>
+                <button id="close-modal" class="btn-close">&times;</button>
+            </div>
+            <form id="form-novo-item">
+                <div class="input-group">
+                    <label>Nome do Produto</label>
+                    <input type="text" id="nome-item" required>
+                </div>
+                <div class="input-row">
+                    <div class="input-group"><label>Preço</label><input type="number" id="preco-item" step="0.01" required></div>
+                    <div class="input-group"><label>Qtd</label><input type="number" id="qtd-item" required></div>
+                </div>
+                <button type="submit" class="btn-main btn-full">Salvar no SQL</button>
+            </form>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="front-end/Script.js"></script>
