@@ -1,7 +1,7 @@
 const API = 'http://localhost:3000/api';
 let token = localStorage.getItem('token');
 
-// LOGIN BUTTON
+// BOTÃO LOGIN
 document.getElementById('btn-login').onclick = login;
 
 // LOGIN
@@ -20,7 +20,6 @@ async function login() {
     if (data.token) {
         localStorage.setItem('token', data.token);
 
-        // 🔥 ENTRA NO APP
         document.getElementById('login-screen').style.display = 'none';
         document.querySelector('.app').classList.remove('hidden');
 
@@ -30,10 +29,10 @@ async function login() {
     }
 }
 
-// REGISTER
+// REGISTRO (CORRIGIDO)
 async function register() {
-    const email = login-user.value;
-    const senha = login-pass.value;
+    const email = document.getElementById('login-user').value;
+    const senha = document.getElementById('login-pass').value;
 
     const res = await fetch(API + '/register', {
         method: 'POST',
@@ -44,13 +43,19 @@ async function register() {
     const data = await res.json();
 
     if (data.ok) {
-        alert('Conta criada!');
+        alert('Conta criada com sucesso! Agora faça login.');
+
+        // VOLTA PRO LOGIN
+        const btn = document.getElementById('btn-login');
+        btn.innerText = 'Entrar';
+        btn.onclick = login;
+
     } else {
-        alert(data.erro);
+        alert(data.erro || 'Erro ao criar conta');
     }
 }
 
-// TOGGLE LOGIN/REGISTER
+// TOGGLE ENTRE LOGIN E CADASTRO
 function toggleRegister() {
     const btn = document.getElementById('btn-login');
 
@@ -92,11 +97,16 @@ async function carregarProdutos() {
     const data = await api('/produtos');
 
     lista-produtos.innerHTML = data.map(p =>
-        `<tr><td>${p.ID}</td><td>${p.Nome}</td><td>${p.Preco}</td><td>${p.Quantidade}</td></tr>`
+        `<tr>
+            <td>${p.ID}</td>
+            <td>${p.Nome}</td>
+            <td>${p.Preco}</td>
+            <td>${p.Quantidade}</td>
+        </tr>`
     ).join('');
 }
 
-// SALVAR
+// SALVAR PRODUTO
 async function salvarProduto() {
     await api('/produtos', {
         method: 'POST',
