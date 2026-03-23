@@ -1,45 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Navegação
+    // 1. Navegação de Abas
     const links = document.querySelectorAll('.nav-link');
+    const views = document.querySelectorAll('.content-view');
+
     links.forEach(link => {
-        link.onclick = (e) => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            document.querySelectorAll('.content-view').forEach(v => v.style.display = 'none');
-            const target = 'view-' + link.getAttribute('href').replace('#', '');
-            document.getElementById(target).style.display = 'block';
-            if(target === 'view-estoque') animarGauges();
-        };
+            
+            // Remove ativos
+            links.forEach(l => l.classList.remove('active'));
+            views.forEach(v => v.classList.remove('active'));
+
+            // Adiciona ativo no clicado
+            link.classList.add('active');
+            const target = link.getAttribute('data-target');
+            document.getElementById(target).classList.add('active');
+
+            // Se for estoque, anima o gauge
+            if(target === 'view-estoque') {
+                setTimeout(animarGauge, 100);
+            }
+        });
     });
 
-    // Modal
-    const modal = document.getElementById('modal-container');
-    document.getElementById('btn-novo-produto').onclick = () => modal.style.display = 'flex';
-    document.getElementById('close-modal').onclick = () => modal.style.display = 'none';
+    // 2. Mock de Produtos
+    const tbody = document.getElementById('lista-produtos');
+    const produtos = [
+        { id: "#101", nome: "Café Arábica", preco: "R$ 65,00", status: "Em estoque" },
+        { id: "#102", nome: "Moedor Titan", preco: "R$ 450,00", status: "Crítico" }
+    ];
 
-    // Envio para o Servidor Node
-    document.getElementById('form-novo-item').onsubmit = async (e) => {
-        e.preventDefault();
-        const dados = {
-            nome: document.getElementById('nome-item').value,
-            preco: document.getElementById('preco-item').value,
-            qtd: document.getElementById('qtd-item').value
-        };
+    if(tbody) {
+        tbody.innerHTML = produtos.map(p => `
+            <tr>
+                <td>${p.id}</td>
+                <td>${p.nome}</td>
+                <td>${p.preco}</td>
+                <td style="color: ${p.status === 'Crítico' ? '#ff5555' : '#50fa7b'}">${p.status}</td>
+            </tr>
+        `).join('');
+    }
 
-        try {
-            const res = await fetch('http://localhost:3000/api/produtos', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(dados)
-            });
-            if(res.ok) { alert("Salvo no SQL!"); modal.style.display = 'none'; }
-        } catch (err) { alert("Erro ao conectar no servidor."); }
-    };
+    // 3. Partículas
+    if(window.particlesJS) {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 50 },
+                "color": { "value": "#6F4E37" },
+                "move": { "speed": 1.5 }
+            }
+        });
+    }
 });
 
-function animarGauges() {
-    const fill = document.getElementById('gauge-cafe-fill');
-    const needle = document.getElementById('gauge-cafe-needle');
-    fill.style.transform = `rotate(0.375turn)`;
-    needle.style.transform = `translateX(-50%) rotate(45deg)`;
-    document.getElementById('gauge-cafe-text').innerText = "75%";
+function animarGauge() {
+    const fill = document.getElementById('gauge-fill');
+    const needle = document.getElementById('gauge-needle');
+    const text = document.getElementById('gauge-text');
+    
+    if(fill && needle) {
+        fill.style.transform = `rotate(0.42turn)`; // 84%
+        needle.style.transform = `translateX(-50%) rotate(61deg)`;
+        text.innerText = "84%";
+    }
 }
