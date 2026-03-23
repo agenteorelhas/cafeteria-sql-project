@@ -12,41 +12,58 @@
     <h2>CAFÉ ADMIN</h2>
     <a href="#" class="nav-link active" data-target="view-dashboard">Dashboard</a>
     <a href="#" class="nav-link" data-target="view-produtos">Produtos</a>
-    <a href="#" class="nav-link" data-target="view-estoque">Estoque</a>
     <a href="#" class="nav-link" data-target="view-logs">Logs</a>
+    <a href="#" class="nav-link" data-target="view-comentarios">Comentários</a>
 </nav>
 
 <main class="content">
 
-<header class="main-header glass">
+<header class="main-header">
     <h1>Painel</h1>
     <button id="btn-novo-produto">+ Novo</button>
 </header>
 
+<!-- DASHBOARD -->
 <div id="view-dashboard" class="content-view active">
     <div class="cards-grid">
-        <div class="card"><h3>Total Produtos</h3><p id="dash-produtos">0</p></div>
-        <div class="card"><h3>Estoque</h3><p id="dash-estoque">0</p></div>
+        <div class="card">
+            <h3>Total Produtos</h3>
+            <p id="dash-produtos">0</p>
+        </div>
+        <div class="card">
+            <h3>Estoque Total</h3>
+            <p id="dash-estoque">0</p>
+        </div>
     </div>
 </div>
 
+<!-- PRODUTOS -->
 <div id="view-produtos" class="content-view">
     <table>
         <thead>
-            <tr><th>ID</th><th>Nome</th><th>Preço</th><th>Qtd</th></tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Qtd</th>
+            </tr>
         </thead>
         <tbody id="lista-produtos"></tbody>
     </table>
 </div>
 
+<!-- LOGS -->
 <div id="view-logs" class="content-view">
     <div id="log-terminal"></div>
 </div>
 
-<div class="comentarios glass">
-    <input id="comentario-input">
-    <button onclick="enviarComentario()">Enviar</button>
-    <div id="lista-comentarios"></div>
+<!-- COMENTÁRIOS -->
+<div id="view-comentarios" class="content-view">
+    <div class="comentarios">
+        <input id="comentario-input" placeholder="Digite um comentário">
+        <button onclick="enviarComentario()">Enviar</button>
+        <div id="lista-comentarios"></div>
+    </div>
 </div>
 
 </main>
