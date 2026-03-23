@@ -1,12 +1,16 @@
 const API = 'http://localhost:3000/api';
 
-// NAV
+// NAVEGAÇÃO
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.onclick = (e) => {
+    link.addEventListener('click', (e) => {
         e.preventDefault();
+
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
+
+        link.classList.add('active');
         document.getElementById(link.dataset.target).classList.add('active');
-    };
+    });
 });
 
 // MODAL
@@ -27,7 +31,7 @@ async function carregarProdutos() {
             <tr>
                 <td>${p.ID}</td>
                 <td>${p.Nome}</td>
-                <td>${p.Preco}</td>
+                <td>R$ ${p.Preco}</td>
                 <td>${p.Quantidade}</td>
             </tr>
         `;
@@ -42,7 +46,10 @@ async function salvarProduto() {
     formData.append('quantidade', quantidade.value);
     formData.append('imagem', imagem.files[0]);
 
-    await fetch(API + '/produtos', { method: 'POST', body: formData });
+    await fetch(API + '/produtos', {
+        method: 'POST',
+        body: formData
+    });
 
     location.reload();
 }
@@ -52,17 +59,20 @@ async function carregarLogs() {
     const res = await fetch(API + '/logs');
     const data = await res.json();
 
-    const el = document.getElementById('log-terminal');
-    el.innerHTML = data.map(l => `<div>${l.Descricao}</div>`).join('');
+    document.getElementById('log-terminal').innerHTML =
+        data.map(l => `<div>${l.Descricao}</div>`).join('');
 }
 
 // COMENTÁRIOS
 async function enviarComentario() {
+    const texto = document.getElementById('comentario-input').value;
+
     await fetch(API + '/comentarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ texto: document.getElementById('comentario-input').value })
+        body: JSON.stringify({ texto })
     });
+
     carregarComentarios();
 }
 
