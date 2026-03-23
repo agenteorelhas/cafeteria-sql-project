@@ -221,10 +221,13 @@ Execute:
 02_seed.sql
 04_advanced_features.sql
 05_procedures.sql
-3. Backend
+
+###3. Backend
+
 npm install
 node server.js
-4. Frontend
+
+###4. Frontend
 
 Abra:
 
