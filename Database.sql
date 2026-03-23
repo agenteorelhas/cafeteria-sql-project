@@ -38,3 +38,11 @@ INSERT INTO Produtos (Nome, Preco, Quantidade)
 VALUES 
 ('Grão Arábica', 45.00, 15),
 ('Café Expresso', 8.50, 50);
+
+ALTER TABLE Produtos ADD Imagem VARCHAR(255);
+
+CREATE TABLE Comentarios (
+    ID INT PRIMARY KEY IDENTITY,
+    Texto VARCHAR(255),
+    Data DATETIME DEFAULT GETDATE()
+);
