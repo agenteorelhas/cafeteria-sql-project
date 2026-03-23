@@ -2,14 +2,14 @@ const express = require('express');
 const sql = require('mssql');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const SECRET = "segredo_super_saas";
+const SECRET = "segredo_saas";
 
-// DB
 const dbConfig = {
     user: 'seu_usuario',
     password: 'sua_senha',
@@ -35,7 +35,29 @@ function auth(req, res, next) {
     }
 }
 
-// LOGIN
+// 🆕 REGISTRO
+app.post('/api/register', async (req, res) => {
+    const { email, senha } = req.body;
+
+    const hash = await bcrypt.hash(senha, 10);
+
+    try {
+        await pool.request()
+            .input('email', sql.VarChar, email)
+            .input('senha', sql.VarChar, hash)
+            .query(`
+                INSERT INTO Usuarios (Email, SenhaHash)
+                VALUES (@email, @senha)
+            `);
+
+        res.json({ ok: true });
+
+    } catch {
+        res.status(400).json({ erro: 'Usuário já existe' });
+    }
+});
+
+// 🔐 LOGIN
 app.post('/api/login', async (req, res) => {
     const { email, senha } = req.body;
 
@@ -45,15 +67,18 @@ app.post('/api/login', async (req, res) => {
 
     const user = result.recordset[0];
 
-    if (!user || user.SenhaHash !== senha)
-        return res.status(401).json({ erro: 'Login inválido' });
+    if (!user) return res.status(401).json({ erro: 'Login inválido' });
 
-    const token = jwt.sign({ id: user.ID }, SECRET);
+    const match = await bcrypt.compare(senha, user.SenhaHash);
+
+    if (!match) return res.status(401).json({ erro: 'Login inválido' });
+
+    const token = jwt.sign({ id: user.ID }, SECRET, { expiresIn: '7d' });
 
     res.json({ token });
 });
 
-// PRODUTOS PROTEGIDOS
+// 📦 PRODUTOS
 app.get('/api/produtos', auth, async (req, res) => {
     const result = await pool.request()
         .input('uid', sql.Int, req.user.id)
@@ -78,14 +103,14 @@ app.post('/api/produtos', auth, async (req, res) => {
     res.json({ ok: true });
 });
 
-// DASHBOARD
+// 📊 DASHBOARD
 app.get('/api/dashboard', auth, async (req, res) => {
     const result = await pool.request()
         .input('uid', sql.Int, req.user.id)
         .query(`
             SELECT 
                 COUNT(*) as totalProdutos,
-                SUM(Quantidade) as totalEstoque
+                ISNULL(SUM(Quantidade),0) as totalEstoque
             FROM Produtos
             WHERE UsuarioID=@uid
         `);
@@ -93,28 +118,4 @@ app.get('/api/dashboard', auth, async (req, res) => {
     res.json(result.recordset[0]);
 });
 
-app.listen(3000, () => console.log('SaaS rodando 🚀'));
-
-const bcrypt = require('bcrypt');
-
-// REGISTRO
-app.post('/api/register', async (req, res) => {
-    const { email, senha } = req.body;
-
-    const hash = await bcrypt.hash(senha, 10);
-
-    try {
-        await pool.request()
-            .input('email', sql.VarChar, email)
-            .input('senha', sql.VarChar, hash)
-            .query(`
-                INSERT INTO Usuarios (Email, SenhaHash)
-                VALUES (@email, @senha)
-            `);
-
-        res.json({ ok: true });
-
-    } catch (err) {
-        res.status(400).json({ erro: 'Usuário já existe' });
-    }
-});
+app.listen(3000, () => console.log('🔥 SaaS rodando na porta 3000'));
