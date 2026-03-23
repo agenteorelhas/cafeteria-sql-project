@@ -1,57 +1,108 @@
-const API = 'http://localhost:3000/api';
-
-// LOGIN
-function login() {
-    document.getElementById('login-screen').style.display = 'none';
-    document.querySelector('.app').classList.remove('hidden');
+:root {
+    --bg: #0f0f11;
+    --glass: rgba(255,255,255,0.05);
+    --primary: #c08457;
+    --text: #fff;
 }
 
-function logout() {
-    location.reload();
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top, #1a1a1d, #0f0f11);
+    color: var(--text);
 }
 
-// NAV
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.onclick = () => {
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        document.getElementById(link.dataset.target).classList.add('active');
-    };
-});
-
-// MODAL
-function openModal() {
-    modal.style.display = 'flex';
+/* LOGIN */
+.login-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-// PRODUTOS
-async function carregarProdutos() {
-    const res = await fetch(API + '/produtos');
-    const data = await res.json();
-
-    lista-produtos.innerHTML = data.map(p =>
-        `<tr><td>${p.ID}</td><td>${p.Nome}</td><td>${p.Preco}</td><td>${p.Quantidade}</td></tr>`
-    ).join('');
+.login-box {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-// DASHBOARD + CHART
-async function carregarDashboard() {
-    const res = await fetch(API + '/dashboard');
-    const d = await res.json();
+.hidden { display: none; }
 
-    dash-produtos.innerText = d.totalProdutos;
-    dash-estoque.innerText = d.totalEstoque;
-
-    new Chart(document.getElementById('chart'), {
-        type: 'bar',
-        data: {
-            labels: ['Produtos', 'Estoque'],
-            datasets: [{
-                data: [d.totalProdutos, d.totalEstoque]
-            }]
-        }
-    });
+/* LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
 }
 
-// INIT
-carregarProdutos();
-carregarDashboard();
+.sidebar {
+    width: 220px;
+    padding: 20px;
+    background: #111;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: black;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    flex: 1;
+    padding: 20px;
+    background: var(--glass);
+    border-radius: 12px;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000a;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+}
