@@ -94,3 +94,27 @@ app.get('/api/dashboard', auth, async (req, res) => {
 });
 
 app.listen(3000, () => console.log('SaaS rodando 🚀'));
+
+const bcrypt = require('bcrypt');
+
+// REGISTRO
+app.post('/api/register', async (req, res) => {
+    const { email, senha } = req.body;
+
+    const hash = await bcrypt.hash(senha, 10);
+
+    try {
+        await pool.request()
+            .input('email', sql.VarChar, email)
+            .input('senha', sql.VarChar, hash)
+            .query(`
+                INSERT INTO Usuarios (Email, SenhaHash)
+                VALUES (@email, @senha)
+            `);
+
+        res.json({ ok: true });
+
+    } catch (err) {
+        res.status(400).json({ erro: 'Usuário já existe' });
+    }
+});
