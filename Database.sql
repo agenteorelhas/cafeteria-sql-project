@@ -1,44 +1,33 @@
-CREATE DATABASE CafeDB;
+CREATE DATABASE CafeSaaS;
 GO
 
-USE CafeDB;
+USE CafeSaaS;
 GO
 
-CREATE TABLE Produtos (
-    ID INT PRIMARY KEY IDENTITY(1,1),
-    Nome VARCHAR(100) NOT NULL,
-    Preco DECIMAL(10,2) NOT NULL,
-    Quantidade INT NOT NULL,
-    Imagem VARCHAR(255),
-    DataCadastro DATETIME DEFAULT GETDATE()
+-- USUÁRIOS
+CREATE TABLE Usuarios (
+    ID INT PRIMARY KEY IDENTITY,
+    Email VARCHAR(100) UNIQUE,
+    SenhaHash VARCHAR(255)
 );
 
+-- PRODUTOS
+CREATE TABLE Produtos (
+    ID INT PRIMARY KEY IDENTITY,
+    Nome VARCHAR(100),
+    Preco DECIMAL(10,2),
+    Quantidade INT,
+    UsuarioID INT,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuarios(ID)
+);
+
+-- LOGS
 CREATE TABLE LogsOperacoes (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY,
     Descricao VARCHAR(255),
     DataHora DATETIME DEFAULT GETDATE()
 );
 
-CREATE TABLE Comentarios (
-    ID INT PRIMARY KEY IDENTITY,
-    Texto VARCHAR(255),
-    Data DATETIME DEFAULT GETDATE()
-);
-GO
-
-CREATE TRIGGER trg_AuditProduto
-ON Produtos
-AFTER INSERT
-AS
-BEGIN
-    INSERT INTO LogsOperacoes (Descricao)
-    SELECT 
-        'Produto "' + Nome + '" inserido (Qtd: ' + CAST(Quantidade AS VARCHAR) + ')'
-    FROM inserted;
-END;
-GO
-
-INSERT INTO Produtos (Nome, Preco, Quantidade)
-VALUES 
-('Grão Arábica', 45.00, 15),
-('Café Expresso', 8.50, 50);
+-- USER PADRÃO
+INSERT INTO Usuarios (Email, SenhaHash)
+VALUES ('admin@admin.com', '123456'); -- depois a gente criptografa
