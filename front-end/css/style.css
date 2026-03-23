@@ -1,85 +1,48 @@
-/* ==========================================================================
-   --- SEÇÃO DO MEDIDOR (GAUGE) - CORRIGIDA E CONSOLIDADA ---
-   ========================================================================== */
-
-/* Centraliza o card de estoque na área de conteúdo */
-.view-estoque {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Ocupa a altura total disponível */
+:root {
+    --primary: #6F4E37;
+    --bg-dark: #0a0806;
+    --bg-sidebar: #120d0a;
+    --text-main: #FFFFFF;
+    --text-dim: #D2B48C;
 }
 
-/* Define a largura fixa elegante para o card de estoque */
-.view-estoque .glass {
-    width: 350px;
-    text-align: center;
-    padding: 2rem;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    display: flex; 
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Container principal do velocímetro */
-.gauge {
-    position: relative;
-    width: 200px;
-    height: 100px; /* Semicírculo: metade da largura */
-    margin: 20px auto;
-}
+#particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
 
-/* O arco de fundo (cinza escuro) */
-.gauge__body {
-    width: 100%;
-    height: 100%;
-    background: #2a1e17; /* Cor de fundo do arco */
-    position: relative;
-    border-radius: 100px 100px 0 0; /* Forma o semicírculo */
-    overflow: hidden; /* Corta o preenchimento que sair do arco */
-}
+.sidebar { width: 240px; background: var(--bg-sidebar); padding: 2rem 1.5rem; border-right: 1px solid #2a1e17; }
+.sidebar h2 { font-size: 1rem; color: #fff; margin-bottom: 2.5rem; letter-spacing: 2px; }
+.nav-link { color: #5d483a; text-decoration: none; display: block; padding: 12px; border-radius: 8px; margin-bottom: 8px; transition: 0.3s; }
+.nav-link.active { background: #1e1611; color: var(--text-dim); border: 1px solid var(--primary); }
 
-/* O preenchimento colorido (marrom) que sobe */
-.gauge__fill {
-    position: absolute;
-    top: 100%; /* Começa na base */
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary); /* Cor marrom principal */
-    transform-origin: center top; /* Rotaciona a partir do centro da base */
-    transform: rotate(0turn); /* Começa zerado */
-    transition: transform 1s ease-out; /* Animação suave */
-}
+.content { flex: 1; padding: 2rem; z-index: 1; }
+.glass { background: rgba(26, 20, 16, 0.9); backdrop-filter: blur(10px); border: 1px solid #3c2a21; border-radius: 12px; padding: 1.5rem; }
 
-/* O círculo interno que define a espessura do arco */
-.gauge__cover {
-    width: 80%; /* Define a espessura do arco */
-    height: 80%;
-    background: #1a1410; /* Cor do fundo do card para dar efeito de vazado */
-    border-radius: 100px 100px 0 0;
-    position: absolute;
-    top: 20%; /* Empurra para baixo para criar o arco */
-    left: 50%;
-    transform: translateX(-50%);
-}
+.main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.btn-main { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-/* A agulha indicadora */
-.gauge__needle {
-    width: 4px;
-    height: 90px; /* Quase o raio total do arco */
-    background: var(--text-dim); /* Cor clara da agulha */
-    position: absolute;
-    bottom: 0; /* Base da agulha na base do semicírculo */
-    left: 50%;
-    transform-origin: bottom center; /* Gira a partir da base */
-    transform: translateX(-50%) rotate(-90deg); /* Posição inicial: 0% */
-    transition: transform 1s ease-out; /* Animação suave */
-    z-index: 10;
-}
+.content-view { display: none; }
+.content-view.active { display: block; }
 
-/* Texto da porcentagem abaixo do gráfico */
-.gauge-value {
-    display: block;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--accent);
-    margin-top: 10px;
-}
+/* Tabela de Produtos */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th { text-align: left; color: var(--text-dim); padding: 12px; border-bottom: 1px solid #3c2a21; }
+td { padding: 12px; border-bottom: 1px solid #1a1410; }
+
+/* Gráfico Gauge */
+.gauge-card { width: 350px; margin: 40px auto; text-align: center; }
+.gauge { position: relative; width: 200px; height: 100px; margin: 20px auto; overflow: hidden; }
+.gauge__body { width: 100%; height: 100%; background: #2a1e17; border-radius: 100px 100px 0 0; position: relative; }
+.gauge__fill { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: var(--primary); transform-origin: center top; transition: transform 1.5s ease-out; }
+.gauge__cover { width: 85%; height: 85%; background: #1a1410; border-radius: 100px 100px 0 0; position: absolute; top: 15%; left: 7.5%; }
+.gauge__needle { width: 3px; height: 90px; background: #fff; position: absolute; bottom: 0; left: 50%; transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg); transition: 1.5s ease-out; z-index: 5; }
+.gauge-value { font-size: 2rem; font-weight: bold; color: var(--text-dim); }
