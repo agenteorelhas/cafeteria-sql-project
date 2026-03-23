@@ -3,13 +3,20 @@ const sql = require('mssql');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// Upload config
+// GARANTE PASTA UPLOADS
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
+}
+
+// CONFIG UPLOAD
 const storage = multer.diskStorage({
     destination: 'uploads/',
     filename: (req, file, cb) => {
@@ -18,18 +25,27 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// DB
+// BANCO
 const dbConfig = {
     user: 'seu_usuario',
     password: 'sua_senha',
     server: 'localhost',
     database: 'CafeDB',
-    options: { encrypt: false, trustServerCertificate: true }
+    options: {
+        encrypt: false,
+        trustServerCertificate: true
+    }
 };
 
 let pool;
+
 async function conectarDB() {
-    pool = await sql.connect(dbConfig);
+    try {
+        pool = await sql.connect(dbConfig);
+        console.log('✅ Conectado ao banco');
+    } catch (err) {
+        console.error(err);
+    }
 }
 conectarDB();
 
@@ -67,7 +83,7 @@ app.get('/api/logs', async (req, res) => {
 
 // COMENTÁRIOS
 app.get('/api/comentarios', async (req, res) => {
-    const result = await pool.request().query('SELECT * FROM Comentarios');
+    const result = await pool.request().query('SELECT * FROM Comentarios ORDER BY Data DESC');
     res.json(result.recordset);
 });
 
@@ -92,4 +108,4 @@ app.get('/api/dashboard', async (req, res) => {
     res.json(result.recordset[0]);
 });
 
-app.listen(3000, () => console.log('Servidor rodando'));
+app.listen(3000, () => console.log('🚀 Servidor rodando em http://localhost:3000'));
