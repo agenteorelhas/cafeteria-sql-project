@@ -123,7 +123,7 @@ Embora focado no Backend, a estrutura alimenta dashboards de Business Intelligen
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+   git clone https://github.com/agenteorelhas/cafeteria-sql-project.git
 2. **Prepare o Banco de Dados:**
    Execute os arquivos da pasta /scripts na sequência:
 
