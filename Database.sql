@@ -31,8 +31,6 @@ ON Produtos
 AFTER INSERT
 AS
 BEGIN
-    SET NOCOUNT ON;
-
     INSERT INTO LogsOperacoes (Descricao)
     SELECT 
         'Produto "' + Nome + '" inserido (Qtd: ' + CAST(Quantidade AS VARCHAR) + ')'
