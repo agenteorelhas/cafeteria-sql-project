@@ -1,94 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>☕ Café SaaS - Sistema de Inventário</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <title>Café SaaS | Painel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/924/924514.png" type="image/png">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <canvas id="particleCanvas"></canvas>
 
 <div class="login-screen" id="authScreen">
-  <div class="login-box">
-    <h1>☕ Café SaaS</h1>
-    <p class="subtitle">Gerencie seu estoque com elegância</p>
-    <div class="auth-inputs">
-        <input type="email" id="email" placeholder="Email de acesso">
-        <input type="password" id="senha" placeholder="Sua senha">
+    <div class="login-box">
+        <h1>☕ Café SaaS</h1>
+        <div class="auth-inputs">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="senha" placeholder="Senha">
+        </div>
+        <button class="btn-primary" onclick="login()">Acessar Sistema</button>
+        <p id="msg"></p>
     </div>
-    <button class="btn-primary" onclick="login()">Acessar Painel</button>
-    <p id="msg"></p>
-  </div>
 </div>
 
 <div class="app hidden" id="appScreen">
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h2 class="logo-text">Café SaaS</h2>
-      <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
-    </div>
-    <nav>
-      <button class="nav-link active" onclick="showSection('dashboard')">
-        <span class="icon">📈</span> <span class="nav-text">Dashboard</span>
-      </button>
-      <button class="nav-link" onclick="showSection('produtos')">
-        <span class="icon">📦</span> <span class="nav-text">Produtos</span>
-      </button>
-      <button class="nav-link logout-btn" onclick="logout()">
-        <span class="icon">🚪</span> <span class="nav-text">Sair</span>
-      </button>
-    </nav>
-  </aside>
-
-  <main class="main">
-    <section id="dashboard" class="section active">
-      <h1>Dashboard</h1>
-      <div class="cards">
-        <div class="card">
-          <p>Variedade de Itens</p>
-          <h2 id="totalProdutos">0</h2>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="logo-text">Café SaaS</h2>
+            <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
         </div>
-        <div class="card card-gauge">
-          <p>Capacidade do Estoque</p>
-          <div class="gauge-container">
-            <canvas id="gaugeChart"></canvas>
-            <div class="gauge-value">
-              <h2 id="totalEstoque">0</h2>
-              <span>unid.</span>
+        <nav>
+            <button class="nav-link active" id="nav-dashboard" onclick="showSection('dashboard')">
+                <span class="icon">📈</span> <span class="nav-text">Dashboard</span>
+            </button>
+            <button class="nav-link" id="nav-produtos" onclick="showSection('produtos')">
+                <span class="icon">📦</span> <span class="nav-text">Produtos</span>
+            </button>
+            <button class="nav-link logout-btn" onclick="logout()">
+                <span class="icon">🚪</span> <span class="nav-text">Sair</span>
+            </button>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <section id="dashboard" class="section active">
+            <h1>Dashboard</h1>
+            <div class="cards">
+                <div class="card mini-card">
+                    <p>Variedade de Itens</p>
+                    <h2 id="totalProdutos">0</h2>
+                </div>
+                <div class="card mini-card card-gauge">
+                    <p>Capacidade do Estoque</p>
+                    <div class="gauge-container">
+                        <canvas id="gaugeChart"></canvas>
+                        <div class="gauge-value">
+                            <h2 id="totalEstoque">0</h2>
+                            <span>unid.</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="produtos" class="section">
-      <h1>Inventário</h1>
-      <div class="form">
-        <input id="nome" placeholder="Nome do Produto">
-        <input id="preco" type="number" step="0.01" placeholder="Preço (R$)">
-        <input id="quantidade" type="number" placeholder="Qtd">
-        <button class="btn-primary" onclick="addProduto()">Adicionar</button>
-      </div>
-      <div class="produtos-table-container">
-        <table class="lista">
-          <thead>
-            <tr>
-              <th>Produto</th>
-              <th class="txt-right">Preço</th>
-              <th class="txt-right">Qtd</th>
-              <th class="txt-center">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="lista"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+        <section id="produtos" class="section">
+            <h1>Inventário</h1>
+            <div class="form">
+                <input id="nome" placeholder="Nome do Produto">
+                <input id="preco" type="number" step="0.01" placeholder="Preço (R$)">
+                <input id="quantidade" type="number" placeholder="Qtd">
+                <button class="btn-primary" onclick="addProduto()">Adicionar</button>
+            </div>
+            <div class="produtos-table-container">
+                <table class="lista">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th class="txt-right">Preço</th>
+                            <th class="txt-right">Qtd</th>
+                            <th class="txt-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </div>
 
 <script src="js/script.js"></script>
