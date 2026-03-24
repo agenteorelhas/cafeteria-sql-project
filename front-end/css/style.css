@@ -1,182 +1,85 @@
-/* ==========================================================================
-   ☕ Café SaaS - O Estoque da Startup Moderna
-   Estilo: Dark Neon Coffee / Partículas Integradas
-   ========================================================================== */
-
 :root {
   --bg-app: #030201;
-  --bg-panel: rgba(13, 10, 8, 0.9);
+  --bg-panel: rgba(13, 10, 8, 0.95);
   --sidebar-bg: #0d0a08;
   --neon-orange: #ff9f43;
   --neon-glow: rgba(255, 159, 67, 0.3);
   --primary: #c19a6b;
-  --primary-hover: #e0ac69;
   --text-main: #fcfaf8;
   --muted: #a1887f;
   --border: rgba(161, 136, 127, 0.1);
-  --radius-lg: 24px;
   --radius-md: 14px;
-  --radius-sm: 8px;
-  --shadow-neon: 0 0 15px var(--neon-glow), 0 0 5px var(--neon-orange);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: var(--text-main); height: 100vh; overflow: hidden; }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-app);
-  color: var(--text-main);
-  height: 100vh;
-  overflow: hidden;
-  line-height: 1.5;
-}
-
-/* CANVAS DE PARTÍCULAS */
-#particleCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-
+#particleCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 .hidden { display: none !important; }
 
 /* LOGIN */
-.login-screen {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  background: radial-gradient(circle at center, #1a120b 0%, var(--bg-app) 70%);
-}
+.login-screen { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 1000; background: radial-gradient(circle, #1a120b 0%, #030201 100%); }
+.login-box { width: 380px; padding: 40px; border-radius: 24px; background: var(--bg-panel); border: 2px solid var(--neon-orange); box-shadow: 0 0 20px var(--neon-glow); text-align: center; }
+.login-box h1 { margin-bottom: 10px; text-shadow: 0 0 10px var(--neon-glow); }
+.login-box input { width: 100%; padding: 14px; margin-bottom: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px; }
 
-.login-box {
-  width: 380px;
-  padding: 50px;
-  border-radius: var(--radius-lg);
-  background: var(--bg-panel);
-  backdrop-filter: blur(20px);
-  border: 2px solid var(--neon-orange);
-  box-shadow: var(--shadow-neon);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  animation: neonPulse 2s infinite alternate;
-}
-
-.login-box h1 {
-  text-align: center;
-  font-weight: 700;
-  font-size: 2.2rem;
-  text-shadow: 0 0 10px var(--neon-glow);
-}
-
-.subtitle { text-align: center; color: var(--muted); font-size: 0.95rem; margin-top: -10px; }
-
-/* INPUTS & BUTTONS */
-input {
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  transition: 0.2s;
-}
-
-input:focus { outline: none; border-color: var(--neon-orange); box-shadow: 0 0 10px var(--neon-glow); }
-
-.btn-primary {
-  background: var(--neon-orange);
-  border: none;
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  color: #000;
-  font-weight: 700;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
-}
-
+/* BOTÕES */
+.btn-primary { background: var(--neon-orange); border: none; padding: 14px 20px; color: #000; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; }
 .btn-primary:hover { background: #fff; transform: translateY(-2px); }
 
-/* APP LAYOUT */
+/* SIDEBAR EXPANSÍVEL */
 .app { display: flex; height: 100vh; }
-
-.sidebar {
-  width: 270px;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--border);
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
+.sidebar { 
+    width: 260px; 
+    background: var(--sidebar-bg); 
+    border-right: 1px solid var(--border); 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.sidebar h2 { color: #fff; margin-bottom: 50px; text-shadow: 0 0 10px var(--neon-glow); }
+.sidebar.collapsed { width: 80px; padding: 20px 10px; }
 
-.nav-link {
-  display: flex;
-  align-items: center;
-  padding: 14px 18px;
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  background: transparent;
-  border: none;
-  font-size: 1rem;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+#toggleSidebar { background: transparent; border: none; color: var(--neon-orange); font-size: 1.5rem; cursor: pointer; }
+.sidebar.collapsed .logo-text { display: none; }
+
+.nav-link { 
+    display: flex; 
+    align-items: center; 
+    padding: 14px; 
+    color: var(--muted); 
+    background: transparent; 
+    border: none; 
+    margin-bottom: 10px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    width: 100%;
 }
+.nav-link.active { background: rgba(255,159,67,0.1); color: var(--neon-orange); border-left: 4px solid var(--neon-orange); }
+.nav-link .icon { font-size: 1.2rem; margin-right: 15px; min-width: 30px; text-align: center; }
+.sidebar.collapsed .nav-text { display: none; }
+.logout-btn { margin-top: auto; color: #ef4444; }
 
-.nav-link i { margin-right: 12px; font-style: normal; }
+/* CONTEÚDO PRINCIPAL */
+.main { flex: 1; padding: 40px; overflow-y: auto; background: rgba(0,0,0,0.2); }
+.section { display: none; opacity: 0; transform: translateY(10px); transition: 0.4s; }
+.section.active { display: block; opacity: 1; transform: translateY(0); }
 
-.nav-link:hover { background: rgba(193, 154, 107, 0.05); color: var(--primary-hover); }
+/* CARDS E TABELAS */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.card { background: var(--bg-panel); padding: 30px; border-radius: var(--radius-md); border: 1px solid var(--border); }
+.card h2 { font-size: 3rem; margin-top: 10px; color: var(--neon-orange); }
 
-.nav-link.active {
-  background: rgba(255, 159, 67, 0.1);
-  color: var(--neon-orange);
-  font-weight: 600;
-  border-left: 4px solid var(--neon-orange);
-}
+.form { display: flex; gap: 10px; margin-bottom: 30px; }
+.form input { flex: 1; padding: 12px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 8px; }
 
-.nav-link:last-of-type { margin-top: auto; color: #ef4444; }
-
-/* SECTIONS */
-.main { flex: 1; padding: 50px; overflow-y: auto; }
-
-.section {
-    display: none;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.4s ease;
-}
-
-.section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.section h1 { font-size: 2.3rem; margin-bottom: 40px; color: #fff; }
-
-/* CARDS */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.card { background: var(--bg-panel); border: 1px solid var(--border); padding: 35px; border-radius: var(--radius-md); }
-.card h2 { font-size: 3.5rem; color: #fff; margin-top: 20px; }
-
-/* TABLES */
-.produtos-table-container { background: var(--bg-panel); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); }
+.produtos-table-container { background: var(--bg-panel); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
 .lista { width: 100%; border-collapse: collapse; }
-.lista th { text-align: left; padding: 20px; color: var(--muted); border-bottom: 1px solid var(--border); }
-.lista td { padding: 22px 20px; }
-.cell-nome { font-weight: 600; color: #fff; }
-.cell-preco { color: var(--primary); text-align: right; }
+.lista th { text-align: left; padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); }
+.lista td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+.cell-preco { color: var(--primary); text-align: right; font-family: 'JetBrains Mono'; }
 .cell-quantidade { color: var(--neon-orange); text-align: right; }
-
-@keyframes neonPulse {
-  from { box-shadow: 0 0 15px var(--neon-glow); border-color: var(--neon-orange); }
-  to { box-shadow: 0 0 25px var(--neon-glow); border-color: #fff; }
-}
