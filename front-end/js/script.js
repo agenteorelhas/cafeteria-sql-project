@@ -1,7 +1,7 @@
 const API = "http://localhost:3000";
 let gaugeChart;
 
-// ================= MOTOR DE PARTÍCULAS =================
+// ================= MOTOR DE PARTÍCULAS (MAIORES E MAIS CONEXÕES) =================
 function initParticles() {
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
@@ -14,7 +14,7 @@ function initParticles() {
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.2 + 0.5;
+            this.size = Math.random() * 2.8 + 1.2; // Tamanho aumentado
             this.speedX = Math.random() * 0.2 - 0.1;
             this.speedY = Math.random() * 0.2 - 0.1;
         }
@@ -23,12 +23,12 @@ function initParticles() {
             if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) this.reset();
         }
         draw() {
-            ctx.fillStyle = "rgba(255, 235, 190, 0.25)";
+            ctx.fillStyle = "rgba(255, 235, 190, 0.4)";
             ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
         }
     }
 
-    particles = Array.from({ length: 60 }, () => new Particle());
+    particles = Array.from({ length: 55 }, () => new Particle());
 
     const animate = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -36,9 +36,9 @@ function initParticles() {
         for (let a = 0; a < particles.length; a++) {
             for (let b = a + 1; b < particles.length; b++) {
                 const dist = Math.hypot(particles[a].x - particles[b].x, particles[a].y - particles[b].y);
-                if (dist < 100) {
-                    ctx.strokeStyle = `rgba(255, 235, 190, ${(1 - dist/100) * 0.08})`;
-                    ctx.lineWidth = 0.5;
+                if (dist < 140) { // Distância de conexão aumentada
+                    ctx.strokeStyle = `rgba(255, 235, 190, ${(1 - dist/140) * 0.12})`;
+                    ctx.lineWidth = 0.8;
                     ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y);
                     ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
                 }
@@ -54,7 +54,7 @@ function updateGauge(value) {
     const canvas = document.getElementById('gaugeChart');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const maxValue = 1000; // Altere conforme necessário
+    const maxValue = 1000;
 
     if (gaugeChart) {
         gaugeChart.data.datasets[0].data = [value, Math.max(0, maxValue - value)];
@@ -68,18 +68,14 @@ function updateGauge(value) {
             datasets: [{
                 data: [value, maxValue - value],
                 backgroundColor: ['#ff9f43', 'rgba(255, 255, 255, 0.05)'],
-                borderWidth: 0, circumference: 180, rotation: 270, borderRadius: 5
+                borderWidth: 0, circumference: 180, rotation: 270, borderRadius: 8
             }]
         },
-        options: { 
-            cutout: '80%', 
-            aspectRatio: 1.8, 
-            plugins: { legend: { display: false }, tooltip: { enabled: false } }
-        }
+        options: { cutout: '82%', aspectRatio: 1.8, plugins: { legend: { display: false } } }
     });
 }
 
-// ================= NAVEGAÇÃO =================
+// ================= NAVEGAÇÃO E API =================
 function showSection(id) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -88,17 +84,13 @@ function showSection(id) {
     document.getElementById(`nav-${id}`).classList.add('active');
 }
 
-// ================= API E DADOS =================
 async function loadDashboard() {
     try {
         const res = await fetch(`${API}/api/dashboard`, { headers: { "Authorization": localStorage.getItem("token") }});
-        if (res.status === 401) return logout();
         const data = await res.json();
-        
-        const totalEstoque = data.totalEstoque || 0;
         document.getElementById("totalProdutos").innerText = data.totalProdutos || 0;
-        document.getElementById("totalEstoque").innerText = totalEstoque;
-        updateGauge(totalEstoque);
+        document.getElementById("totalEstoque").innerText = data.totalEstoque || 0;
+        updateGauge(data.totalEstoque || 0);
     } catch (e) { console.error("Erro dashboard:", e); }
 }
 
@@ -109,7 +101,7 @@ async function loadProdutos() {
         const tbody = document.getElementById("lista");
         tbody.innerHTML = produtos.map(p => `
             <tr>
-                <td>${p.nome || "Sem nome"}</td>
+                <td>${p.nome || "---"}</td>
                 <td class="txt-right">R$ ${Number(p.preco || 0).toFixed(2)}</td>
                 <td class="txt-right">${p.quantidade || 0}</td>
                 <td class="txt-center"><button onclick="deleteProduto('${p.id || p._id}')">🗑️</button></td>
@@ -118,32 +110,13 @@ async function loadProdutos() {
     } catch (e) { console.error("Erro lista:", e); }
 }
 
-// Login e Outros
-async function login() {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
-    try {
-        const res = await fetch(`${API}/api/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, senha })
-        });
-        const data = await res.json();
-        if (data.token) {
-            localStorage.setItem("token", data.token);
-            location.reload();
-        } else {
-            document.getElementById("msg").innerText = "Acesso negado!";
-        }
-    } catch (e) { alert("Servidor offline!"); }
-}
-
 window.onload = () => {
     initParticles();
     if (localStorage.getItem("token")) {
         document.getElementById("authScreen").classList.add("hidden");
         document.getElementById("appScreen").classList.remove("hidden");
-        loadDashboard(); loadProdutos();
+        loadDashboard(); 
+        loadProdutos();
     }
 };
 
