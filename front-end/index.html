@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="front-end/css/style.css">
 
   <!-- Fonte moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -15,16 +15,16 @@
 <body>
 
 <!-- 🔐 LOGIN / REGISTER -->
-<div class="auth-container" id="authScreen">
-  <div class="auth-box">
+<div class="login-screen" id="authScreen">
+  <div class="login-box">
     <h1>☕ Café SaaS</h1>
     <p class="subtitle">Gerencie seu estoque como uma startup</p>
 
     <input type="email" id="email" placeholder="Seu email">
     <input type="password" id="senha" placeholder="Sua senha">
 
-    <button class="btn primary" onclick="login()">Entrar</button>
-    <button class="btn secondary" onclick="register()">Criar conta</button>
+    <button class="btn-primary" onclick="login()">Entrar</button>
+    <button class="btn-primary" onclick="register()">Criar conta</button>
 
     <p id="msg"></p>
   </div>
@@ -37,9 +37,9 @@
   <aside class="sidebar">
     <h2>☕ Café SaaS</h2>
     <nav>
-      <button onclick="showSection('dashboard')">Dashboard</button>
-      <button onclick="showSection('produtos')">Produtos</button>
-      <button onclick="logout()">Sair</button>
+      <button class="nav-link" onclick="showSection('dashboard')">Dashboard</button>
+      <button class="nav-link" onclick="showSection('produtos')">Produtos</button>
+      <button class="nav-link" onclick="logout()">Sair</button>
     </nav>
   </aside>
 
@@ -72,7 +72,7 @@
         <input id="preco" type="number" placeholder="Preço">
         <input id="quantidade" type="number" placeholder="Quantidade">
 
-        <button class="btn primary" onclick="addProduto()">Adicionar</button>
+        <button class="btn-primary" onclick="addProduto()">Adicionar</button>
       </div>
 
       <ul id="lista" class="lista"></ul>
@@ -82,13 +82,16 @@
 </div>
 
 <!-- JS -->
-<script src="js/script.js"></script>
+<script src="front-end/js/script.js"></script>
 
 <script>
 /* 🔥 CONTROLE DE TELAS */
 function showSection(section) {
   document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
   document.getElementById(section).classList.add("active");
+
+  document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`button[onclick="showSection('${section}')"]`).classList.add("active");
 }
 
 /* 🔐 AUTO LOGIN */
