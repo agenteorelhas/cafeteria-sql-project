@@ -89,8 +89,9 @@
 
 <script src="js/script.js"></script>
 <script>
-    window.onload = () => {
-        if (typeof initParticles === "function") initParticles();
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+        initParticles(); 
         const token = localStorage.getItem("token");
         if (token) {
             document.getElementById("authScreen").classList.add("hidden");
@@ -98,8 +99,9 @@
             loadDashboard();
             loadProdutos();
         }
-    };
+    });
 
+    // Navegação entre seções
     function showSection(sectionId) {
         document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
         document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active"));
