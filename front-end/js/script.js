@@ -1,8 +1,9 @@
 const API = "http://localhost:3000";
 
-// ================= UI CONTROL =================
+// ================= UI CONTROLS =================
 function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('collapsed');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) sidebar.classList.toggle('collapsed');
 }
 
 const moneyFormatter = new Intl.NumberFormat('pt-BR', {
@@ -11,14 +12,17 @@ const moneyFormatter = new Intl.NumberFormat('pt-BR', {
 
 function getToken() { return localStorage.getItem("token"); }
 
-// ================= BACKGROUND PARTICLES =================
+// ================= MOTOR DE PARTÍCULAS (ÂMBAR CLARO) =================
 function initParticles() {
     const canvas = document.getElementById('particleCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let particles = [];
 
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
     window.addEventListener('resize', resize);
     resize();
 
@@ -29,22 +33,27 @@ function initParticles() {
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.8 + 0.2;
-            this.speedX = Math.random() * 0.2 - 0.1;
-            this.speedY = Math.random() * 0.2 - 0.1;
-            this.life = Math.random() * 0.5;
+            this.size = Math.random() * 1.8 + 0.3;
+            this.speedX = Math.random() * 0.3 - 0.15;
+            this.speedY = Math.random() * 0.3 - 0.15;
+            this.opacity = Math.random() * 0.5 + 0.1;
         }
         update() {
-            this.x += this.speedX; this.y += this.speedY;
+            this.x += this.speedX;
+            this.y += this.speedY;
             if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) this.reset();
         }
         draw() {
-            ctx.fillStyle = `rgba(255, 159, 67, ${this.life})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            // COR: Âmbar Claro / Creme (255, 235, 190)
+            ctx.fillStyle = `rgba(255, 235, 190, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
     }
 
-    for (let i = 0; i < 70; i++) particles.push(new Particle());
+    particles = Array.from({ length: 80 }, () => new Particle());
+
     const animate = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
@@ -53,7 +62,7 @@ function initParticles() {
     animate();
 }
 
-// ================= AUTHENTICATION =================
+// ================= AUTENTICAÇÃO =================
 async function login() {
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
@@ -70,23 +79,25 @@ async function login() {
             localStorage.setItem("token", data.token);
             location.reload();
         } else {
-            msg.innerText = data.erro || "Acesso negado";
+            msg.innerText = data.erro || "Falha no login";
             msg.style.color = "#ff4d4d";
         }
-    } catch (e) { msg.innerText = "Falha na conexão com o servidor."; }
+    } catch (e) { msg.innerText = "Erro ao conectar ao servidor."; }
 }
 
-function logout() { localStorage.removeItem("token"); location.reload(); }
+function logout() {
+    localStorage.removeItem("token");
+    location.reload();
+}
 
-// ================= DATA MANAGEMENT =================
+// ================= CRUD PRODUTOS =================
 async function loadDashboard() {
     try {
         const res = await fetch(`${API}/api/dashboard`, { headers: { "Authorization": getToken() }});
-        if (res.status === 401) return logout();
         const data = await res.json();
         document.getElementById("totalProdutos").innerText = data.totalProdutos ?? 0;
         document.getElementById("totalEstoque").innerText = data.totalEstoque ?? 0;
-    } catch (e) { console.error("Dashboard error", e); }
+    } catch (e) { console.error(e); }
 }
 
 async function loadProdutos() {
@@ -97,19 +108,19 @@ async function loadProdutos() {
         tbody.innerHTML = "";
 
         produtos.forEach(p => {
-            const id = p.id || p.ID || p._id; // Adaptável a diferentes nomes de campo ID
+            const id = p.id || p._id || p.ID;
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td class="cell-nome">${p.nome || p.Nome}</td>
+                <td>${p.nome || p.Nome}</td>
                 <td class="cell-preco txt-right">${moneyFormatter.format(p.preco || p.Preco)}</td>
-                <td class="cell-quantidade txt-right">${p.quantidade || p.Quantidade}</td>
+                <td class="txt-right">${p.quantidade || p.Quantidade}</td>
                 <td class="txt-center">
-                    <button class="btn-delete" onclick="deleteProduto('${id}')" title="Excluir">🗑️</button>
+                    <button class="btn-delete" onclick="deleteProduto('${id}')">🗑️</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
-    } catch (e) { console.error("Load error", e); }
+    } catch (e) { console.error(e); }
 }
 
 async function addProduto() {
@@ -117,33 +128,26 @@ async function addProduto() {
     const preco = parseFloat(document.getElementById("preco").value);
     const quantidade = parseInt(document.getElementById("quantidade").value);
 
-    if (!nome || isNaN(preco)) return alert("Dados inválidos!");
+    if (!nome || isNaN(preco)) return alert("Dados inválidos");
 
     try {
-        const res = await fetch(`${API}/api/produtos`, {
+        await fetch(`${API}/api/produtos`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization": getToken() },
             body: JSON.stringify({ nome, preco, quantidade })
         });
-        if (res.ok) {
-            document.querySelectorAll(".form input").forEach(i => i.value = "");
-            loadProdutos(); loadDashboard();
-        }
-    } catch (e) { console.error("Add error", e); }
+        document.querySelectorAll(".form input").forEach(i => i.value = "");
+        loadProdutos(); loadDashboard();
+    } catch (e) { console.error(e); }
 }
 
 async function deleteProduto(id) {
-    if (!confirm("Deseja realmente excluir este produto?")) return;
-
+    if (!confirm("Excluir item?")) return;
     try {
-        const res = await fetch(`${API}/api/produtos/${id}`, {
+        await fetch(`${API}/api/produtos/${id}`, {
             method: "DELETE",
             headers: { "Authorization": getToken() }
         });
-        if (res.ok) {
-            loadProdutos(); loadDashboard();
-        } else {
-            alert("Erro ao excluir produto.");
-        }
-    } catch (e) { console.error("Delete error", e); }
+        loadProdutos(); loadDashboard();
+    } catch (e) { console.error(e); }
 }
