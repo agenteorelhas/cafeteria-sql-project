@@ -1,58 +1,61 @@
 :root {
-    --bg-app: #030201;
-    --bg-panel: rgba(13, 10, 8, 0.94);
-    --sidebar-bg: #0d0a08;
-    --neon-orange: #ff9f43;
-    --neon-glow: rgba(255, 159, 67, 0.3);
-    --muted: #9ca3af;
-    --border: rgba(255, 255, 255, 0.08);
+  --bg-app: #030201;
+  --bg-panel: rgba(13, 10, 8, 0.94);
+  --sidebar-bg: #0d0a08;
+  --neon-orange: #ff9f43;
+  --neon-glow: rgba(255, 159, 67, 0.3);
+  --muted: #a1887f;
+  --text-main: #fcfaf8;
+  --border: rgba(255, 255, 255, 0.08);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: #e5e7eb; height: 100vh; overflow: hidden; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: var(--text-main); height: 100vh; overflow: hidden; }
 
-#particleCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+/* Fundo de Partículas - Garante visibilidade */
+#particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.8; }
 
 .app { display: flex; height: 100vh; position: relative; z-index: 10; }
 .hidden { display: none !important; }
 
-/* SIDEBAR FIX */
+/* SIDEBAR CORRIGIDA - Evita botões brancos e desalinhados */
 .sidebar { 
-    width: 240px; background: var(--sidebar-bg); border-right: 1px solid var(--border); 
-    padding: 20px 10px; display: flex; flex-direction: column; 
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+  width: 250px; background: var(--sidebar-bg); border-right: 1px solid var(--border); 
+  padding: 20px; display: flex; flex-direction: column; transition: width 0.3s ease; overflow: hidden;
 }
-.sidebar.collapsed { width: 75px; }
-.sidebar.collapsed .nav-text, .sidebar.collapsed .logo-text { display: none; }
-.sidebar.collapsed .nav-link { justify-content: center; padding: 12px 0; }
-.sidebar.collapsed .icon { margin-right: 0; }
+.sidebar.collapsed { width: 80px; }
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+.logo-text { font-size: 1.4rem; font-weight: 700; color: #fff; text-shadow: 0 0 10px var(--neon-glow); }
 
 .nav-link { 
-    display: flex; align-items: center; width: 100%; padding: 12px; 
-    border-radius: 12px; color: var(--muted); margin-bottom: 6px; transition: 0.2s; white-space: nowrap;
+  display: flex; align-items: center; width: 100%; padding: 14px; border-radius: 12px; 
+  color: var(--muted); margin-bottom: 8px; transition: 0.2s; text-decoration: none; background: transparent;
 }
-.nav-link.active { background: rgba(255, 159, 67, 0.15); color: var(--neon-orange); font-weight: 600; }
-.nav-link .icon { min-width: 35px; font-size: 1.2rem; display: flex; justify-content: center; }
+.nav-link:hover { background: rgba(255, 159, 67, 0.05); color: #fff; }
+.nav-link.active { background: rgba(255, 159, 67, 0.1); color: var(--neon-orange); font-weight: 600; border-left: 3px solid var(--neon-orange); }
+.nav-link .icon { min-width: 30px; font-size: 1.2rem; margin-right: 12px; }
+.sidebar.collapsed .nav-text { display: none; }
 
-/* DASHBOARD & GRÁFICO */
-.main { flex: 1; padding: 40px; overflow-y: auto; }
-.section { display: none; }
-.section.active { display: block; animation: fadeIn 0.4s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* MAIN CONTENT */
+.main { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
+h1 { font-size: 2.2rem; margin-bottom: 30px; letter-spacing: -1px; }
 
-.card { background: var(--bg-panel); padding: 30px; border-radius: 18px; border: 1px solid var(--border); backdrop-filter: blur(15px); }
-.mini-card h2 { font-size: 3rem; color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-glow); margin-top: 10px; }
+/* DASHBOARD CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.card { background: var(--bg-panel); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
+.card h2 { font-size: 3rem; color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-glow); }
 
-.gauge-container { position: relative; width: 200px; margin-top: 20px; }
-.gauge-value { 
-    position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); 
-    text-align: center; width: 100%; 
-}
-.gauge-value h2 { font-size: 2.2rem !important; margin: 0; line-height: 1; color: var(--neon-orange); }
+/* GAUGE AJUSTADO - Evita sobreposição do número */
+.gauge-container { position: relative; width: 100%; max-width: 220px; margin: 20px auto 0; }
+.gauge-value { position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+.gauge-value h2 { font-size: 2.2rem !important; margin: 0; }
 
-/* TABELA */
-.produtos-table-container { background: var(--bg-panel); border-radius: 15px; border: 1px solid var(--border); margin-top: 20px; }
+/* FORMULÁRIO E TABELA - Estilo Glassmorphism */
+.form { display: flex; gap: 12px; margin-bottom: 30px; }
+input { padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; border-radius: 10px; flex: 1; }
+.btn-primary { background: var(--neon-orange); color: #000; font-weight: 700; padding: 14px 25px; border-radius: 10px; cursor: pointer; }
+
+.produtos-container { background: var(--bg-panel); border-radius: 15px; border: 1px solid var(--border); overflow: hidden; }
 .lista-table { width: 100%; border-collapse: collapse; }
-.lista-table th { padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.8rem; }
+.lista-table th { padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.8rem; text-transform: uppercase; }
 .lista-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
-.txt-right { text-align: right; }
