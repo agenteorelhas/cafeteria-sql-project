@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>☕ Café SaaS - O Estoque da Startup Moderna</title>
+  <title>☕ Café SaaS - Sistema de Inventário</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,11 +15,13 @@
 <div class="login-screen" id="authScreen">
   <div class="login-box">
     <h1>☕ Café SaaS</h1>
-    <p class="subtitle">Gerencie seu estoque como uma startup</p>
-    <input type="email" id="email" placeholder="Seu email de acesso">
-    <input type="password" id="senha" placeholder="Sua senha secreta">
-    <button class="btn-primary" onclick="login()">Entrar no Sistema</button>
-    <button class="btn-primary" onclick="register()">Criar nova conta</button>
+    <p class="subtitle">Gerencie seu estoque com elegância</p>
+    <div class="auth-inputs">
+        <input type="email" id="email" placeholder="Email de acesso">
+        <input type="password" id="senha" placeholder="Sua senha">
+    </div>
+    <button class="btn-primary" onclick="login()">Acessar Painel</button>
+    <button class="btn-ghost" onclick="register()">Criar nova conta</button>
     <p id="msg"></p>
   </div>
 </div>
@@ -27,8 +29,8 @@
 <div class="app hidden" id="appScreen">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <h2 class="logo-text">☕ Café SaaS</h2>
-      <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
+      <h2 class="logo-text">Café SaaS</h2>
+      <button id="toggleSidebar" onclick="toggleSidebar()" title="Recolher Menu">☰</button>
     </div>
     
     <nav>
@@ -49,20 +51,20 @@
       <h1>Dashboard</h1>
       <div class="cards">
         <div class="card">
-          <p>Variedade de Produtos</p>
+          <p>Variedade de Itens</p>
           <h2 id="totalProdutos">0</h2>
         </div>
         <div class="card">
-          <p>Itens Totais em Estoque</p>
+          <p>Volume em Estoque</p>
           <h2 id="totalEstoque">0</h2>
         </div>
       </div>
     </section>
 
     <section id="produtos" class="section">
-      <h1>Gerenciamento de Inventário</h1>
+      <h1>Inventário</h1>
       <div class="form">
-        <input id="nome" placeholder="Produto">
+        <input id="nome" placeholder="Nome do Produto">
         <input id="preco" type="number" step="0.01" placeholder="Preço (R$)">
         <input id="quantidade" type="number" placeholder="Qtd">
         <button class="btn-primary" onclick="addProduto()">Adicionar</button>
@@ -73,8 +75,9 @@
           <thead>
             <tr>
               <th>Produto</th>
-              <th>Preço Un.</th>
-              <th>Estoque</th>
+              <th class="txt-right">Preço</th>
+              <th class="txt-right">Qtd</th>
+              <th class="txt-center">Ações</th>
             </tr>
           </thead>
           <tbody id="lista"></tbody>
