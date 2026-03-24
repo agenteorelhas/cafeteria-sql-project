@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<canvas id="particleCanvas"></canvas>
+
 <div class="login-screen" id="authScreen">
   <div class="login-box">
     <h1>☕ Café SaaS</h1>
@@ -87,27 +89,11 @@
 
 <script src="js/script.js"></script>
 <script>
-/* 🔥 CONTROLE DE TELAS (Lógica original preservada) */
-window.onload = () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    document.getElementById("authScreen").classList.add("hidden");
-    document.getElementById("appScreen").classList.remove("hidden");
-    loadDashboard();
-    loadProdutos();
-  }
-};
+    // Inicialização do Sistema e Verificação de Sessão
+    window.onload = () => {
+        // Inicia o motor de partículas neon
+        if (typeof initParticles === "function") initParticles();
 
-function showSection(section) {
-  // Ocultar todas as seções
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  // Mostrar a seção atual
-  document.getElementById(section).classList.add("active");
-
-  // Atualizar estilo do botão da sidebar
-  document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active"));
-  document.querySelector(`button[onclick="showSection('${section}')"]`).classList.add("active");
-}
-</script>
-</body>
-</html>
+        const token = localStorage.getItem("token");
+        if (token) {
+            document.getElementById("authScreen
