@@ -15,7 +15,10 @@ async function login() {
 
   if (data.token) {
     localStorage.setItem("token", data.token);
-    window.location.href = "dashboard.html";
+    document.getElementById("authScreen").classList.add("hidden");
+    document.getElementById("appScreen").classList.remove("hidden");
+    loadDashboard();
+    loadProdutos();
   } else {
     document.getElementById("msg").innerText = data.erro;
   }
@@ -62,10 +65,8 @@ async function loadDashboard() {
 
   const data = await res.json();
 
-  document.getElementById("stats").innerHTML = `
-    <p>Produtos: ${data.totalProdutos}</p>
-    <p>Estoque: ${data.totalEstoque}</p>
-  `;
+  document.getElementById("totalProdutos").innerText = data.totalProdutos || 0;
+  document.getElementById("totalEstoque").innerText = data.totalEstoque || 0;
 }
 
 // ================= PRODUTOS =================
@@ -83,7 +84,7 @@ async function loadProdutos() {
 
   produtos.forEach(p => {
     const li = document.createElement("li");
-    li.innerText = `${p.Nome} - R$${p.Preco} (${p.Quantidade})`;
+    li.innerText = `${p.nome} - R$${p.preco} (${p.quantidade})`;
     lista.appendChild(li);
   });
 }
