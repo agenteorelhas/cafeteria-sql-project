@@ -3,22 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <title>Café SaaS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Fonte moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="auth-container">
-  <h1>☕ Café SaaS</h1>
+<!-- 🔐 LOGIN / REGISTER -->
+<div class="auth-container" id="authScreen">
+  <div class="auth-box">
+    <h1>☕ Café SaaS</h1>
+    <p class="subtitle">Gerencie seu estoque como uma startup</p>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="senha" placeholder="Senha">
+    <input type="email" id="email" placeholder="Seu email">
+    <input type="password" id="senha" placeholder="Sua senha">
 
-  <button onclick="login()">Entrar</button>
-  <button onclick="register()">Criar conta</button>
+    <button class="btn primary" onclick="login()">Entrar</button>
+    <button class="btn secondary" onclick="register()">Criar conta</button>
 
-  <p id="msg"></p>
+    <p id="msg"></p>
+  </div>
 </div>
 
+<!-- 📊 DASHBOARD -->
+<div class="app hidden" id="appScreen">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>☕ Café SaaS</h2>
+    <nav>
+      <button onclick="showSection('dashboard')">Dashboard</button>
+      <button onclick="showSection('produtos')">Produtos</button>
+      <button onclick="logout()">Sair</button>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section active">
+      <h1>Dashboard</h1>
+
+      <div class="cards">
+        <div class="card">
+          <p>Total de Produtos</p>
+          <h2 id="totalProdutos">0</h2>
+        </div>
+
+        <div class="card">
+          <p>Estoque Total</p>
+          <h2 id="totalEstoque">0</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos" class="section">
+      <h1>Produtos</h1>
+
+      <div class="form">
+        <input id="nome" placeholder="Nome do produto">
+        <input id="preco" type="number" placeholder="Preço">
+        <input id="quantidade" type="number" placeholder="Quantidade">
+
+        <button class="btn primary" onclick="addProduto()">Adicionar</button>
+      </div>
+
+      <ul id="lista" class="lista"></ul>
+    </section>
+
+  </main>
+</div>
+
+<!-- JS -->
 <script src="js/script.js"></script>
+
+<script>
+/* 🔥 CONTROLE DE TELAS */
+function showSection(section) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById(section).classList.add("active");
+}
+
+/* 🔐 AUTO LOGIN */
+window.onload = () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    document.getElementById("authScreen").classList.add("hidden");
+    document.getElementById("appScreen").classList.remove("hidden");
+
+    loadDashboard();
+    loadProdutos();
+  }
+};
+</script>
+
 </body>
 </html>
