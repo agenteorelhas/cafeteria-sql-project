@@ -30,7 +30,7 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h2 class="logo-text">Café SaaS</h2>
-      <button id="toggleSidebar" onclick="toggleSidebar()" title="Recolher Menu">☰</button>
+      <button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
     </div>
     
     <nav>
@@ -89,7 +89,6 @@
 
 <script src="js/script.js"></script>
 <script>
-    // Inicialização ao carregar a página
     window.addEventListener('DOMContentLoaded', () => {
         initParticles(); 
         const token = localStorage.getItem("token");
@@ -101,7 +100,6 @@
         }
     });
 
-    // Navegação entre seções
     function showSection(sectionId) {
         document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
         document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active"));
