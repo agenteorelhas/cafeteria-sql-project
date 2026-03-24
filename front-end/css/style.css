@@ -1,53 +1,50 @@
 /* ==========================================================================
    ☕ Café SaaS - O Estoque da Startup Moderna
-   Estilo: Dark Neon Coffee / Retro-Futurista
+   Estilo: Dark Neon Coffee / Partículas Integradas
    ========================================================================== */
 
 :root {
-  /* 🟤 Paleta de Cores "Café" (Marrons e Escuros) */
-  --bg-app: #030201; /* Fundo quase preto, com um toque imperceptível de marrom */
-  --bg-panel: rgba(13, 10, 8, 0.9); /* Painéis semitransparentes marrom-escuro */
+  --bg-app: #030201;
+  --bg-panel: rgba(13, 10, 8, 0.9);
   --sidebar-bg: #0d0a08;
-  
-  /* 🟠 Paleta de Cores "Neon" (Laranjas e Âmbar) */
-  --neon-orange: #ff9f43; /* Laranja vibrante para o neon */
-  --neon-glow: rgba(255, 159, 67, 0.3); /* Brilho do neon */
-  --primary: #c19a6b; /* Marrom dourado/âmbar para elementos primários */
+  --neon-orange: #ff9f43;
+  --neon-glow: rgba(255, 159, 67, 0.3);
+  --primary: #c19a6b;
   --primary-hover: #e0ac69;
-  
-  /* ⚪ Tipografia e Estados */
-  --text-main: #fcfaf8; /* Branco "sujo" de creme */
-  --muted: #a1887f; /* Marrom acinzentado para textos secundários */
-  --border: rgba(161, 136, 127, 0.1); /* Borda muito sutil */
-
-  /* 🛠️ UI Elements */
-  --card-bg: rgba(255, 255, 255, 0.02);
-  --input-bg: rgba(0, 0, 0, 0.5);
+  --text-main: #fcfaf8;
+  --muted: #a1887f;
+  --border: rgba(161, 136, 127, 0.1);
   --radius-lg: 24px;
   --radius-md: 14px;
   --radius-sm: 8px;
   --shadow-neon: 0 0 15px var(--neon-glow), 0 0 5px var(--neon-orange);
 }
 
-/* Reset Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-app);
   color: var(--text-main);
-  -webkit-font-smoothing: antialiased;
   height: 100vh;
   overflow: hidden;
   line-height: 1.5;
 }
 
-/* Utilitários */
+/* CANVAS DE PARTÍCULAS */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
 .hidden { display: none !important; }
 
-/* ==========================================================================
-   TELA DE LOGIN (Estilo Neon Box)
-   ========================================================================== */
+/* LOGIN */
 .login-screen {
   position: fixed;
   inset: 0;
@@ -55,7 +52,6 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 999;
-  /* Adiciona um gradiente radial de fundo para profundidade */
   background: radial-gradient(circle at center, #1a120b 0%, var(--bg-app) 70%);
 }
 
@@ -65,101 +61,51 @@ body {
   border-radius: var(--radius-lg);
   background: var(--bg-panel);
   backdrop-filter: blur(20px);
-  /* A borda agora é o neon principal */
   border: 2px solid var(--neon-orange);
   box-shadow: var(--shadow-neon);
   display: flex;
   flex-direction: column;
   gap: 18px;
-  animation: neonPulse 2s infinite alternate, fadeInDown 0.6s ease-out;
+  animation: neonPulse 2s infinite alternate;
 }
 
 .login-box h1 {
   text-align: center;
   font-weight: 700;
   font-size: 2.2rem;
-  color: #fff;
-  letter-spacing: -1.5px;
-  /* Efeito de texto neon */
-  text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-glow);
+  text-shadow: 0 0 10px var(--neon-glow);
 }
 
-.login-box .subtitle {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 300;
-  margin-top: -10px;
-  margin-bottom: 15px;
-}
+.subtitle { text-align: center; color: var(--muted); font-size: 0.95rem; margin-top: -10px; }
 
-/* Campos de Entrada GERAIS (Mais escuros e integrados) */
+/* INPUTS & BUTTONS */
 input {
   padding: 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--input-bg);
+  background: rgba(0,0,0,0.5);
   color: #fff;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: 0.2s;
 }
 
-input:focus {
-  outline: none;
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 10px var(--neon-glow);
-}
-
-input::placeholder { color: #5d4037; /* Marrom escuro */ }
-
-/* Botões GERAIS (Preenchimento Neon) */
-button { cursor: pointer; transition: all 0.2s ease; font-family: inherit;}
+input:focus { outline: none; border-color: var(--neon-orange); box-shadow: 0 0 10px var(--neon-glow); }
 
 .btn-primary {
   background: var(--neon-orange);
   border: none;
   padding: 16px;
   border-radius: var(--radius-sm);
-  color: #000; /* Texto preto para contraste no botão neon */
+  color: #000;
   font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: -0.2px;
   text-transform: uppercase;
   box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
 }
 
-.btn-primary:hover {
-  background: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 159, 67, 0.6);
-}
+.btn-primary:hover { background: #fff; transform: translateY(-2px); }
 
-/* Estilo do botão Criar Conta (Variante fantasma neon) */
-.login-box .btn-primary:last-of-type {
-  background: transparent;
-  color: var(--neon-orange);
-  border: 1px solid var(--neon-orange);
-  font-weight: 500;
-  margin-top: 10px;
-  box-shadow: none;
-}
-
-.login-box .btn-primary:last-of-type:hover {
-  background: var(--neon-glow);
-  color: #fff;
-  border-color: #fff;
-}
-
-#msg { text-align: center; font-size: 0.9rem; min-height: 20px; }
-
-/* ==========================================================================
-   LAYOUT DO APP
-   ========================================================================== */
+/* APP LAYOUT */
 .app { display: flex; height: 100vh; }
 
-/* ==========================================================================
-   SIDEBAR (Visual Clean & Dark)
-   ========================================================================== */
 .sidebar {
   width: 270px;
   background: var(--sidebar-bg);
@@ -167,35 +113,25 @@ button { cursor: pointer; transition: all 0.2s ease; font-family: inherit;}
   padding: 30px;
   display: flex;
   flex-direction: column;
-  z-index: 10;
 }
 
-.sidebar h2 {
-  font-size: 1.7rem;
-  color: #fff;
-  letter-spacing: -1.5px;
-  margin-bottom: 50px;
-  font-weight: 700;
-  text-shadow: 0 0 10px var(--neon-glow);
-}
-
-.sidebar nav { flex: 1; display: flex; flex-direction: column;}
+.sidebar h2 { color: #fff; margin-bottom: 50px; text-shadow: 0 0 10px var(--neon-glow); }
 
 .nav-link {
   display: flex;
   align-items: center;
-  width: 100%;
   padding: 14px 18px;
   border-radius: var(--radius-sm);
   color: var(--muted);
   background: transparent;
   border: none;
   font-size: 1rem;
-  text-align: left;
   margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.nav-link i { margin-right: 12px; font-style: normal; font-size: 1.2rem;}
+.nav-link i { margin-right: 12px; font-style: normal; }
 
 .nav-link:hover { background: rgba(193, 154, 107, 0.05); color: var(--primary-hover); }
 
@@ -203,154 +139,44 @@ button { cursor: pointer; transition: all 0.2s ease; font-family: inherit;}
   background: rgba(255, 159, 67, 0.1);
   color: var(--neon-orange);
   font-weight: 600;
-  border: 1px solid var(--neon-glow);
-  box-shadow: 0 0 10px rgba(255, 159, 67, 0.2);
+  border-left: 4px solid var(--neon-orange);
 }
 
-.nav-link:last-of-type {
-  margin-top: auto; /* Joga o "Sair" para baixo */
-  color: #ef4444; /* Vermelho para o Sair */
+.nav-link:last-of-type { margin-top: auto; color: #ef4444; }
+
+/* SECTIONS */
+.main { flex: 1; padding: 50px; overflow-y: auto; }
+
+.section {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
 }
 
-.nav-link:last-of-type:hover { background: rgba(239, 68, 68, 0.05); color: #f87171; }
-
-/* ==========================================================================
-   ÁREA PRINCIPAL (MAIN)
-   ========================================================================= */
-.main { flex: 1; padding: 50px; overflow-y: auto; position: relative; }
-
-/* Barra de rolagem estilizada (Marrom Café) */
-.main::-webkit-scrollbar { width: 8px; }
-.main::-webkit-scrollbar-track { background: transparent; }
-.main::-webkit-scrollbar-thumb { background: #3e2723; border-radius: 4px; }
-.main::-webkit-scrollbar-thumb:hover { background: #5d4037; }
-
-/* Títulos de Seção */
-.section h1 {
-  font-size: 2.3rem;
-  letter-spacing: -2px;
-  margin-bottom: 40px;
-  color: #fff;
-  font-weight: 700;
+.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* ==========================================================================
-   SEÇÃO DASHBOARD (Cards com Brilho Neon Sutil)
-   ========================================================================== */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
+.section h1 { font-size: 2.3rem; margin-bottom: 40px; color: #fff; }
 
-.card {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  padding: 35px;
-  border-radius: var(--radius-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+/* CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.card { background: var(--bg-panel); border: 1px solid var(--border); padding: 35px; border-radius: var(--radius-md); }
+.card h2 { font-size: 3.5rem; color: #fff; margin-top: 20px; }
 
-.card:hover {
-  transform: translateY(-5px);
-  border-color: var(--neon-orange);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 15px var(--neon-glow);
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 500;
-}
-
-.card h2 {
-  margin-top: 20px;
-  font-size: 3.5rem;
-  letter-spacing: -4px;
-  color: #fff;
-  font-weight: 700;
-  line-height: 1;
-}
-
-/* Cores de destaque para os números nos cards */
-#totalProdutos { color: var(--primary); }
-#totalEstoque { color: var(--neon-orange); }
-
-/* ==========================================================================
-   SEÇÃO PRODUTOS (Tabela Integrada)
-   ========================================================================= */
-/* Formulário de Adicionar Produto */
-.form { display: flex; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
-.form input { flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); }
-.form .btn-primary { flex: 0; padding: 16px 30px; }
-
-/* Tabela de Produtos Moderna */
-.produtos-table-container {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
+/* TABLES */
+.produtos-table-container { background: var(--bg-panel); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); }
 .lista { width: 100%; border-collapse: collapse; }
-.lista thead { background: rgba(26, 18, 11, 0.5); /* Fundo marrom bem escuro */ }
+.lista th { text-align: left; padding: 20px; color: var(--muted); border-bottom: 1px solid var(--border); }
+.lista td { padding: 22px 20px; }
+.cell-nome { font-weight: 600; color: #fff; }
+.cell-preco { color: var(--primary); text-align: right; }
+.cell-quantidade { color: var(--neon-orange); text-align: right; }
 
-.lista th {
-  text-align: left;
-  padding: 20px;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  font-weight: 600;
-  border-bottom: 1px solid var(--border);
-}
-
-.lista tr { border-bottom: 1px solid rgba(161, 136, 127, 0.05); }
-.lista tr:last-of-type { border-bottom: none; }
-
-.lista td { padding: 22px 20px; color: var(--text-main); font-size: 1rem; }
-
-.lista tr:hover td { background-color: rgba(193, 154, 107, 0.03); color: #fff;}
-
-/* Estilos de Célula */
-.cell-nome { font-weight: 600; color: #fff; width: 50%; }
-.cell-preco { text-align: right; font-family: 'JetBrains Mono', monospace; width: 25%; color: var(--primary); }
-.cell-quantidade { text-align: right; width: 15%; color: var(--neon-orange); font-weight: 500;}
-
-/* ==========================================================================
-   ANIMAÇÕES
-   ========================================================================== */
-/* Pulsação do Neon na borda do Login */
 @keyframes neonPulse {
-  from { box-shadow: 0 0 15px var(--neon-glow), 0 0 5px var(--neon-orange); border-color: var(--neon-orange); }
-  to { box-shadow: 0 0 25px var(--neon-glow), 0 0 10px var(--neon-orange); border-color: #fff; }
-}
-
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Fade In para as seções */
-.section.active { animation: fadeIn 0.5s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* Responsividade Básica */
-@media (max-width: 768px) {
-  .app { flex-direction: column; }
-  .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
-  .sidebar h2 { margin-bottom: 20px; text-align: center;}
-  .sidebar nav { flex-direction: row; justify-content: center; gap: 10px; flex-wrap: wrap;}
-  .nav-link { width: auto; margin-bottom: 0;}
-  .nav-link:last-of-type { margin-top: 0; }
-  .main { padding: 25px; }
-  .form { flex-direction: column; align-items: stretch; }
-  .cards { grid-template-columns: 1fr; }
+  from { box-shadow: 0 0 15px var(--neon-glow); border-color: var(--neon-orange); }
+  to { box-shadow: 0 0 25px var(--neon-glow); border-color: #fff; }
 }
