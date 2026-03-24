@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Café SaaS | Gestão</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/924/924514.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -55,7 +54,7 @@
                     <h2 id="totalProdutos">0</h2>
                 </div>
                 <div class="card mini-card card-gauge">
-                    <p>Volume em Estoque</p>
+                    <p>Capacidade do Estoque</p>
                     <div class="gauge-container">
                         <canvas id="gaugeChart"></canvas>
                         <div class="gauge-value">
@@ -68,15 +67,15 @@
         </section>
 
         <section id="produtos" class="section">
-            <h1>Gerenciar Inventário</h1>
+            <h1>Inventário</h1>
             <div class="form">
-                <input id="nome" placeholder="Nome do produto">
-                <input id="preco" type="number" step="0.01" placeholder="Preço">
-                <input id="quantidade" type="number" placeholder="Quantidade">
+                <input id="nome" placeholder="Nome do Produto">
+                <input id="preco" type="number" step="0.01" placeholder="Preço (R$)">
+                <input id="quantidade" type="number" placeholder="Qtd">
                 <button class="btn-primary" onclick="addProduto()">Adicionar</button>
             </div>
             <div class="produtos-table-container">
-                <table class="lista">
+                <table class="lista-table">
                     <thead>
                         <tr>
                             <th>Produto</th>
