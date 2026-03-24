@@ -4,18 +4,15 @@
   --sidebar-bg: #0d0a08;
   --neon-orange: #ff9f43;
   --neon-glow: rgba(255, 159, 67, 0.3);
-  --amber-light: rgba(255, 230, 180, 0.4);
   --primary: #c19a6b;
   --text-main: #fcfaf8;
   --muted: #a1887f;
   --border: rgba(161, 136, 127, 0.08);
-  --radius-md: 14px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background-color: var(--bg-app); color: var(--text-main); height: 100vh; overflow: hidden; }
 
-/* FUNDO ANIMADO */
 #particleCanvas {
     position: fixed;
     top: 0; left: 0;
@@ -48,13 +45,11 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-app); color:
 .nav-link { display: flex; align-items: center; padding: 14px; color: var(--muted); background: transparent; border: none; margin-bottom: 8px; border-radius: 12px; cursor: pointer; width: 100%; }
 .nav-link.active { background: rgba(255,159,67,0.08); color: var(--neon-orange); border-left: 3px solid var(--neon-orange); }
 .nav-link .icon { font-size: 1.2rem; margin-right: 15px; min-width: 35px; text-align: center; }
-.logout-btn { margin-top: auto; color: #ff4d4d; }
 
 .main { flex: 1; padding: 50px; overflow-y: auto; background: transparent; }
 .section { display: none; opacity: 0; transform: translateY(15px); transition: 0.5s ease-out; }
 .section.active { display: block; opacity: 1; transform: translateY(0); }
 
-/* CARDS & TABELAS */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 .card { background: var(--bg-panel); padding: 35px; border-radius: 20px; border: 1px solid var(--border); }
 .card h2 { font-size: 3.5rem; margin-top: 10px; color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-glow); }
@@ -63,12 +58,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-app); color:
 .form input { flex: 1; padding: 14px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 10px; }
 
 .btn-primary { background: var(--neon-orange); border: none; padding: 14px 24px; color: #000; font-weight: 700; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-.btn-primary:hover { background: #fff; transform: translateY(-2px); }
-
 .produtos-table-container { background: var(--bg-panel); border-radius: 18px; border: 1px solid var(--border); overflow: hidden; }
 .lista { width: 100%; border-collapse: collapse; }
 .lista th { padding: 20px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; }
 .lista td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.02); }
-.cell-preco { color: var(--primary); font-family: 'JetBrains Mono'; }
-.btn-delete { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; opacity: 0.6; transition: 0.3s; }
-.btn-delete:hover { opacity: 1; transform: scale(1.1); }
