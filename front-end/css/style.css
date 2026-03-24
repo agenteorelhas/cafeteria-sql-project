@@ -9,97 +9,59 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-
-body { 
-    font-family: 'Inter', sans-serif; 
-    background-color: var(--bg-app); 
-    color: #fcfaf8; 
-    height: 100vh; 
-    overflow: hidden; 
-}
+body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: #fcfaf8; height: 100vh; overflow: hidden; }
 
 #particleCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
-
-/* RESET DE BOTÕES */
 button { background: none; border: none; color: inherit; cursor: pointer; font-family: inherit; }
 
-/* LAYOUT */
 .app { display: flex; height: 100vh; position: relative; z-index: 10; }
 .hidden { display: none !important; }
 
+/* NAVEGAÇÃO ENTRE SEÇÕES */
+.section { display: none; }
+.section.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
 /* SIDEBAR REFINADA */
 .sidebar { 
-    width: 240px; 
-    background: var(--sidebar-bg); 
-    border-right: 1px solid var(--border); 
-    padding: 20px 10px; 
-    display: flex; 
-    flex-direction: column; 
+    width: 240px; background: var(--sidebar-bg); border-right: 1px solid var(--border); 
+    padding: 20px 10px; display: flex; flex-direction: column; 
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .sidebar.collapsed { width: 80px; }
-
-.sidebar-header { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    margin-bottom: 35px; 
-    padding: 0 10px; 
-}
-.logo-text { font-size: 1.4rem; font-weight: 700; text-shadow: 0 0 10px var(--neon-glow); }
+.logo-text { font-size: 1.4rem; font-weight: 700; text-shadow: 0 0 10px var(--neon-glow); margin-bottom: 35px; padding-left: 10px; }
 
 .nav-link { 
-    display: flex; 
-    align-items: center; 
-    width: 100%; 
-    padding: 12px; 
-    border-radius: 12px; 
-    color: var(--muted); 
-    margin-bottom: 6px;
-    transition: 0.2s;
+    display: flex; align-items: center; width: 100%; padding: 12px; 
+    border-radius: 12px; color: var(--muted); margin-bottom: 6px; transition: 0.2s;
 }
 .nav-link:hover { background: rgba(255, 159, 67, 0.05); color: #fff; }
-.nav-link.active { 
-    background: rgba(255, 159, 67, 0.12) !important; 
-    color: var(--neon-orange); 
-}
+.nav-link.active { background: rgba(255, 159, 67, 0.12) !important; color: var(--neon-orange); font-weight: 600; }
 .nav-link .icon { min-width: 30px; margin-right: 12px; font-size: 1.2rem; display: flex; justify-content: center; }
 
-/* CARDS COMPACTOS */
+/* DASHBOARD E CARDS CENTRALIZADOS */
 .main { flex: 1; padding: 40px; overflow-y: auto; }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 260px)); gap: 20px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 300px)); gap: 20px; }
+.card { background: var(--bg-panel); padding: 25px; border-radius: 18px; border: 1px solid var(--border); backdrop-filter: blur(10px); }
 
-.card { 
-    background: var(--bg-panel); 
-    padding: 20px; 
-    border-radius: 16px; 
-    border: 1px solid var(--border); 
-    backdrop-filter: blur(10px);
-}
-.mini-card h2 { font-size: 2rem; color: var(--neon-orange); text-shadow: 0 0 10px var(--neon-glow); margin-top: 5px; }
-.mini-card p { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.centered-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100%; }
+.mini-card h2 { font-size: 2.8rem; color: var(--neon-orange); text-shadow: 0 0 12px var(--neon-glow); margin-top: 10px; }
+.mini-card p { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-/* VELOCÍMETRO AJUSTADO */
 .card-gauge { display: flex; flex-direction: column; align-items: center; }
-.gauge-container { position: relative; width: 140px; margin-top: 10px; }
-.gauge-value { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); text-align: center; }
-.gauge-value h2 { font-size: 1.4rem !important; }
+.gauge-container { position: relative; width: 150px; margin-top: 10px; }
+.gauge-value { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: center; }
+.gauge-value h2 { font-size: 1.6rem !important; margin: 0; }
 
-/* TABELA E FORMS */
-.form { display: flex; gap: 10px; margin-bottom: 25px; }
-input { 
-    padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
-    color: #fff; border-radius: 8px; flex: 1;
-}
-.btn-primary { 
-    background: var(--neon-orange); color: #000; font-weight: 700; 
-    padding: 12px 20px; border-radius: 8px; transition: 0.2s;
-}
-.btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
+/* TABELA E FORMS (EXCLUSIVOS DA ABA PRODUTOS) */
+.form { display: flex; gap: 10px; margin-bottom: 25px; max-width: 900px; }
+input { padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #fff; border-radius: 8px; flex: 1; }
+.btn-primary { background: var(--neon-orange); color: #000; font-weight: 700; padding: 12px 24px; border-radius: 8px; transition: 0.2s; }
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
 .produtos-table-container { background: var(--bg-panel); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
 .lista { width: 100%; border-collapse: collapse; }
-.lista th { padding: 12px 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.75rem; text-transform: uppercase; }
-.lista td { padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+.lista th { padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.75rem; text-transform: uppercase; }
+.lista td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
 .txt-right { text-align: right; }
 .txt-center { text-align: center; }
