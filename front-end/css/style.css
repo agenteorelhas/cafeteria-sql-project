@@ -3,22 +3,14 @@
     --bg-soft: #0f172a;
     --card: rgba(255,255,255,0.05);
     --border: rgba(255,255,255,0.08);
-
     --primary: #6366f1;
     --primary-hover: #4f46e5;
-
     --text: #e5e7eb;
     --muted: #9ca3af;
-
     --radius: 14px;
 }
 
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
     font-family: 'Inter', sans-serif;
@@ -40,46 +32,32 @@ body {
     width: 320px;
     padding: 30px;
     border-radius: var(--radius);
-
     background: rgba(15,23,42,0.7);
     backdrop-filter: blur(20px);
-
     border: 1px solid var(--border);
-
     display: flex;
     flex-direction: column;
     gap: 14px;
-
     animation: fadeIn 0.6s ease;
 }
 
-.login-box h2, .login-box h1 {
-    text-align: center;
-    margin-bottom: 10px;
-}
+.login-box h1 { text-align:center; margin-bottom:10px; }
 
 .login-box input {
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: #020617;
-    color: white;
-    outline: none;
+    padding:12px; border-radius:10px; border:1px solid var(--border);
+    background:#020617; color:white; outline:none;
 }
 
-.login-box input:focus {
-    border-color: var(--primary);
-}
+.login-box input:focus { border-color: var(--primary); }
 
-/* BOTÕES */
 .btn-primary {
     background: var(--primary);
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
 }
 
 .btn-primary:hover {
@@ -88,95 +66,60 @@ body {
 }
 
 /* LAYOUT */
-.app {
-    display: flex;
-    height: 100vh;
-}
-
-.hidden {
-    display: none;
-}
+.app { display:flex; height:100vh; }
+.hidden { display:none; }
 
 /* SIDEBAR */
 .sidebar {
-    width: 250px;
+    width:250px;
     background: rgba(15,23,42,0.7);
     backdrop-filter: blur(20px);
     border-right: 1px solid var(--border);
-
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 }
 
 .nav-link {
-    padding: 12px;
-    border-radius: 10px;
-    color: var(--muted);
-    cursor: pointer;
-    margin-bottom: 8px;
-    transition: 0.2s;
+    padding:12px;
+    border-radius:10px;
+    color:var(--muted);
+    cursor:pointer;
+    margin-bottom:8px;
+    transition:0.2s;
 }
 
-.nav-link:hover {
-    background: var(--card);
-}
-
-.nav-link.active {
-    background: var(--primary);
-    color: white;
-}
+.nav-link:hover { background: var(--card); }
+.nav-link.active { background: var(--primary); color:white; }
 
 /* MAIN */
-.main {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-}
+.main { flex:1; padding:30px; overflow-y:auto; }
 
 /* CARDS */
 .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
 }
 
 .card {
     background: var(--card);
     border: 1px solid var(--border);
     backdrop-filter: blur(20px);
-
-    padding: 20px;
+    padding:20px;
     border-radius: var(--radius);
-
-    transition: 0.3s;
+    transition:0.3s;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-}
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-.card p {
-    color: var(--muted);
-    font-size: 14px;
-}
-
-.card h2 {
-    margin-top: 10px;
-}
+.card p { color: var(--muted); font-size:14px; }
+.card h2 { margin-top:10px; }
 
 /* ANIMAÇÃO */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px);}
-    to { opacity: 1; transform: translateY(0);}
-}
+@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 
 /* SCROLL */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--primary);
-}
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-thumb { background: var(--primary); }
