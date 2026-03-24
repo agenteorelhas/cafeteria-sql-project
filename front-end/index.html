@@ -16,11 +16,13 @@
 <div class="login-screen" id="authScreen">
     <div class="login-box">
         <h1>☕ Café SaaS</h1>
+        <p class="subtitle">Gerencie seu estoque como uma startup</p>
         <div class="auth-inputs">
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="senha" placeholder="Senha">
+            <input type="email" id="email" placeholder="Seu email">
+            <input type="password" id="senha" placeholder="Sua senha">
         </div>
-        <button class="btn-primary" onclick="login()">Acessar Painel</button>
+        <button class="btn-primary" onclick="login()">Entrar</button>
+        <button class="btn-secondary" onclick="register()">Criar conta</button>
         <p id="msg"></p>
     </div>
 </div>
@@ -53,7 +55,7 @@
                     <h2 id="totalProdutos">0</h2>
                 </div>
                 <div class="card mini-card card-gauge">
-                    <p>Capacidade do Estoque</p>
+                    <p>Volume em Estoque</p>
                     <div class="gauge-container">
                         <canvas id="gaugeChart"></canvas>
                         <div class="gauge-value">
@@ -68,9 +70,9 @@
         <section id="produtos" class="section">
             <h1>Gerenciar Inventário</h1>
             <div class="form">
-                <input id="nome" placeholder="Nome do Produto">
-                <input id="preco" type="number" step="0.01" placeholder="R$ 0,00">
-                <input id="quantidade" type="number" placeholder="Qtd">
+                <input id="nome" placeholder="Nome do produto">
+                <input id="preco" type="number" step="0.01" placeholder="Preço">
+                <input id="quantidade" type="number" placeholder="Quantidade">
                 <button class="btn-primary" onclick="addProduto()">Adicionar</button>
             </div>
             <div class="produtos-table-container">
@@ -80,7 +82,6 @@
                             <th>Produto</th>
                             <th class="txt-right">Preço</th>
                             <th class="txt-right">Qtd</th>
-                            <th class="txt-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="lista"></tbody>
