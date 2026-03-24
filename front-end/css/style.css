@@ -12,24 +12,20 @@
 body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: #e5e7eb; height: 100vh; overflow: hidden; }
 
 #particleCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
-button { background: none; border: none; color: inherit; cursor: pointer; font-family: inherit; }
 
 .app { display: flex; height: 100vh; position: relative; z-index: 10; }
 .hidden { display: none !important; }
 
-/* SIDEBAR CORRIGIDA */
+/* SIDEBAR FIX */
 .sidebar { 
     width: 240px; background: var(--sidebar-bg); border-right: 1px solid var(--border); 
-    padding: 20px 10px; display: flex; flex-direction: column; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    padding: 20px 10px; display: flex; flex-direction: column; 
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
 }
 .sidebar.collapsed { width: 75px; }
-.sidebar.collapsed .nav-text, .sidebar.collapsed .logo-text { opacity: 0; visibility: hidden; width: 0; }
+.sidebar.collapsed .nav-text, .sidebar.collapsed .logo-text { display: none; }
 .sidebar.collapsed .nav-link { justify-content: center; padding: 12px 0; }
 .sidebar.collapsed .icon { margin-right: 0; }
-
-.sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding: 0 10px; }
-.logo-text { font-size: 1.3rem; font-weight: 700; color: var(--neon-orange); white-space: nowrap; }
 
 .nav-link { 
     display: flex; align-items: center; width: 100%; padding: 12px; 
@@ -38,30 +34,25 @@ button { background: none; border: none; color: inherit; cursor: pointer; font-f
 .nav-link.active { background: rgba(255, 159, 67, 0.15); color: var(--neon-orange); font-weight: 600; }
 .nav-link .icon { min-width: 35px; font-size: 1.2rem; display: flex; justify-content: center; }
 
-/* MAIN & CARDS */
+/* DASHBOARD & GRÁFICO */
 .main { flex: 1; padding: 40px; overflow-y: auto; }
 .section { display: none; }
 .section.active { display: block; animation: fadeIn 0.4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 .card { background: var(--bg-panel); padding: 30px; border-radius: 18px; border: 1px solid var(--border); backdrop-filter: blur(15px); }
-.centered-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .mini-card h2 { font-size: 3rem; color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-glow); margin-top: 10px; }
 
-/* TABELA E FORMS */
-.form { display: flex; gap: 10px; margin-bottom: 25px; }
-input { padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; border-radius: 10px; flex: 1; }
-.btn-primary { background: var(--neon-orange); color: #000; font-weight: 700; padding: 12px 25px; border-radius: 10px; }
-.btn-secondary { background: transparent; border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 5px; }
+.gauge-container { position: relative; width: 200px; margin-top: 20px; }
+.gauge-value { 
+    position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); 
+    text-align: center; width: 100%; 
+}
+.gauge-value h2 { font-size: 2.2rem !important; margin: 0; line-height: 1; color: var(--neon-orange); }
 
-.produtos-table-container { background: var(--bg-panel); border-radius: 15px; border: 1px solid var(--border); overflow: hidden; }
-.lista { width: 100%; border-collapse: collapse; }
-.lista th { padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.8rem; text-transform: uppercase; }
-.lista td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+/* TABELA */
+.produtos-table-container { background: var(--bg-panel); border-radius: 15px; border: 1px solid var(--border); margin-top: 20px; }
+.lista-table { width: 100%; border-collapse: collapse; }
+.lista-table th { padding: 15px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 0.8rem; }
+.lista-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
 .txt-right { text-align: right; }
-
-/* GAUGE */
-.card-gauge { display: flex; flex-direction: column; align-items: center; }
-.gauge-container { position: relative; width: 160px; }
-.gauge-value { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); text-align: center; }
